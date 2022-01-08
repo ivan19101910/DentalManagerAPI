@@ -1,4 +1,6 @@
-﻿namespace DentalManagerAPI.Models
+﻿using DentalManagerAPI.DAL;
+
+namespace DentalManagerAPI.Models
 {
     public partial class Patient : IEntity<int>
     {

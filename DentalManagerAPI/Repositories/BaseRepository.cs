@@ -1,4 +1,5 @@
-﻿using DentalManagerAPI.Models;
+﻿using DentalManagerAPI.DAL;
+using DentalManagerAPI.Models;
 using DentalManagerAPI.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;

@@ -1,4 +1,4 @@
-﻿namespace DentalManagerAPI.Models
+﻿namespace DentalManagerAPI.DAL
 {
     public interface IEntity<T>
     {

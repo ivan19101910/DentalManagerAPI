@@ -2,6 +2,7 @@
 
 using AutoMapper;
 using DentalManagerAPI;
+using DentalManagerAPI.DAL;
 using DentalManagerAPI.Models;
 using DentalManagerAPI.Services;
 using DentalManagerAPI.Services.Abstractions;
