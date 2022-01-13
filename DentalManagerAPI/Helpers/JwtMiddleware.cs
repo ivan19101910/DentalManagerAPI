@@ -1,4 +1,5 @@
 ﻿using DentalManagerAPI.Services;
+using DentalManagerAPI.Services.Abstractions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,7 +19,7 @@ namespace DentalManagerAPI.Helpers
             _appSettings = appSettings.Value;
         }
 
-        public async Task Invoke(HttpContext context, IUserService userService)
+        public async Task Invoke(HttpContext context, IWorkerService userService)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
@@ -28,7 +29,7 @@ namespace DentalManagerAPI.Helpers
             await _next(context);
         }
 
-        private void attachUserToContext(HttpContext context, IUserService userService, string token)
+        private void attachUserToContext(HttpContext context, IWorkerService workerService, string token)
         {
             try
             {
@@ -48,7 +49,7 @@ namespace DentalManagerAPI.Helpers
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.GetById(userId);
+                context.Items["User"] = workerService.GetWorkerById(userId);
             }
             catch
             {

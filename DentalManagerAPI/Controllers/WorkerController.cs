@@ -1,5 +1,6 @@
 ﻿using DentalManagerAPI.DTOs;
 using DentalManagerAPI.Helpers;
+using DentalManagerAPI.Models;
 using DentalManagerAPI.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,18 @@ namespace DentalManagerAPI.Controllers
         {
             _workerService = workerService;
         }
+
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(AuthenticateRequest model)
+        {
+            var response = _workerService.Authenticate(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(response);
+        }
+
         [Authorize]
         [HttpGet]
         [Route("get-by-id/{workerId}")]

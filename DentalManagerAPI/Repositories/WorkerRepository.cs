@@ -10,5 +10,10 @@ namespace DentalManagerAPI.Repositories
         {
 
         }
+        public Worker GetByEmailAndPassword(string email, string password)
+        {
+            var result = _context.Workers.Where(x => x.Email == email && x.Password == password).FirstOrDefault();
+            return result;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DentalManagerAPI.Models;
+﻿using DentalManagerAPI.DTOs;
+using DentalManagerAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 namespace DentalManagerAPI.Helpers
@@ -8,8 +9,8 @@ namespace DentalManagerAPI.Helpers
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (User)context.HttpContext.Items["User"];
-            if (user == null)
+            var worker = (WorkerDTO)context.HttpContext.Items["User"];
+            if (worker == null)
             {
                 // not logged in
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
