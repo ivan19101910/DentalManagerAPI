@@ -9,6 +9,7 @@ namespace DentalManagerAPI.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private IPatientRepository _patientRepository;
+        private IWorkerRepository _workerRepository;
         private DentalManagerDBContext _context;
 
         public UnitOfWork(DentalManagerDBContext context)
@@ -22,6 +23,14 @@ namespace DentalManagerAPI.UnitOfWork
             get
             {
                 return _patientRepository ??= new PatientRepository(_context);
+            }
+        }
+
+        public IWorkerRepository WorkerRepository
+        {
+            get
+            {
+                return _workerRepository ??= new WorkerRepository(_context);
             }
         }
 

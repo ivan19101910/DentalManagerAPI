@@ -9,6 +9,7 @@ namespace DentalManagerAPI
         public MappingProfile()
         {
             CreateMap<Patient, PatientDTO>();
+            CreateMap<Worker, WorkerDTO>();
         }
      
     }

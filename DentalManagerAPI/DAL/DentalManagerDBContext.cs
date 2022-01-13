@@ -22,6 +22,7 @@ namespace DentalManagerAPI.DAL
         }
 
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Worker> Workers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

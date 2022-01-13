@@ -2,7 +2,7 @@
 
 namespace DentalManagerAPI.Repositories.Abstractions
 {
-    public interface IPatientRepository : IRepository<Patient>
+    public interface IWorkerRepository : IRepository<Worker>
     {
     }
 }
