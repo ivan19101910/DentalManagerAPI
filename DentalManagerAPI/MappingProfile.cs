@@ -8,7 +8,7 @@ namespace DentalManagerAPI
     {
         public MappingProfile()
         {
-            CreateMap<Patient, PatientDTO>();
+            CreateMap<Patient, PatientDTO>().ReverseMap();
             CreateMap<Worker, WorkerDTO>();
         }
      

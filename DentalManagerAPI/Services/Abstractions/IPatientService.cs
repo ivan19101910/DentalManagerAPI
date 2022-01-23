@@ -6,6 +6,8 @@ namespace DentalManagerAPI.Services.Abstractions
     {
         PatientDTO GetUserById(int id);
 
+        int CreatePatient(PatientDTO patient);
+
         List<PatientDTO> GetAll();
     }
 }

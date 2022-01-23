@@ -36,5 +36,25 @@ namespace DentalManagerAPI.Controllers
             else
                 return NotFound();
         }
+
+        [Authorize]
+        [HttpPost]
+        [Route("create")]
+        public ActionResult<int> Create(PatientDTO patient)
+        {            
+            try
+            {
+                var result = _patientService.CreatePatient(patient);
+                if (result != null)
+                    return result;
+                else
+                    return BadRequest();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
+

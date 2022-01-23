@@ -32,5 +32,15 @@ namespace DentalManagerAPI.Services
             var mappedList = _mapper.Map<List<Patient>, List<PatientDTO>>(patients.ToList());
             return mappedList;
         }
+
+        public int CreatePatient(PatientDTO patient)
+        {
+            var mappedPatient = _mapper.Map<PatientDTO, Patient>(patient);
+
+            var newPatient = _unitOfWork.PatientRepository.Add(mappedPatient);
+            _unitOfWork.Save();
+
+            return newPatient.Id;
+        }
     }
 }
