@@ -42,5 +42,27 @@ namespace DentalManagerAPI.Services
 
             return newPatient.Id;
         }
+
+        public PatientDTO Update(PatientDTO patient)
+        {
+            var updatePatient = _mapper.Map<Patient>(patient);
+            var updatedPatient = _unitOfWork.PatientRepository.Edit(updatePatient);
+
+            _unitOfWork.Save();
+
+            var updatedUserDTO = _mapper.Map<PatientDTO>(updatedPatient);
+
+            return updatedUserDTO;
+        }
+
+        public void Delete(int id)
+        {
+            var patient = _unitOfWork.PatientRepository.GetById(id);
+            if (patient != null)
+            {
+                _unitOfWork.PatientRepository.Delete(id);
+                _unitOfWork.Save();
+            }
+        }
     }
 }

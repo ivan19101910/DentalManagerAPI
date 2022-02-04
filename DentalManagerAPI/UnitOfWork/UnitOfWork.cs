@@ -10,6 +10,13 @@ namespace DentalManagerAPI.UnitOfWork
     {
         private IPatientRepository _patientRepository;
         private IWorkerRepository _workerRepository;
+        private IServiceTypeRepository _serviceTypeRepository;
+        private IServiceRepository _serviceRepository;
+        private ICityRepository _cityRepository;
+        private IOfficeRepository _officeRepository;
+        private IAppointmentStatusRepository _appointmentStatusRepository;
+        private IAppointmentPaymentRepository _appointmentPaymentRepository;
+
         private DentalManagerDBContext _context;
 
         public UnitOfWork(DentalManagerDBContext context)
@@ -34,6 +41,53 @@ namespace DentalManagerAPI.UnitOfWork
             }
         }
 
+        public IServiceTypeRepository ServiceTypeRepository
+        {
+            get
+            {
+                return _serviceTypeRepository ??= new ServiceTypeRepository(_context);
+            }
+        }
+
+        public IServiceRepository ServiceRepository
+        {
+            get
+            {
+                return _serviceRepository ??= new ServiceRepository(_context);
+            }
+        }
+
+        public ICityRepository CityRepository
+        {
+            get
+            {
+                return _cityRepository ??= new CityRepository(_context);
+            }
+        }
+
+        public IOfficeRepository OfficeRepository
+        {
+            get
+            {
+                return _officeRepository ??= new OfficeRepository(_context);
+            }
+        }
+
+        public IAppointmentStatusRepository AppointmentStatusRepository
+        {
+            get
+            {
+                return _appointmentStatusRepository ??= new AppointmentStatusRepository(_context);
+            }
+        }
+
+        public IAppointmentPaymentRepository AppointmentPaymentRepository
+        {
+            get
+            {
+                return _appointmentPaymentRepository ??= new AppointmentPaymentRepository(_context);
+            }
+        }
         public void Dispose()
         {
             if (_context != null)

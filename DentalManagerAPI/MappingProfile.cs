@@ -10,6 +10,13 @@ namespace DentalManagerAPI
         {
             CreateMap<Patient, PatientDTO>().ReverseMap();
             CreateMap<Worker, WorkerDTO>();
+            CreateMap<ServiceType, ServiceTypeDTO>().ReverseMap();
+                
+            CreateMap<Service, ServiceDTO>()
+                .ForMember("ServiceTypeName", opt => opt.MapFrom(c => c.ServiceType.Name));
+            CreateMap<ServiceDTO, Service>();
+            CreateMap<Office, OfficeDTO>().ReverseMap();
+            CreateMap<City, CityDTO>().ReverseMap();
         }
      
     }

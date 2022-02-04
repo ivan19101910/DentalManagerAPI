@@ -1,5 +1,4 @@
 ﻿using DentalManagerAPI.DTOs;
-using DentalManagerAPI.Helpers;
 using DentalManagerAPI.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,44 +6,32 @@ namespace DentalManagerAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PatientController : ControllerBase
-    { 
-        private IPatientService _patientService;
-        public PatientController(IPatientService accountService)
+    public class ServiceTypeController : ControllerBase
+    {
+        private IServiceTypeService _serviceTypeService;
+        public ServiceTypeController(IServiceTypeService serviceTypeService)
         {
-            _patientService = accountService;
+            _serviceTypeService = serviceTypeService;
         }
-        [Authorize]
-        [HttpGet]
-        [Route("get-by-id/{patientId}")]
-        public ActionResult<PatientDTO> GetById(int patientId)
-        {
-            var result = _patientService.GetUserById(patientId);
-            if (result != null)
-                return result;
-            else
-                return NotFound();
-        }
-        [Authorize]
+
         [HttpGet]
         [Route("getAll")]
-        public ActionResult<List<PatientDTO>> GetAll()
+        public ActionResult<List<ServiceTypeDTO>> GetAll()
         {
-            var result = _patientService.GetAll();
+            var result = _serviceTypeService.GetAll();
             if (result != null)
                 return result.ToList();
             else
                 return NotFound();
         }
 
-        [Authorize]
         [HttpPost]
         [Route("create")]
-        public ActionResult<int> Create(PatientDTO patient)
-        {            
+        public ActionResult<int> Create(ServiceTypeDTO patient)
+        {
             try
             {
-                var result = _patientService.CreatePatient(patient);
+                var result = _serviceTypeService.Create(patient);
                 if (result != null)
                     return result;
                 else
@@ -55,14 +42,13 @@ namespace DentalManagerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpPut]
         [Route("update")]
-        public ActionResult<PatientDTO> UpdateUser(PatientDTO patientDTO)
+        public ActionResult<ServiceTypeDTO> UpdateUser(ServiceTypeDTO serviceTypeDTO)
         {
             try
             {
-                var result = _patientService.Update(patientDTO);
+                var result = _serviceTypeService.Update(serviceTypeDTO);
                 return result;
             }
             catch (ArgumentException ex)
@@ -71,14 +57,13 @@ namespace DentalManagerAPI.Controllers
             }
         }
 
-        [Authorize]
         [HttpDelete]
         [Route("delete/{id}")]
         public ActionResult<int> Delete(int id)
         {
             try
             {
-                _patientService.Delete(id);
+                _serviceTypeService.Delete(id);
             }
             catch (ArgumentException ex)
             {
@@ -86,6 +71,5 @@ namespace DentalManagerAPI.Controllers
             }
             return id;
         }
-    } 
+    }
 }
-

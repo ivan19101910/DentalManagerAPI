@@ -4,6 +4,7 @@ using DentalManagerAPI.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentalManagerAPI.Migrations
 {
     [DbContext(typeof(DentalManagerDBContext))]
-    partial class DentalManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220203162309_servicesadded")]
+    partial class servicesadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,99 +24,6 @@ namespace DentalManagerAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("DentalManagerAPI.Models.City", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Славута"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Львів"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Київ"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Івано-Франківськ"
-                        });
-                });
-
-            modelBuilder.Entity("DentalManagerAPI.Models.Office", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.ToTable("Offices");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Б.Хмельницого 45",
-                            CityId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "C.Бандери 11а",
-                            CityId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "Б.Хмельницого 155",
-                            CityId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Address = "І.Франка 123",
-                            CityId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Address = "Стрийська 198а",
-                            CityId = 2
-                        });
-                });
 
             modelBuilder.Entity("DentalManagerAPI.Models.Patient", b =>
                 {
@@ -341,11 +250,11 @@ namespace DentalManagerAPI.Migrations
 
             modelBuilder.Entity("DentalManagerAPI.Models.Service", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ServiceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -361,53 +270,11 @@ namespace DentalManagerAPI.Migrations
                     b.Property<int>("ServiceTypeId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ServiceId");
 
                     b.HasIndex("ServiceTypeId");
 
                     b.ToTable("Services");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Dolor sit amet",
-                            Name = "Консультація лікаря – стоматолога",
-                            Price = 100m,
-                            ServiceTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Lorem",
-                            Name = "Консультація кандидата медичних наук, доцента",
-                            Price = 200m,
-                            ServiceTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Ipsum",
-                            Name = "Консультація лікаря-імплантолога, ортопеда, ортодонта, пародонтолога",
-                            Price = 300m,
-                            ServiceTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "El lingua",
-                            Name = "Повторний видрук ортопантомограми",
-                            Price = 400m,
-                            ServiceTypeId = 5
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Moloc boloc",
-                            Name = "Комп’ютерна томографія 1 щелепи",
-                            Price = 500m,
-                            ServiceTypeId = 5
-                        });
                 });
 
             modelBuilder.Entity("DentalManagerAPI.Models.ServiceType", b =>
@@ -425,33 +292,6 @@ namespace DentalManagerAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ServiceTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Консультація"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Діагностика"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Анестезія"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Терапевтична та ендодонтична стоматологія"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Дитяча стоматологія"
-                        });
                 });
 
             modelBuilder.Entity("DentalManagerAPI.Models.Worker", b =>
@@ -504,17 +344,6 @@ namespace DentalManagerAPI.Migrations
                             Password = "test",
                             PhoneNumber = "+384613646192"
                         });
-                });
-
-            modelBuilder.Entity("DentalManagerAPI.Models.Office", b =>
-                {
-                    b.HasOne("DentalManagerAPI.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("DentalManagerAPI.Models.Service", b =>
