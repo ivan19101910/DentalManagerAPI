@@ -27,6 +27,12 @@ namespace DentalManagerAPI.DAL
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Office> Offices { get; set; }
+        public virtual DbSet<AppointmentPayment> AppointmentPayments { get; set; }
+        public virtual DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
+        public virtual DbSet<AppointmentService> AppointmentServices { get; set; }
+        public virtual DbSet<Appointment> Appointments { get; set; }
+        public virtual DbSet<Position> Positions { get; set; }
+        public virtual DbSet<SalaryPayment> SalaryPayments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

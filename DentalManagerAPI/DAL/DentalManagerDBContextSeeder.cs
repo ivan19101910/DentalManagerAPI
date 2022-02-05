@@ -59,6 +59,25 @@ namespace DentalManagerAPI.DAL
                 new Office() { Id = 3, Address = "Б.Хмельницого 155", CityId = 3 },
                 new Office() { Id = 4, Address = "І.Франка 123", CityId = 4 },
                 new Office() { Id = 5, Address = "Стрийська 198а", CityId = 2 });
+
+            modelBuilder.Entity<AppointmentStatus>()
+                .HasData(new AppointmentStatus() { Id = 1, Name = "Новий" },
+                new AppointmentStatus() { Id = 2, Name = "Завершений" },
+                new AppointmentStatus() { Id = 3, Name = "Оплачений" });
+
+            modelBuilder.Entity<AppointmentPayment>()
+                .HasData(new AppointmentPayment { Id = 1, AppointmentId = 1, Total = 500, TransactionNumber = 1 },
+                new AppointmentPayment { Id = 2, AppointmentId = 1, Total = 500, TransactionNumber = 2 },
+                new AppointmentPayment { Id = 3, AppointmentId = 1, Total = 500, TransactionNumber = 3 },
+                new AppointmentPayment { Id = 4, AppointmentId = 1, Total = 500, TransactionNumber = 4 },
+                new AppointmentPayment { Id = 5, AppointmentId = 1, Total = 500, TransactionNumber = 5 });
+
+            modelBuilder.Entity<Appointment>()
+                .HasData(new Appointment() { Id = 1, AppointmentDate = new DateTime(2000, 10, 10), AppointmentTime = new TimeSpan(19, 10, 0), Notes = "Lorem",
+                    PatientId = 1, RealEndTime = new TimeSpan(20, 0, 0), StatusId = 1, TotalSum = 500, WorkerId = 1 });
+
+            modelBuilder.Entity<AppointmentService>()
+                .HasData(new AppointmentService() { Id = 1, Amount = 5, AppointmentId = 1, ServiceId = 1 });
         }
     }
 }

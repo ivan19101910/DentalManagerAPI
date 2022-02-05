@@ -11,56 +11,50 @@ namespace DentalManagerAPI.Services
         private IUnitOfWork _unitOfWork;
         private IMapper _mapper;
 
-        public OfficeService(IUnitOfWork unitOfWork, IMapper mapper)
+        public AppointmentPaymentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public OfficeDTO GetById(int id)
+        public AppointmentPaymentDTO GetById(int id)
         {
-            var office = _unitOfWork.OfficeRepository.GetById(id);
-
-            var mappedOffice = _mapper.Map<OfficeDTO>(office);
-            return mappedOffice;
-
+            var payment = _unitOfWork.AppointmentPaymentRepository.GetById(id);
+            return _mapper.Map<AppointmentPaymentDTO>(payment);
         }
 
-        public List<OfficeDTO> GetAll()
+        public List<AppointmentPaymentDTO> GetAll()
         {
-            var offices = _unitOfWork.OfficeRepository.GetAll();
-            var mappedList = _mapper.Map<List<Office>, List<OfficeDTO>>(offices.ToList());
-            return mappedList;
+            var payments = _unitOfWork.AppointmentPaymentRepository.GetAll();
+            return _mapper.Map<List<AppointmentPayment>, List<AppointmentPaymentDTO>>(payments.ToList());
         }
 
-        public int Create(OfficeDTO office)
+        public int Create(AppointmentPaymentDTO payment)
         {
-            var mappedOffice = _mapper.Map<OfficeDTO, Office>(office);
+            var mappedPayment = _mapper.Map<AppointmentPaymentDTO, AppointmentPayment>(payment);
 
-            var newOffice = _unitOfWork.OfficeRepository.Add(mappedOffice);
+            var newPayment = _unitOfWork.AppointmentPaymentRepository.Add(mappedPayment);
             _unitOfWork.Save();
 
-            return newOffice.Id;
+            return newPayment.Id;
         }
 
-        public OfficeDTO Update(OfficeDTO office)
+        public AppointmentPaymentDTO Update(AppointmentPaymentDTO payment)
         {
-            var updateOffice = _mapper.Map<Office>(office);
-            var updatedOffice = _unitOfWork.OfficeRepository.Edit(updateOffice);
+            var updatePayment = _mapper.Map<AppointmentPayment>(payment);
+            var updatedPayment = _unitOfWork.AppointmentPaymentRepository.Edit(updatePayment);
 
             _unitOfWork.Save();
 
-            var updatedOfficeDTO = _mapper.Map<OfficeDTO>(updatedOffice);
-
-            return updatedOfficeDTO;
+            return _mapper.Map<AppointmentPaymentDTO>(updatedPayment);
         }
 
         public void Delete(int id)
         {
-            var office = _unitOfWork.OfficeRepository.GetById(id);
-            if (office != null)
+            var payment = _unitOfWork.AppointmentPaymentRepository.GetById(id);
+            if (payment != null)
             {
-                _unitOfWork.OfficeRepository.Delete(id);
+                _unitOfWork.AppointmentPaymentRepository.Delete(id);
                 _unitOfWork.Save();
             }
         }

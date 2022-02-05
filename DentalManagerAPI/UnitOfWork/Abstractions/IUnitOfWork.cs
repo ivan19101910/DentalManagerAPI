@@ -12,6 +12,13 @@ namespace DentalManagerAPI.UnitOfWork.Abstractions
         public IOfficeRepository OfficeRepository { get; }
         public IAppointmentPaymentRepository AppointmentPaymentRepository { get; }
         public IAppointmentStatusRepository AppointmentStatusRepository { get; }
+        public IAppointmentRepository AppointmentRepository { get; }
+        public ISalaryPaymentRepository SalaryPaymentRepository { get; }
+        public IPositionRepository PositionRepository { get; }
+        public IDayRepository DayRepository { get; }
+        public ITimeSegmentRepository TimeSegmentRepository { get; }
+        public IScheduleRepository ScheduleRepository { get; }
+
         void Save();
     }
 }

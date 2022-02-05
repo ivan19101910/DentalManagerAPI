@@ -16,6 +16,12 @@ namespace DentalManagerAPI.UnitOfWork
         private IOfficeRepository _officeRepository;
         private IAppointmentStatusRepository _appointmentStatusRepository;
         private IAppointmentPaymentRepository _appointmentPaymentRepository;
+        private IAppointmentRepository _appointmentRepository;
+        private ISalaryPaymentRepository _salaryPaymentRepository;
+        private IPositionRepository _positionRepository;
+        private IDayRepository _dayRepository;
+        private ITimeSegmentRepository _timeSegmentRepository;
+        private IScheduleRepository _scheduleRepository;
 
         private DentalManagerDBContext _context;
 
@@ -88,6 +94,55 @@ namespace DentalManagerAPI.UnitOfWork
                 return _appointmentPaymentRepository ??= new AppointmentPaymentRepository(_context);
             }
         }
+
+        public IAppointmentRepository AppointmentRepository
+        {
+            get
+            {
+                return _appointmentRepository ??= new AppointmentRepository(_context);
+            }
+        }
+
+        public IPositionRepository PositionRepository
+        {
+            get
+            {
+                return _positionRepository ??= new PositionRepository(_context);
+            }
+        }
+
+        public ISalaryPaymentRepository SalaryPaymentRepository
+        {
+            get
+            {
+                return _salaryPaymentRepository ??= new SalaryPaymentRepository(_context);
+            }
+        }
+
+        public IDayRepository DayRepository
+        {
+            get
+            {
+                return _dayRepository ??= new DayRepository(_context);
+            }
+        }
+
+        public ITimeSegmentRepository TimeSegmentRepository
+        {
+            get
+            {
+                return _timeSegmentRepository ??= new TimeSegmentRepository(_context);
+            }
+        }
+
+        public IScheduleRepository ScheduleRepository
+        {
+            get
+            {
+                return _scheduleRepository ??= new ScheduleRepository(_context);
+            }
+        }
+
         public void Dispose()
         {
             if (_context != null)

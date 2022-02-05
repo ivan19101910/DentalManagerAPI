@@ -17,6 +17,11 @@ namespace DentalManagerAPI
             CreateMap<ServiceDTO, Service>();
             CreateMap<Office, OfficeDTO>().ReverseMap();
             CreateMap<City, CityDTO>().ReverseMap();
+            CreateMap<AppointmentPayment, AppointmentPaymentDTO>().ReverseMap();
+            CreateMap<AppointmentStatus, AppointmentStatusDTO>().ReverseMap();
+            CreateMap<Appointment, AppointmentDTO>().ReverseMap();
+            CreateMap<Position, PositionDTO>().ReverseMap();
+            CreateMap<SalaryPayment, SalaryPaymentDTO>().ReverseMap();
         }
      
     }

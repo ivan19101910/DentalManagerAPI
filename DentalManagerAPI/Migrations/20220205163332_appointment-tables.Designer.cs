@@ -4,6 +4,7 @@ using DentalManagerAPI.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentalManagerAPI.Migrations
 {
     [DbContext(typeof(DentalManagerDBContext))]
-    partial class DentalManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220205163332_appointment-tables")]
+    partial class appointmenttables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,8 +102,6 @@ namespace DentalManagerAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId");
-
                     b.ToTable("AppointmentPayments");
 
                     b.HasData(
@@ -115,28 +115,28 @@ namespace DentalManagerAPI.Migrations
                         new
                         {
                             Id = 2,
-                            AppointmentId = 1,
+                            AppointmentId = 2,
                             Total = 500m,
                             TransactionNumber = 2
                         },
                         new
                         {
                             Id = 3,
-                            AppointmentId = 1,
+                            AppointmentId = 3,
                             Total = 500m,
                             TransactionNumber = 3
                         },
                         new
                         {
                             Id = 4,
-                            AppointmentId = 1,
+                            AppointmentId = 4,
                             Total = 500m,
                             TransactionNumber = 4
                         },
                         new
                         {
                             Id = 5,
-                            AppointmentId = 1,
+                            AppointmentId = 5,
                             Total = 500m,
                             TransactionNumber = 5
                         });
@@ -719,17 +719,6 @@ namespace DentalManagerAPI.Migrations
                     b.Navigation("Status");
 
                     b.Navigation("Worker");
-                });
-
-            modelBuilder.Entity("DentalManagerAPI.Models.AppointmentPayment", b =>
-                {
-                    b.HasOne("DentalManagerAPI.Models.Appointment", "Appointment")
-                        .WithMany()
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("DentalManagerAPI.Models.AppointmentService", b =>

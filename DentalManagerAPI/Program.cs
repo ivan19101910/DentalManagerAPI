@@ -46,6 +46,11 @@ builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<IOfficeService, OfficeService>();
+builder.Services.AddScoped<IAppointmentPaymentService, AppointmentPaymentService>();
+builder.Services.AddScoped<IAppointmentStatusService, AppointmentStatusService>();
+builder.Services.AddScoped<IAppointmentService, DentalManagerAPI.Services.AppointmentService>();
+builder.Services.AddScoped<IPositionService, PositionService>();
+builder.Services.AddScoped<ISalaryPaymentService, SalaryPaymentService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
