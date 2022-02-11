@@ -7,19 +7,19 @@ namespace DentalManagerAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SalaryPaymentController : ControllerBase
+    public class DayController : ControllerBase
     {
-        private ISalaryPaymentService _salaryPaymentService;
-        public SalaryPaymentController(ISalaryPaymentService salaryPaymentService)
+        private IDayService _dayService;
+        public DayController(IDayService dayService)
         {
-            _salaryPaymentService = salaryPaymentService;
+            _dayService = dayService;
         }
 
         [HttpGet]
         [Route("getAll")]
-        public ActionResult<List<SalaryPaymentDTO>> GetAll()
+        public ActionResult<List<DayDTO>> GetAll()
         {
-            var result = _salaryPaymentService.GetAll();
+            var result = _dayService.GetAll();
             if (result != null)
                 return result.ToList();
             else
@@ -28,11 +28,11 @@ namespace DentalManagerAPI.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<int> Create(SalaryPaymentDTO payment)
+        public ActionResult<int> Create(DayDTO day)
         {
             try
             {
-                var result = _salaryPaymentService.Create(payment);
+                var result = _dayService.Create(day);
                 if (result != null)
                     return result;
                 else
@@ -45,11 +45,11 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<SalaryPaymentDTO> Update(SalaryPaymentDTO salaryPaymentDTO)
+        public ActionResult<DayDTO> Update(DayDTO dayDTO)
         {
             try
             {
-                var result = _salaryPaymentService.Update(salaryPaymentDTO);
+                var result = _dayService.Update(dayDTO);
                 return result;
             }
             catch (ArgumentException ex)
@@ -64,7 +64,7 @@ namespace DentalManagerAPI.Controllers
         {
             try
             {
-                _salaryPaymentService.Delete(id);
+                _dayService.Delete(id);
             }
             catch (ArgumentException ex)
             {
@@ -74,4 +74,3 @@ namespace DentalManagerAPI.Controllers
         }
     }
 }
-

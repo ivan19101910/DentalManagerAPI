@@ -1,6 +1,8 @@
-﻿namespace DentalManagerAPI.Repositories.Abstractions
+﻿using DentalManagerAPI.Models;
+
+namespace DentalManagerAPI.Repositories.Abstractions
 {
-    public interface IAppointmentServiceRepository
+    public interface IAppointmentServiceRepository : IRepository<AppointmentService>
     {
     }
 }

@@ -45,7 +45,7 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<AppointmentStatusDTO> UpdateUser(AppointmentStatusDTO appointmentStatusDTO)
+        public ActionResult<AppointmentStatusDTO> Update(AppointmentStatusDTO appointmentStatusDTO)
         {
             try
             {

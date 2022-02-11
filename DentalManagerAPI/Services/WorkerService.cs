@@ -38,20 +38,52 @@ namespace DentalManagerAPI.Services
             return new AuthenticateResponse(worker, token);
         }
 
-        public WorkerDTO GetWorkerById(int id)
+        public FullWorkerDTO GetWorkerById(int id)
         {
             var worker = _unitOfWork.WorkerRepository.GetById(id);
 
-            var mappedWorker = _mapper.Map<WorkerDTO>(worker);
+            var mappedWorker = _mapper.Map<FullWorkerDTO>(worker);
             return mappedWorker;
 
         }
 
-        public List<WorkerDTO> GetAll()
+        public List<ShowWorkerDTO> GetAll()
         {
             var workers = _unitOfWork.WorkerRepository.GetAll();
-            var mappedList = _mapper.Map<List<Worker>, List<WorkerDTO>>(workers.ToList());
+            var mappedList = _mapper.Map<List<Worker>, List<ShowWorkerDTO>>(workers.ToList());
             return mappedList;
+        }
+
+        public int Create(CreateWorkerDTO worker)
+        {
+            var mappedWorker = _mapper.Map<CreateWorkerDTO, Worker>(worker);
+
+            var newWorker = _unitOfWork.WorkerRepository.Add(mappedWorker);
+            _unitOfWork.Save();
+
+            return newWorker.Id;
+        }
+
+        public UpdateWorkerDTO Update(UpdateWorkerDTO worker)
+        {
+            var updateWorker = _mapper.Map<Worker>(worker);
+            var updatedWorker = _unitOfWork.WorkerRepository.Edit(updateWorker);
+
+            _unitOfWork.Save();
+
+            var updatedWorkerDTO = _mapper.Map<UpdateWorkerDTO>(updatedWorker);
+
+            return updatedWorkerDTO;
+        }
+
+        public void Delete(int id)
+        {
+            var worker = _unitOfWork.WorkerRepository.GetById(id);
+            if (worker != null)
+            {
+                _unitOfWork.WorkerRepository.Delete(id);
+                _unitOfWork.Save();
+            }
         }
 
         private string generateJwtToken(Worker user)

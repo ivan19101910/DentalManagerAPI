@@ -1,6 +1,7 @@
 ﻿using DentalManagerAPI.DAL;
 using DentalManagerAPI.Models;
 using DentalManagerAPI.Repositories.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DentalManagerAPI.Repositories
 {
@@ -9,6 +10,10 @@ namespace DentalManagerAPI.Repositories
         public OfficeRepository(DentalManagerDBContext context) : base(context)
         {
 
+        }
+        public override IQueryable<Office> GetAll()
+        {
+            return base.GetAll().Include(x => x.City);
         }
     }
 }

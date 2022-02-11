@@ -4,7 +4,7 @@ namespace DentalManagerAPI.Services.Abstractions
 {
     public interface IOfficeService
     {
-        List<OfficeDTO> GetAll();
+        List<ShowOfficeDTO> GetAll();
         OfficeDTO GetById(int id);
         int Create(OfficeDTO serviceType);
         OfficeDTO Update(OfficeDTO serviceType);

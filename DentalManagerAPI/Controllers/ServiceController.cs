@@ -1,4 +1,5 @@
 ﻿using DentalManagerAPI.DTOs;
+using DentalManagerAPI.Helpers;
 using DentalManagerAPI.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,18 @@ namespace DentalManagerAPI.Controllers
         public ServiceController(IServiceService serviceService)
         {
             _serviceService = serviceService;
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("get-by-id/{serviceId}")]
+        public ActionResult<ServiceDTO> GetById(int serviceId)
+        {
+            var result = _serviceService.GetById(serviceId);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
         }
 
         [HttpGet]
@@ -44,7 +57,7 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<ServiceDTO> UpdateUser(ServiceDTO serviceDTO)
+        public ActionResult<ServiceDTO> Update(ServiceDTO serviceDTO)
         {
             try
             {

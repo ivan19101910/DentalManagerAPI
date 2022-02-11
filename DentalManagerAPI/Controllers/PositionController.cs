@@ -45,7 +45,7 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<PositionDTO> UpdateUser(PositionDTO positionDTO)
+        public ActionResult<PositionDTO> Update(PositionDTO positionDTO)
         {
             try
             {

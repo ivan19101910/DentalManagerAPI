@@ -17,7 +17,7 @@ namespace DentalManagerAPI.Controllers
 
         [HttpGet]
         [Route("getAll")]
-        public ActionResult<List<OfficeDTO>> GetAll()
+        public ActionResult<List<ShowOfficeDTO>> GetAll()
         {
             var result = _officeService.GetAll();
             if (result != null)
@@ -28,11 +28,11 @@ namespace DentalManagerAPI.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<int> Create(OfficeDTO patient)
+        public ActionResult<int> Create(OfficeDTO office)
         {
             try
             {
-                var result = _officeService.Create(patient);
+                var result = _officeService.Create(office);
                 if (result != null)
                     return result;
                 else
@@ -45,11 +45,11 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<OfficeDTO> UpdateUser(OfficeDTO serviceDTO)
+        public ActionResult<OfficeDTO> Update(OfficeDTO officeDTO)
         {
             try
             {
-                var result = _officeService.Update(serviceDTO);
+                var result = _officeService.Update(officeDTO);
                 return result;
             }
             catch (ArgumentException ex)

@@ -27,10 +27,10 @@ namespace DentalManagerAPI.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
-        [Route("get-by-id/{workerId}")]
-        public ActionResult<WorkerDTO> GetById(int workerId)
+        [Route("getById/{workerId}")]
+        public ActionResult<FullWorkerDTO> GetById(int workerId)
         {
             var result = _workerService.GetWorkerById(workerId);
             if (result != null)
@@ -38,16 +38,64 @@ namespace DentalManagerAPI.Controllers
             else
                 return NotFound();
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("getAll")]
-        public ActionResult<List<WorkerDTO>> GetAll()
+        public ActionResult<List<ShowWorkerDTO>> GetAll()
         {
             var result = _workerService.GetAll();
             if (result != null)
                 return result.ToList();
             else
                 return NotFound();
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public ActionResult<int> Create(CreateWorkerDTO worker)
+        {
+            try
+            {
+                var result = _workerService.Create(worker);
+                if (result != null)
+                    return result;
+                else
+                    return BadRequest();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public ActionResult<UpdateWorkerDTO> Update(UpdateWorkerDTO workerDTO)
+        {
+            try
+            {
+                var result = _workerService.Update(workerDTO);
+                return result;
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public ActionResult<int> Delete(int id)
+        {
+            try
+            {
+                _workerService.Delete(id);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return id;
         }
     }
 }

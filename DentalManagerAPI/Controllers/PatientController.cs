@@ -14,7 +14,7 @@ namespace DentalManagerAPI.Controllers
         {
             _patientService = accountService;
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("get-by-id/{patientId}")]
         public ActionResult<PatientDTO> GetById(int patientId)
@@ -25,7 +25,7 @@ namespace DentalManagerAPI.Controllers
             else
                 return NotFound();
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("getAll")]
         public ActionResult<List<PatientDTO>> GetAll()
@@ -37,7 +37,7 @@ namespace DentalManagerAPI.Controllers
                 return NotFound();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("create")]
         public ActionResult<int> Create(PatientDTO patient)
@@ -55,10 +55,10 @@ namespace DentalManagerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         [Route("update")]
-        public ActionResult<PatientDTO> UpdateUser(PatientDTO patientDTO)
+        public ActionResult<PatientDTO> Update(PatientDTO patientDTO)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace DentalManagerAPI.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("delete/{id}")]
         public ActionResult<int> Delete(int id)

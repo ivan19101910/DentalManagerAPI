@@ -4,6 +4,7 @@ using DentalManagerAPI.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentalManagerAPI.Migrations
 {
     [DbContext(typeof(DentalManagerDBContext))]
-    partial class DentalManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220206122150_allmodels")]
+    partial class allmodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -602,29 +604,6 @@ namespace DentalManagerAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Positions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AppointmentPercentage = 75m,
-                            BaseRate = 0m,
-                            PositionName = "Парадонтолог"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AppointmentPercentage = 1m,
-                            BaseRate = 10000m,
-                            PositionName = "Менеджер"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AppointmentPercentage = 0m,
-                            BaseRate = 5000m,
-                            PositionName = "Прибиральниця"
-                        });
                 });
 
             modelBuilder.Entity("DentalManagerAPI.Models.SalaryPayment", b =>
@@ -915,10 +894,6 @@ namespace DentalManagerAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OfficeId");
-
-                    b.HasIndex("PositionId");
-
                     b.ToTable("Workers");
 
                     b.HasData(
@@ -929,10 +904,8 @@ namespace DentalManagerAPI.Migrations
                             Email = "test@gmail.com",
                             FirstName = "Ivan",
                             LastName = "Raikovskyi",
-                            OfficeId = 1,
                             Password = "test",
-                            PhoneNumber = "+384613646192",
-                            PositionId = 1
+                            PhoneNumber = "+384613646192"
                         });
                 });
 
@@ -1098,21 +1071,6 @@ namespace DentalManagerAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("ServiceType");
-                });
-
-            modelBuilder.Entity("DentalManagerAPI.Models.Worker", b =>
-                {
-                    b.HasOne("DentalManagerAPI.Models.Office", "Office")
-                        .WithMany()
-                        .HasForeignKey("OfficeId");
-
-                    b.HasOne("DentalManagerAPI.Models.Position", "Position")
-                        .WithMany()
-                        .HasForeignKey("PositionId");
-
-                    b.Navigation("Office");
-
-                    b.Navigation("Position");
                 });
 
             modelBuilder.Entity("DentalManagerAPI.Models.WorkerSchedule", b =>

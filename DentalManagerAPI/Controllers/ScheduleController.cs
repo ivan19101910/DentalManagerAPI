@@ -7,19 +7,19 @@ namespace DentalManagerAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SalaryPaymentController : ControllerBase
+    public class ScheduleController : ControllerBase
     {
-        private ISalaryPaymentService _salaryPaymentService;
-        public SalaryPaymentController(ISalaryPaymentService salaryPaymentService)
+        private IScheduleService _scheduleService;
+        public ScheduleController(IScheduleService scheduleService)
         {
-            _salaryPaymentService = salaryPaymentService;
+            _scheduleService = scheduleService;
         }
 
         [HttpGet]
         [Route("getAll")]
-        public ActionResult<List<SalaryPaymentDTO>> GetAll()
+        public ActionResult<List<ScheduleDTO>> GetAll()
         {
-            var result = _salaryPaymentService.GetAll();
+            var result = _scheduleService.GetAll();
             if (result != null)
                 return result.ToList();
             else
@@ -28,11 +28,11 @@ namespace DentalManagerAPI.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<int> Create(SalaryPaymentDTO payment)
+        public ActionResult<int> Create(ScheduleDTO schedule)
         {
             try
             {
-                var result = _salaryPaymentService.Create(payment);
+                var result = _scheduleService.Create(schedule);
                 if (result != null)
                     return result;
                 else
@@ -45,11 +45,11 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<SalaryPaymentDTO> Update(SalaryPaymentDTO salaryPaymentDTO)
+        public ActionResult<ScheduleDTO> Update(ScheduleDTO scheduleDTO)
         {
             try
             {
-                var result = _salaryPaymentService.Update(salaryPaymentDTO);
+                var result = _scheduleService.Update(scheduleDTO);
                 return result;
             }
             catch (ArgumentException ex)
@@ -64,7 +64,7 @@ namespace DentalManagerAPI.Controllers
         {
             try
             {
-                _salaryPaymentService.Delete(id);
+                _scheduleService.Delete(id);
             }
             catch (ArgumentException ex)
             {
@@ -74,4 +74,3 @@ namespace DentalManagerAPI.Controllers
         }
     }
 }
-

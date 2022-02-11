@@ -31,7 +31,7 @@ namespace DentalManagerAPI.DAL
                 new Patient() { Id = 21, Address = "test3", DateOfBirth = new DateTime(2002, 12, 19).Date, FirstName = "Maksym", LastName = "Boiko", PhoneNumber = "+380963386182" });
 
             modelBuilder.Entity<Worker>()
-                .HasData(new Worker() { Id = 1, FirstName = "Ivan", LastName = "Raikovskyi", PhoneNumber = "+384613646192", Address="testadd", Email="test@gmail.com", Password ="test" });
+                .HasData(new Worker() { Id = 1, FirstName = "Ivan", LastName = "Raikovskyi", PhoneNumber = "+384613646192", Address="testadd", Email="test@gmail.com", Password ="test", OfficeId = 1, PositionId = 1  });
 
             modelBuilder.Entity<ServiceType>()
                 .HasData(new ServiceType() { Id = 1, Name = "Консультація" },
@@ -78,6 +78,41 @@ namespace DentalManagerAPI.DAL
 
             modelBuilder.Entity<AppointmentService>()
                 .HasData(new AppointmentService() { Id = 1, Amount = 5, AppointmentId = 1, ServiceId = 1 });
+
+            modelBuilder.Entity<Position>()
+                .HasData(new Position() { Id = 1, AppointmentPercentage = 75, BaseRate = 0, PositionName = "Парадонтолог" },
+                new Position() { Id = 2, AppointmentPercentage = 1, BaseRate = 10000, PositionName = "Менеджер" },
+                new Position() { Id = 3, AppointmentPercentage = 0, BaseRate = 5000, PositionName = "Прибиральниця" });
+
+            modelBuilder.Entity<Day>()
+                .HasData(new Day() { Id = 1, Name = "Понеділок" },
+                new Day() { Id = 2, Name = "Вівторок" },
+                new Day() { Id = 3, Name = "Середа" },
+                new Day() { Id = 4, Name = "Четвер" },
+                new Day() { Id = 5, Name = "П'ятниця" },
+                new Day() { Id = 6, Name = "Субота" },
+                new Day() { Id = 7, Name = "Неділя" });
+
+            modelBuilder.Entity<TimeSegment>()
+                .HasData(new TimeSegment() { Id = 1, TimeStart = new TimeSpan(10, 0, 0), TimeEnd = new TimeSpan(18, 0, 0) },
+                new TimeSegment() { Id = 2, TimeStart = new TimeSpan(8, 0, 0), TimeEnd = new TimeSpan(20, 0, 0) },
+                new TimeSegment() { Id = 3, TimeStart = new TimeSpan(12, 0, 0), TimeEnd = new TimeSpan(22, 0, 0) },
+                new TimeSegment() { Id = 4, TimeStart = new TimeSpan(16, 0, 0), TimeEnd = new TimeSpan(22, 0, 0) },
+                new TimeSegment() { Id = 5, TimeStart = new TimeSpan(8, 0, 0), TimeEnd = new TimeSpan(16, 0, 0) });
+
+            modelBuilder.Entity<Schedule>()
+                .HasData(new Schedule() { Id = 1, DayId = 1, TimeSegmentId = 1 },
+                new Schedule() { Id = 2, DayId = 2, TimeSegmentId = 2 },
+                new Schedule() { Id = 3, DayId = 3, TimeSegmentId = 3 },
+                new Schedule() { Id = 4, DayId = 4, TimeSegmentId = 3 },
+                new Schedule() { Id = 5, DayId = 5, TimeSegmentId = 5 });
+
+            modelBuilder.Entity<WorkerSchedule>()
+                .HasData(new WorkerSchedule() { Id = 1, WorkerId = 1, ScheduleId = 1 },
+                new WorkerSchedule() { Id = 2, WorkerId = 1, ScheduleId = 2 },
+                new WorkerSchedule() { Id = 3, WorkerId = 1, ScheduleId = 3 },
+                new WorkerSchedule() { Id = 4, WorkerId = 1, ScheduleId = 4 },
+                new WorkerSchedule() { Id = 5, WorkerId = 1, ScheduleId = 5 });
         }
     }
 }

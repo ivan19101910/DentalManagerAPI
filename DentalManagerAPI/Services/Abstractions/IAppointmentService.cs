@@ -4,10 +4,10 @@ namespace DentalManagerAPI.Services.Abstractions
 {
     public interface IAppointmentService
     {
-        List<AppointmentDTO> GetAll();
+        List<ShortAppointmentDTO> GetAll();
         AppointmentDTO GetById(int id);
-        int Create(AppointmentDTO serviceType);
-        AppointmentDTO Update(AppointmentDTO serviceType);
+        int Create(CreateAppointmentDTO appointment);
+        AppointmentDTO Update(AppointmentDTO appointment);
         void Delete(int id);
     }
 }

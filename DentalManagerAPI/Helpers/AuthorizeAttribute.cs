@@ -9,7 +9,7 @@ namespace DentalManagerAPI.Helpers
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var worker = (WorkerDTO)context.HttpContext.Items["User"];
+            var worker = (FullWorkerDTO)context.HttpContext.Items["User"];
             if (worker == null)
             {
                 // not logged in

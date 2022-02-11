@@ -7,19 +7,19 @@ namespace DentalManagerAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SalaryPaymentController : ControllerBase
+    public class TimeSegmentController : ControllerBase
     {
-        private ISalaryPaymentService _salaryPaymentService;
-        public SalaryPaymentController(ISalaryPaymentService salaryPaymentService)
+        private ITimeSegmentService _timeSegmentService;
+        public TimeSegmentController(ITimeSegmentService timeSegmentService)
         {
-            _salaryPaymentService = salaryPaymentService;
+            _timeSegmentService = timeSegmentService;
         }
 
         [HttpGet]
         [Route("getAll")]
-        public ActionResult<List<SalaryPaymentDTO>> GetAll()
+        public ActionResult<List<TimeSegmentDTO>> GetAll()
         {
-            var result = _salaryPaymentService.GetAll();
+            var result = _timeSegmentService.GetAll();
             if (result != null)
                 return result.ToList();
             else
@@ -28,11 +28,11 @@ namespace DentalManagerAPI.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<int> Create(SalaryPaymentDTO payment)
+        public ActionResult<int> Create(TimeSegmentDTO timeSegment)
         {
             try
             {
-                var result = _salaryPaymentService.Create(payment);
+                var result = _timeSegmentService.Create(timeSegment);
                 if (result != null)
                     return result;
                 else
@@ -45,11 +45,11 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<SalaryPaymentDTO> Update(SalaryPaymentDTO salaryPaymentDTO)
+        public ActionResult<TimeSegmentDTO> Update(TimeSegmentDTO timeSegmentDTO)
         {
             try
             {
-                var result = _salaryPaymentService.Update(salaryPaymentDTO);
+                var result = _timeSegmentService.Update(timeSegmentDTO);
                 return result;
             }
             catch (ArgumentException ex)
@@ -64,7 +64,7 @@ namespace DentalManagerAPI.Controllers
         {
             try
             {
-                _salaryPaymentService.Delete(id);
+                _timeSegmentService.Delete(id);
             }
             catch (ArgumentException ex)
             {
@@ -74,4 +74,3 @@ namespace DentalManagerAPI.Controllers
         }
     }
 }
-

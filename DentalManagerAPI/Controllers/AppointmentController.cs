@@ -7,17 +7,20 @@ namespace DentalManagerAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ApppointmentController : ControllerBase
+    public class AppointmentController : ControllerBase
     {
         private IAppointmentService _appointmentService;
-        public ApppointmentController(IAppointmentService apppointmentService)
+        private IAppointmentServiceService _appointmentServiceService;
+        
+        public AppointmentController(IAppointmentService appointmentService, IAppointmentServiceService appointmentServiceService)
         {
-            _appointmentService = apppointmentService;
+            _appointmentService = appointmentService;
+            _appointmentServiceService = appointmentServiceService;
         }
 
         [HttpGet]
         [Route("getAll")]
-        public ActionResult<List<AppointmentDTO>> GetAll()
+        public ActionResult<List<ShortAppointmentDTO>> GetAll()
         {
             var result = _appointmentService.GetAll();
             if (result != null)
@@ -28,13 +31,18 @@ namespace DentalManagerAPI.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<int> Create(AppointmentDTO appointment)
+        public ActionResult<int> Create(CreateAppointmentDTO appointment)
         {
             try
             {
                 var result = _appointmentService.Create(appointment);
                 if (result != null)
+                {
+                    if(appointment.AppointmentServices != null)
+                        _appointmentServiceService.CreateMany(appointment.AppointmentServices, result);//Create services to binded appointment
                     return result;
+                }
+                    
                 else
                     return BadRequest();
             }
@@ -45,7 +53,7 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<AppointmentDTO> UpdateUser(AppointmentDTO appointmentDTO)
+        public ActionResult<AppointmentDTO> Update(AppointmentDTO appointmentDTO)
         {
             try
             {

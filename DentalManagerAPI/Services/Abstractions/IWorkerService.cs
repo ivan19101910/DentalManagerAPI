@@ -6,9 +6,10 @@ namespace DentalManagerAPI.Services.Abstractions
     public interface IWorkerService
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
-
-        WorkerDTO GetWorkerById(int id);
-
-        List<WorkerDTO> GetAll();
+        FullWorkerDTO GetWorkerById(int id);
+        List<ShowWorkerDTO> GetAll();
+        int Create(CreateWorkerDTO worker);
+        UpdateWorkerDTO Update(UpdateWorkerDTO worker);
+        void Delete(int id);
     }
 }

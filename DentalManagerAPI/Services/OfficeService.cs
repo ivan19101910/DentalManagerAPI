@@ -26,10 +26,10 @@ namespace DentalManagerAPI.Services
 
         }
 
-        public List<OfficeDTO> GetAll()
+        public List<ShowOfficeDTO> GetAll()
         {
             var offices = _unitOfWork.OfficeRepository.GetAll();
-            var mappedList = _mapper.Map<List<Office>, List<OfficeDTO>>(offices.ToList());
+            var mappedList = _mapper.Map<List<Office>, List<ShowOfficeDTO>>(offices.ToList());
             return mappedList;
         }
 

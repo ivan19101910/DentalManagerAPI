@@ -22,6 +22,7 @@ namespace DentalManagerAPI.UnitOfWork
         private IDayRepository _dayRepository;
         private ITimeSegmentRepository _timeSegmentRepository;
         private IScheduleRepository _scheduleRepository;
+        private IAppointmentServiceRepository _appointmentServiceRepository;
 
         private DentalManagerDBContext _context;
 
@@ -140,6 +141,14 @@ namespace DentalManagerAPI.UnitOfWork
             get
             {
                 return _scheduleRepository ??= new ScheduleRepository(_context);
+            }
+        }
+
+        public IAppointmentServiceRepository AppointmentServiceRepository
+        {
+            get
+            {
+                return _appointmentServiceRepository ??= new AppointmentServiceRepository(_context);
             }
         }
 
