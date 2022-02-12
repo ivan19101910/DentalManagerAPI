@@ -15,5 +15,10 @@ namespace DentalManagerAPI.Repositories
         {
             return base.GetAll().Include(p => p.Worker).Include(x => x.Patient).Include(x => x.Status);
         }
+        public override Appointment GetById(int id)
+        {
+            //return _context.Appointments.Where(x => x.Id == id).Include(x => x.AppointmentServices).FirstOrDefault();
+            return _context.Appointments.Where(x => x.Id == id).FirstOrDefault();
+        }
     }
 }

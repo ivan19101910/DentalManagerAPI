@@ -45,6 +45,7 @@ namespace DentalManagerAPI
                 //.ForMember("AppointmentTime", opt => opt.MapFrom(x => TimeSpan.Parse(x.AppointmentDate))
                 //.ForMember("RealEndTime");
             CreateMap<AppointmentServiceDTO, AppointmentService>();
+            CreateMap<FullAppointmentDTO, Appointment>().ReverseMap();
         }
      
     }

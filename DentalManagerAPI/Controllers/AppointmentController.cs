@@ -29,6 +29,18 @@ namespace DentalManagerAPI.Controllers
                 return NotFound();
         }
 
+        //[Authorize]
+        [HttpGet]
+        [Route("getById/{appointmentId}")]
+        public ActionResult<AppointmentDTO> GetById(int appointmentId)
+        {
+            var result = _appointmentService.GetById(appointmentId);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
+
         [HttpPost]
         [Route("create")]
         public ActionResult<int> Create(CreateAppointmentDTO appointment)
@@ -38,8 +50,8 @@ namespace DentalManagerAPI.Controllers
                 var result = _appointmentService.Create(appointment);
                 if (result != null)
                 {
-                    if(appointment.AppointmentServices != null)
-                        _appointmentServiceService.CreateMany(appointment.AppointmentServices, result);//Create services to binded appointment
+                    //if(appointment.AppointmentServices != null)//Bug on my PC, need to remove?
+                        //_appointmentServiceService.CreateMany(appointment.AppointmentServices, result);//Create services to binded appointment
                     return result;
                 }
                     

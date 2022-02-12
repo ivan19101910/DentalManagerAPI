@@ -14,5 +14,6 @@
         public virtual Patient Patient { get; set; }
         public virtual AppointmentStatus Status { get; set; }
         public virtual Worker Worker { get; set; }
+        public virtual IList<AppointmentService> AppointmentServices { get; set; }
     }
 }

@@ -1,8 +1,6 @@
-﻿using DentalManagerAPI.Models;
-
-namespace DentalManagerAPI.DTOs
+﻿namespace DentalManagerAPI.DTOs
 {
-    public class AppointmentDTO
+    public class FullAppointmentDTO
     {
         public int Id { get; set; }
         public DateTime AppointmentDate { get; set; }
@@ -13,9 +11,6 @@ namespace DentalManagerAPI.DTOs
         public int PatientId { get; set; }
         public int StatusId { get; set; }
         public decimal? TotalSum { get; set; }
-        public virtual Patient Patient { get; set; }
-        public virtual AppointmentStatus Status { get; set; }
-        public virtual Worker Worker { get; set; }
-        public virtual List<AppointmentService> AppointmentServices { get; set; }
+        public List<AppointmentServiceDTO>? AppointmentServices { get; set; }
     }
 }
