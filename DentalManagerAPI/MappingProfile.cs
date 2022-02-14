@@ -42,10 +42,14 @@ namespace DentalManagerAPI
                 .ForMember("WorkerSurname", opt => opt.MapFrom(x => x.Worker.LastName));
             CreateMap<UpdateWorkerDTO, Worker>().ReverseMap();
             CreateMap<CreateAppointmentDTO, Appointment>();
-                //.ForMember("AppointmentTime", opt => opt.MapFrom(x => TimeSpan.Parse(x.AppointmentDate))
-                //.ForMember("RealEndTime");
+            //.ForMember("AppointmentTime", opt => opt.MapFrom(x => TimeSpan.Parse(x.AppointmentDate))
+            //.ForMember("RealEndTime");
             CreateMap<AppointmentServiceDTO, AppointmentService>();
+            CreateMap<AppointmentService, AppointmentServiceDTO>()
+                .ForMember("ServiceName", opt => opt.MapFrom(x => x.Service.Name))
+                .ForMember("ServicePrice", opt => opt.MapFrom(x => x.Service.Price));
             CreateMap<FullAppointmentDTO, Appointment>().ReverseMap();
+            CreateMap<EditAppointmentDTO, Appointment>().ReverseMap();
         }
      
     }

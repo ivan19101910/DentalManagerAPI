@@ -8,6 +8,6 @@ namespace DentalManagerAPI.Services.Abstractions
         ServiceDTO GetById(int id);
         int Create(ServiceDTO serviceType);
         ServiceDTO Update(ServiceDTO serviceType);
-        void Delete(int id);
+        void Delete(int id);       
     }
 }

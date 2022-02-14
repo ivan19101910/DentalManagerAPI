@@ -17,10 +17,10 @@ namespace DentalManagerAPI.Services
             _mapper = mapper;
         }
 
-        public AppointmentDTO GetById(int id)
+        public FullAppointmentDTO GetById(int id)
         {
             var appointment = _unitOfWork.AppointmentRepository.GetById(id);
-            return _mapper.Map<AppointmentDTO>(appointment);
+            return _mapper.Map<FullAppointmentDTO>(appointment);
         }
 
         public List<ShortAppointmentDTO> GetAll()
@@ -41,14 +41,15 @@ namespace DentalManagerAPI.Services
 
         
 
-        public AppointmentDTO Update(AppointmentDTO appointment)
+        public EditAppointmentDTO Update(EditAppointmentDTO appointment)
         {
             var updateAppointment = _mapper.Map<Appointment>(appointment);
             var updatedAppointment = _unitOfWork.AppointmentRepository.Edit(updateAppointment);
+            
 
             _unitOfWork.Save();
 
-            return _mapper.Map<AppointmentDTO>(updatedAppointment);       
+            return _mapper.Map<EditAppointmentDTO>(updatedAppointment);       
         }
 
         public void Delete(int id)

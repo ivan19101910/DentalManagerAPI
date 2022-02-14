@@ -32,7 +32,7 @@ namespace DentalManagerAPI.Controllers
         //[Authorize]
         [HttpGet]
         [Route("getById/{appointmentId}")]
-        public ActionResult<AppointmentDTO> GetById(int appointmentId)
+        public ActionResult<FullAppointmentDTO> GetById(int appointmentId)
         {
             var result = _appointmentService.GetById(appointmentId);
             if (result != null)
@@ -65,11 +65,20 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<AppointmentDTO> Update(AppointmentDTO appointmentDTO)
+        public ActionResult<EditAppointmentDTO> Update(EditAppointmentDTO appointmentDTO)
         {
             try
             {
                 var result = _appointmentService.Update(appointmentDTO);
+                //_appointmentServiceService.Update()
+                if (result.AppointmentServices == null || result.AppointmentServices.Count == 0)
+                {
+                    _appointmentServiceService.DeleteAllByAppointmentId(result.Id);
+                }
+                else
+                {
+                    _appointmentServiceService.UpdateMany(appointmentDTO.AppointmentServices, result.Id);
+                }
                 return result;
             }
             catch (ArgumentException ex)
