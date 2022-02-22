@@ -16,6 +16,17 @@ namespace DentalManagerAPI.Controllers
         }
 
         [HttpGet]
+        [Route("getById/{paymentId}")]
+        public ActionResult<SalaryPaymentDTO> GetById(int paymentId)
+        {
+            var result = _salaryPaymentService.GetById(paymentId);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
+
+        [HttpGet]
         [Route("getAll")]
         public ActionResult<List<SalaryPaymentDTO>> GetAll()
         {
@@ -28,7 +39,7 @@ namespace DentalManagerAPI.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<int> Create(SalaryPaymentDTO payment)
+        public ActionResult<int> Create(CreateSalaryPaymentDTO payment)
         {
             try
             {
@@ -45,7 +56,7 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<SalaryPaymentDTO> Update(SalaryPaymentDTO salaryPaymentDTO)
+        public ActionResult<CreateSalaryPaymentDTO> Update(CreateSalaryPaymentDTO salaryPaymentDTO)
         {
             try
             {

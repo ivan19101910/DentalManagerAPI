@@ -32,7 +32,6 @@ namespace DentalManagerAPI.Services
         public int Create(AppointmentPaymentDTO payment)
         {
             var mappedPayment = _mapper.Map<AppointmentPaymentDTO, AppointmentPayment>(payment);
-
             var newPayment = _unitOfWork.AppointmentPaymentRepository.Add(mappedPayment);
             _unitOfWork.Save();
 
@@ -42,6 +41,7 @@ namespace DentalManagerAPI.Services
         public AppointmentPaymentDTO Update(AppointmentPaymentDTO payment)
         {
             var updatePayment = _mapper.Map<AppointmentPayment>(payment);
+            
             var updatedPayment = _unitOfWork.AppointmentPaymentRepository.Edit(updatePayment);
 
             _unitOfWork.Save();

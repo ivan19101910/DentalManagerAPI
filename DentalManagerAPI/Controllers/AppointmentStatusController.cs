@@ -16,6 +16,17 @@ namespace DentalManagerAPI.Controllers
         }
 
         [HttpGet]
+        [Route("getById/{statusId}")]
+        public ActionResult<AppointmentStatusDTO> GetById(int statusId)
+        {
+            var result = _appointmentStatusService.GetById(statusId);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
+
+        [HttpGet]
         [Route("getAll")]
         public ActionResult<List<AppointmentStatusDTO>> GetAll()
         {

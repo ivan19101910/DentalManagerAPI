@@ -113,6 +113,13 @@ namespace DentalManagerAPI.DAL
                 new WorkerSchedule() { Id = 3, WorkerId = 1, ScheduleId = 3 },
                 new WorkerSchedule() { Id = 4, WorkerId = 1, ScheduleId = 4 },
                 new WorkerSchedule() { Id = 5, WorkerId = 1, ScheduleId = 5 });
+
+            modelBuilder.Entity<SalaryPayment>()
+                .HasData(new SalaryPayment() { Id = 1, WorkerId = 1, Amount = 1000, MonthNumber = 1, Year = 2000, TransactionNumber = 1 },
+                new SalaryPayment() { Id = 2, WorkerId = 1, Amount = 1001, MonthNumber = 5, Year = 2021, TransactionNumber = 2 },
+                new SalaryPayment() { Id = 3, WorkerId = 1, Amount = 1002, MonthNumber = 8, Year = 2012, TransactionNumber = 3 },
+                new SalaryPayment() { Id = 4, WorkerId = 1, Amount = 1003, MonthNumber = 9, Year = 2021, TransactionNumber = 4 },
+                new SalaryPayment() { Id = 5, WorkerId = 1, Amount = 1004, MonthNumber = 12, Year = 2021, TransactionNumber = 5 });
         }
     }
 }

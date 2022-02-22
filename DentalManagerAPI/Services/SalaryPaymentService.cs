@@ -29,9 +29,9 @@ namespace DentalManagerAPI.Services
             return _mapper.Map<List<SalaryPayment>, List<SalaryPaymentDTO>>(payments.ToList());
         }
 
-        public int Create(SalaryPaymentDTO payment)
+        public int Create(CreateSalaryPaymentDTO payment)
         {
-            var mappedPayment = _mapper.Map<SalaryPaymentDTO, SalaryPayment>(payment);
+            var mappedPayment = _mapper.Map<CreateSalaryPaymentDTO, SalaryPayment>(payment);
 
             var newPayment = _unitOfWork.SalaryPaymentRepository.Add(mappedPayment);
             _unitOfWork.Save();
@@ -39,14 +39,14 @@ namespace DentalManagerAPI.Services
             return newPayment.Id;
         }
 
-        public SalaryPaymentDTO Update(SalaryPaymentDTO payment)
+        public CreateSalaryPaymentDTO Update(CreateSalaryPaymentDTO payment)
         {
             var updatePayment = _mapper.Map<SalaryPayment>(payment);
             var updatedPayment = _unitOfWork.SalaryPaymentRepository.Edit(updatePayment);
 
             _unitOfWork.Save();
 
-            return _mapper.Map<SalaryPaymentDTO>(updatedPayment);
+            return _mapper.Map<CreateSalaryPaymentDTO>(updatedPayment);
         }
 
         public void Delete(int id)

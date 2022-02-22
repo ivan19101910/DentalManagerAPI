@@ -16,6 +16,17 @@ namespace DentalManagerAPI.Controllers
         }
 
         [HttpGet]
+        [Route("getById/{positionId}")]
+        public ActionResult<PositionDTO> GetById(int positionId)
+        {
+            var result = _positionService.GetById(positionId);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
+
+        [HttpGet]
         [Route("getAll")]
         public ActionResult<List<PositionDTO>> GetAll()
         {

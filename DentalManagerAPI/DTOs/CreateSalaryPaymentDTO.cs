@@ -1,8 +1,6 @@
-﻿using DentalManagerAPI.Models;
-
-namespace DentalManagerAPI.DTOs
+﻿namespace DentalManagerAPI.DTOs
 {
-    public class SalaryPaymentDTO
+    public class CreateSalaryPaymentDTO
     {
         public int Id { get; set; }
         public short MonthNumber { get; set; }
@@ -10,7 +8,6 @@ namespace DentalManagerAPI.DTOs
         public int TransactionNumber { get; set; }
         public decimal Amount { get; set; }
         public int WorkerId { get; set; }
-        public string WorkerName { get; set; }
-        public string WorkerSurname { get; set; }
+
     }
 }

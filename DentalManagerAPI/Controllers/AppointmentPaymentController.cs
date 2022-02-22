@@ -16,6 +16,17 @@ namespace DentalManagerAPI.Controllers
         }
 
         [HttpGet]
+        [Route("getById/{paymentId}")]
+        public ActionResult<AppointmentPaymentDTO> GetById(int paymentId)
+        {
+            var result = _appointmentPaymentService.GetById(paymentId);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
+
+        [HttpGet]
         [Route("getAll")]
         public ActionResult<List<AppointmentPaymentDTO>> GetAll()
         {

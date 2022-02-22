@@ -6,8 +6,8 @@ namespace DentalManagerAPI.Services.Abstractions
     {
         List<ShowOfficeDTO> GetAll();
         OfficeDTO GetById(int id);
-        int Create(OfficeDTO serviceType);
-        OfficeDTO Update(OfficeDTO serviceType);
+        int Create(CreateOfficeDTO serviceType);
+        OfficeDTO Update(CreateOfficeDTO serviceType);
         void Delete(int id);
     }
 }

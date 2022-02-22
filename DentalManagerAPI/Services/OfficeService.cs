@@ -33,9 +33,9 @@ namespace DentalManagerAPI.Services
             return mappedList;
         }
 
-        public int Create(OfficeDTO office)
+        public int Create(CreateOfficeDTO office)
         {
-            var mappedOffice = _mapper.Map<OfficeDTO, Office>(office);
+            var mappedOffice = _mapper.Map<CreateOfficeDTO, Office>(office);
 
             var newOffice = _unitOfWork.OfficeRepository.Add(mappedOffice);
             _unitOfWork.Save();
@@ -43,7 +43,7 @@ namespace DentalManagerAPI.Services
             return newOffice.Id;
         }
 
-        public OfficeDTO Update(OfficeDTO office)
+        public OfficeDTO Update(CreateOfficeDTO office)
         {
             var updateOffice = _mapper.Map<Office>(office);
             var updatedOffice = _unitOfWork.OfficeRepository.Edit(updateOffice);

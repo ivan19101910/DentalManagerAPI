@@ -6,8 +6,8 @@ namespace DentalManagerAPI.Services.Abstractions
     {
         List<SalaryPaymentDTO> GetAll();
         SalaryPaymentDTO GetById(int id);
-        int Create(SalaryPaymentDTO serviceType);
-        SalaryPaymentDTO Update(SalaryPaymentDTO serviceType);
+        int Create(CreateSalaryPaymentDTO serviceType);
+        CreateSalaryPaymentDTO Update(CreateSalaryPaymentDTO serviceType);
         void Delete(int id);
     }
 }

@@ -16,6 +16,17 @@ namespace DentalManagerAPI.Controllers
         }
 
         [HttpGet]
+        [Route("getById/{cityId}")]
+        public ActionResult<OfficeDTO> GetById(int cityId)
+        {
+            var result = _officeService.GetById(cityId);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
+
+        [HttpGet]
         [Route("getAll")]
         public ActionResult<List<ShowOfficeDTO>> GetAll()
         {
@@ -28,7 +39,7 @@ namespace DentalManagerAPI.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<int> Create(OfficeDTO office)
+        public ActionResult<int> Create(CreateOfficeDTO office)
         {
             try
             {
@@ -45,7 +56,7 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<OfficeDTO> Update(OfficeDTO officeDTO)
+        public ActionResult<OfficeDTO> Update(CreateOfficeDTO officeDTO)
         {
             try
             {
