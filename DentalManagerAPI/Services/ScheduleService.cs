@@ -24,10 +24,10 @@ namespace DentalManagerAPI.Services
             return _mapper.Map<ScheduleDTO>(schedule);
         }
 
-        public List<ScheduleDTO> GetAll()
+        public List<ShowScheduleDTO> GetAll()
         {
             var schedules = _unitOfWork.ScheduleRepository.GetAll();
-            return _mapper.Map<List<Schedule>, List<ScheduleDTO>>(schedules.ToList());
+            return _mapper.Map<List<Schedule>, List<ShowScheduleDTO>>(schedules.ToList());
         }
 
         public int Create(ScheduleDTO schedule)

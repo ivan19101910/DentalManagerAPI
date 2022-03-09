@@ -1,4 +1,6 @@
-﻿namespace DentalManagerAPI.DTOs
+﻿using DentalManagerAPI.Models;
+
+namespace DentalManagerAPI.DTOs
 {
     public class CreateWorkerDTO
     {
@@ -10,5 +12,6 @@
         public string Address { get; set; }
         public int PositionId { get; set; }
         public int? OfficeId { get; set; }
+        public List<WorkerScheduleDTO>? WorkerSchedules {get;set;}
     }
 }

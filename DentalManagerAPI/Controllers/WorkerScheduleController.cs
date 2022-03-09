@@ -1,5 +1,6 @@
 ﻿using DentalManagerAPI.DTOs;
 using DentalManagerAPI.Helpers;
+using DentalManagerAPI.Models;
 using DentalManagerAPI.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,19 +8,19 @@ namespace DentalManagerAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ScheduleController : ControllerBase
+    public class WorkerScheduleController : ControllerBase
     {
-        private IScheduleService _scheduleService;
-        public ScheduleController(IScheduleService scheduleService)
+        private IWorkerScheduleService _workerScheduleService;
+        public WorkerScheduleController(IWorkerScheduleService workerScheduleService)
         {
-            _scheduleService = scheduleService;
+            _workerScheduleService = workerScheduleService;
         }
 
         [HttpGet]
         [Route("getById/{scheduleId}")]
-        public ActionResult<ScheduleDTO> GetById(int scheduleId)
+        public ActionResult<WorkerScheduleDTO> GetById(int scheduleId)
         {
-            var result = _scheduleService.GetById(scheduleId);
+            var result = _workerScheduleService.GetById(scheduleId);
             if (result != null)
                 return result;
             else
@@ -28,9 +29,9 @@ namespace DentalManagerAPI.Controllers
 
         [HttpGet]
         [Route("getAll")]
-        public ActionResult<List<ShowScheduleDTO>> GetAll()
+        public ActionResult<List<WorkerScheduleDTO>> GetAll()
         {
-            var result = _scheduleService.GetAll();
+            var result = _workerScheduleService.GetAll();
             if (result != null)
                 return result.ToList();
             else
@@ -39,11 +40,11 @@ namespace DentalManagerAPI.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<int> Create(ScheduleDTO schedule)
+        public ActionResult<int> Create(WorkerScheduleDTO schedule)
         {
             try
             {
-                var result = _scheduleService.Create(schedule);
+                var result = _workerScheduleService.Create(schedule);
                 if (result != null)
                     return result;
                 else
@@ -56,11 +57,11 @@ namespace DentalManagerAPI.Controllers
         }
         [HttpPut]
         [Route("update")]
-        public ActionResult<ScheduleDTO> Update(ScheduleDTO scheduleDTO)
+        public ActionResult<WorkerScheduleDTO> Update(WorkerScheduleDTO scheduleDTO)
         {
             try
             {
-                var result = _scheduleService.Update(scheduleDTO);
+                var result = _workerScheduleService.Update(scheduleDTO);
                 return result;
             }
             catch (ArgumentException ex)
@@ -75,7 +76,7 @@ namespace DentalManagerAPI.Controllers
         {
             try
             {
-                _scheduleService.Delete(id);
+                _workerScheduleService.Delete(id);
             }
             catch (ArgumentException ex)
             {

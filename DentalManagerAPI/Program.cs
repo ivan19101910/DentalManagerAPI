@@ -55,6 +55,7 @@ builder.Services.AddScoped<IDayService, DayService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<ITimeSegmentService, TimeSegmentService>();
 builder.Services.AddScoped<IAppointmentServiceService, AppointmentServiceService>();
+builder.Services.AddScoped<IWorkerScheduleService, WorkerScheduleService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

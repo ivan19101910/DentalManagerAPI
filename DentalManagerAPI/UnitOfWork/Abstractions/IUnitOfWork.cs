@@ -19,6 +19,8 @@ namespace DentalManagerAPI.UnitOfWork.Abstractions
         public IDayRepository DayRepository { get; }
         public ITimeSegmentRepository TimeSegmentRepository { get; }
         public IScheduleRepository ScheduleRepository { get; }
+        public IWorkerScheduleRepository WorkerScheduleRepository { get; }
+
 
         void Save();
     }

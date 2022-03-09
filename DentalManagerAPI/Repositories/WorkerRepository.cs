@@ -23,7 +23,18 @@ namespace DentalManagerAPI.Repositories
         
         public override Worker GetById(int id)
         {
-            return _context.Workers.Where(x => x.Id == id).Include(x => x.Office).ThenInclude(x => x.City).Include(x => x.Position).FirstOrDefault();
+            return _context.Workers.Where(x => x.Id == id)
+                .Include(x => x.Office)
+                .ThenInclude(x => x.City)
+                .Include(x => x.Position)
+                .Include(x => x.WorkerSchedules)
+                .ThenInclude(x => x.Schedule)
+                .ThenInclude(x => x.Day)
+                .Include(x => x.WorkerSchedules)
+                .ThenInclude(x => x.Schedule)
+                .ThenInclude(x => x.TimeSegment)
+                .FirstOrDefault();
         }
+
     }
 }

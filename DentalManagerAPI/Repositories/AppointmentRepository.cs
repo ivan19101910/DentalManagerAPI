@@ -18,7 +18,6 @@ namespace DentalManagerAPI.Repositories
         public override Appointment GetById(int id)
         {
             return _context.Appointments.Where(x => x.Id == id).Include(x => x.AppointmentServices).ThenInclude(x => x.Service).FirstOrDefault();
-            //return _context.Appointments.Where(x => x.Id == id).FirstOrDefault();
         }
         public override Appointment Edit(Appointment entity)
         {

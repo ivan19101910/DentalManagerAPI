@@ -3,7 +3,7 @@
     public class TimeSegmentDTO
     {
         public int Id { get; set; }
-        public TimeSpan TimeStart { get; set; }
-        public TimeSpan TimeEnd { get; set; }
+        public string TimeStart { get; set; }
+        public string TimeEnd { get; set; }
     }
 }

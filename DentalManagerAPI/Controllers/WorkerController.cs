@@ -11,9 +11,11 @@ namespace DentalManagerAPI.Controllers
     public class WorkerController : ControllerBase
     {
         private IWorkerService _workerService;
-        public WorkerController(IWorkerService workerService)
+        private IWorkerScheduleService _workerScheduleService;
+        public WorkerController(IWorkerService workerService, IWorkerScheduleService workerScheduleService)
         {
             _workerService = workerService;
+            _workerScheduleService = workerScheduleService;
         }
 
         [HttpPost("authenticate")]
@@ -72,9 +74,28 @@ namespace DentalManagerAPI.Controllers
         [Route("update")]
         public ActionResult<UpdateWorkerDTO> Update(UpdateWorkerDTO workerDTO)
         {
+            //try
+            //{
+            //    var result = _workerService.Update(workerDTO);
+            //    return result;
+            //}
+            //catch (ArgumentException ex)
+            //{
+            //    return BadRequest(ex.Message);
+            //}
+
             try
             {
                 var result = _workerService.Update(workerDTO);
+                //_appointmentServiceService.Update()
+                if (result.WorkerSchedules == null || result.WorkerSchedules.Count == 0)
+                {
+                    _workerScheduleService.DeleteAllByWorkerId(result.Id);
+                }
+                else
+                {
+                    _workerScheduleService.UpdateMany(workerDTO.WorkerSchedules, result.Id);
+                }
                 return result;
             }
             catch (ArgumentException ex)

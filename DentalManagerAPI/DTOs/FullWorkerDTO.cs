@@ -14,5 +14,6 @@
         public string OfficeCity { get; set; }
         public string OfficeAddress { get; set; }
         public string PositionName { get; set; }
+        public IList<WorkerScheduleByIdDTO> WorkerSchedules { get; set; }
     }
 }

@@ -13,5 +13,6 @@
         public int? OfficeId { get; set; }
         public virtual Office Office { get; set; }
         public virtual Position Position { get; set; }
+        public virtual IList<WorkerSchedule>? WorkerSchedules { get; set; }
     }
 }

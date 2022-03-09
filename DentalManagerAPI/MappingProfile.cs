@@ -29,6 +29,10 @@ namespace DentalManagerAPI
             CreateMap<Day, DayDTO>().ReverseMap();
             CreateMap<TimeSegment, TimeSegmentDTO>().ReverseMap();
             CreateMap<Schedule, ScheduleDTO>().ReverseMap();
+            CreateMap<Schedule, ShowScheduleDTO>()
+                .ForMember("Day", opt => opt.MapFrom(x => x.Day.Name))
+                .ForMember("TimeStart", opt => opt.MapFrom(x => x.TimeSegment.TimeStart))
+                .ForMember("TimeEnd", opt => opt.MapFrom(x => x.TimeSegment.TimeEnd));
             CreateMap<Worker, ShowWorkerDTO>()
                 .ForMember("City", opt => opt.MapFrom(x => x.Office.City.Name))
                 .ForMember("PositionName", opt => opt.MapFrom(x => x.Position.PositionName));
@@ -55,6 +59,12 @@ namespace DentalManagerAPI
                 .ForMember("ServicePrice", opt => opt.MapFrom(x => x.Service.Price));
             CreateMap<FullAppointmentDTO, Appointment>().ReverseMap();
             CreateMap<EditAppointmentDTO, Appointment>().ReverseMap();
+
+            CreateMap<WorkerSchedule, WorkerScheduleDTO>().ReverseMap();
+            CreateMap<WorkerSchedule, WorkerScheduleByIdDTO>()
+                .ForMember("Day", opt => opt.MapFrom(x => x.Schedule.Day.Name))
+                .ForMember("TimeStart", opt => opt.MapFrom(x => x.Schedule.TimeSegment.TimeStart))
+                .ForMember("TimeEnd", opt => opt.MapFrom(x => x.Schedule.TimeSegment.TimeEnd));
         }
      
     }

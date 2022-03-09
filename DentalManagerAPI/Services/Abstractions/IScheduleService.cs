@@ -4,7 +4,7 @@ namespace DentalManagerAPI.Services.Abstractions
 {
     public interface IScheduleService
     {
-        List<ScheduleDTO> GetAll();
+        List<ShowScheduleDTO> GetAll();
         ScheduleDTO GetById(int id);
         int Create(ScheduleDTO serviceType);
         ScheduleDTO Update(ScheduleDTO serviceType);
