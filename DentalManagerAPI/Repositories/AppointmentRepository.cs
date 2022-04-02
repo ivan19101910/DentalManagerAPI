@@ -17,7 +17,40 @@ namespace DentalManagerAPI.Repositories
         }
         public override Appointment GetById(int id)
         {
-            return _context.Appointments.Where(x => x.Id == id).Include(x => x.AppointmentServices).ThenInclude(x => x.Service).FirstOrDefault();
+            //return _context.Appointments.Where(x => x.Id == id).Include(x => x.AppointmentServices).ThenInclude(x => x.Service).FirstOrDefault();
+            return _context.Appointments
+                .Where(x => x.Id == id)
+                .Include(x => x.AppointmentServices)
+                .ThenInclude(x => x.Service)
+                .Include(x => x.Worker)
+                .ThenInclude(x => x.Position)
+                .Include(x => x.Patient)
+                .Include(x => x.Status)
+                .FirstOrDefault();
+        }
+        public IQueryable<Appointment> GetByWorkerId(int id)
+        {
+            //return _context.Appointments.Where(x => x.Id == id).Include(x => x.AppointmentServices).ThenInclude(x => x.Service).FirstOrDefault();
+            return _context.Appointments
+                .Where(x => x.WorkerId == id)
+                .Include(x => x.AppointmentServices)
+                .ThenInclude(x => x.Service)
+                .Include(x => x.Worker)
+                .ThenInclude(x => x.Position)
+                .Include(x => x.Patient)
+                .Include(x => x.Status);
+        }
+        public IQueryable<Appointment> GetByPatientId(int id)
+        {
+            //return _context.Appointments.Where(x => x.Id == id).Include(x => x.AppointmentServices).ThenInclude(x => x.Service).FirstOrDefault();
+            return _context.Appointments
+                .Where(x => x.PatientId == id)
+                .Include(x => x.AppointmentServices)
+                .ThenInclude(x => x.Service)
+                .Include(x => x.Worker)
+                .ThenInclude(x => x.Position)
+                .Include(x => x.Patient)
+                .Include(x => x.Status);
         }
         public override Appointment Edit(Appointment entity)
         {

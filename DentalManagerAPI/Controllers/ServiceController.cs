@@ -15,7 +15,7 @@ namespace DentalManagerAPI.Controllers
             _serviceService = serviceService;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("get-by-id/{serviceId}")]
         public ActionResult<ServiceDTO> GetById(int serviceId)

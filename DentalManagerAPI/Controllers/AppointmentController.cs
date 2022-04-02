@@ -41,6 +41,28 @@ namespace DentalManagerAPI.Controllers
                 return NotFound();
         }
 
+        [HttpGet]
+        [Route("getByWorkerId/{workerId}")]
+        public ActionResult<List<FullAppointmentDTO>> GetByWorkerId(int workerId)
+        {
+            var result = _appointmentService.GetByWorkerId(workerId);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
+
+        [HttpGet]
+        [Route("getByPatientId/{patientId}")]
+        public ActionResult<List<FullAppointmentDTO>> GetByPatientId(int patientId)
+        {
+            var result = _appointmentService.GetByPatientId(patientId);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
+
         [HttpPost]
         [Route("create")]
         public ActionResult<int> Create(CreateAppointmentDTO appointment)
