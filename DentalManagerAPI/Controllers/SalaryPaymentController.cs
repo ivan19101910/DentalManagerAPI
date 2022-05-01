@@ -25,6 +25,7 @@ namespace DentalManagerAPI.Controllers
             else
                 return NotFound();
         }
+        
 
         [HttpGet]
         [Route("getAll")]

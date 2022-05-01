@@ -40,6 +40,18 @@ namespace DentalManagerAPI.Repositories
                 .Include(x => x.Patient)
                 .Include(x => x.Status);
         }
+        public IQueryable<Appointment> GetByWorkerId(int id, int monthNumber, int year)
+        {
+            //return _context.Appointments.Where(x => x.Id == id).Include(x => x.AppointmentServices).ThenInclude(x => x.Service).FirstOrDefault();
+            return _context.Appointments
+                .Where(x => x.WorkerId == id && x.AppointmentDate.Month == monthNumber && x.AppointmentDate.Year == year)
+                .Include(x => x.AppointmentServices)
+                .ThenInclude(x => x.Service)
+                .Include(x => x.Worker)
+                .ThenInclude(x => x.Position)
+                .Include(x => x.Patient)
+                .Include(x => x.Status);
+        }
         public IQueryable<Appointment> GetByPatientId(int id)
         {
             //return _context.Appointments.Where(x => x.Id == id).Include(x => x.AppointmentServices).ThenInclude(x => x.Service).FirstOrDefault();

@@ -16,5 +16,10 @@ namespace DentalManagerAPI.Repositories
         {
             return base.GetAll().Include(p => p.ServiceType);
         }
+
+        public override Service GetById(int id)
+        {
+            return base.GetAll().Where(x => x.Id == id).Include(x => x.ServiceType).FirstOrDefault();
+        }
     }
 }

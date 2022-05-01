@@ -35,6 +35,13 @@ namespace DentalManagerAPI.Repositories
                 .ThenInclude(x => x.TimeSegment)
                 .FirstOrDefault();
         }
+        public Worker GetByIdWithAppointments(int id)
+        {
+            return _context.Workers.Where(x => x.Id == id)
+                .Include(x => x.Appointments)
+                .Include(x => x.Position)
+                .FirstOrDefault();
+        }
 
     }
 }

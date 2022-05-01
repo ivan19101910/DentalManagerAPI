@@ -11,6 +11,6 @@ namespace DentalManagerAPI.Services.Abstractions
         int Create(CreateWorkerDTO worker);
         UpdateWorkerDTO Update(UpdateWorkerDTO worker);
         void Delete(int id);
-        
+        public decimal CalculateSalaryByWorkerId(int workerId, int monthNumber, int year);
     }
 }

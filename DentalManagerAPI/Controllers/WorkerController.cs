@@ -40,6 +40,16 @@ namespace DentalManagerAPI.Controllers
             else
                 return NotFound();
         }
+        [HttpGet]
+        [Route("getSalaryById/{workerId}/{monthNumber}/{year}")]
+        public ActionResult<decimal> GetSalaryById(int workerId, int monthNumber, int year)
+        {
+            var result = _workerService.CalculateSalaryByWorkerId(workerId, monthNumber, year);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
         //[Authorize]
         [HttpGet]
         [Route("getAll")]

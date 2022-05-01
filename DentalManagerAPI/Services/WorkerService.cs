@@ -38,6 +38,31 @@ namespace DentalManagerAPI.Services
             return new AuthenticateResponse(worker, token);
         }
 
+        public decimal CalculateSalaryByWorkerId(int workerId, int monthNumber, int year)
+        {
+            var worker = _unitOfWork.WorkerRepository.GetById(workerId);
+            
+            var appointments = _unitOfWork.AppointmentRepository.GetByWorkerId(workerId, monthNumber, year);
+            decimal monthlySalary;
+            if(appointments != null)
+            {
+                if(worker.Position.BaseRate != 0)
+                {
+                    monthlySalary = worker.Position.BaseRate;
+                }
+                else
+                {
+                    monthlySalary = appointments.Sum(x => x.TotalSum).GetValueOrDefault();
+                }
+                return monthlySalary;
+            }
+            else
+            {
+                return 0;
+            }
+            
+        }
+
         public FullWorkerDTO GetWorkerById(int id)
         {
             var worker = _unitOfWork.WorkerRepository.GetById(id);
