@@ -37,6 +37,16 @@ namespace DentalManagerAPI.Controllers
             else
                 return NotFound();
         }
+        [HttpGet]
+        [Route("getByServiceType/{serviceType}")]
+        public ActionResult<List<ServiceDTO>> GetWorkersByAddress(string serviceType)
+        {
+            var result = _serviceService.GetByServiceType(serviceType);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
 
         [HttpPost]
         [Route("create")]

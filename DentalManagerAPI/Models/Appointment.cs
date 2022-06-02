@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public DateTime AppointmentDate { get; set; }
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
         public TimeSpan? RealEndTime { get; set; }
         public TimeSpan AppointmentTime { get; set; }
         public int WorkerId { get; set; }

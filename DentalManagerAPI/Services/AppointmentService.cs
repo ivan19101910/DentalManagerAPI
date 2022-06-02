@@ -34,6 +34,11 @@ namespace DentalManagerAPI.Services
             var appointments = _unitOfWork.AppointmentRepository.GetByPatientId(id);
             return _mapper.Map<List<Appointment>, List<FullAppointmentDTO>>(appointments.ToList());
         }
+        public List<FullAppointmentDTO> GetByPhoneNumber(string phoneNumber)
+        {
+            var appointments = _unitOfWork.AppointmentRepository.GetByPhoneNumber(phoneNumber);
+            return _mapper.Map<List<Appointment>, List<FullAppointmentDTO>>(appointments.ToList());
+        }
 
         public List<ShortAppointmentDTO> GetAll()
         {

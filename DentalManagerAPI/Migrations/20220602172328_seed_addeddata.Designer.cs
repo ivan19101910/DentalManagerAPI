@@ -4,6 +4,7 @@ using DentalManagerAPI.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentalManagerAPI.Migrations
 {
     [DbContext(typeof(DentalManagerDBContext))]
-    partial class DentalManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220602172328_seed_addeddata")]
+    partial class seed_addeddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,6 +40,7 @@ namespace DentalManagerAPI.Migrations
                         .HasColumnType("time");
 
                     b.Property<string>("Notes")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PatientId")

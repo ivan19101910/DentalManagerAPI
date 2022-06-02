@@ -1,5 +1,7 @@
 ﻿using DentalManagerAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DentalManagerAPI.DAL
 {
@@ -31,7 +33,7 @@ namespace DentalManagerAPI.DAL
                 new Patient() { Id = 21, Address = "test3", DateOfBirth = new DateTime(2002, 12, 19).Date, FirstName = "Maksym", LastName = "Boiko", PhoneNumber = "+380963386182" });
 
             modelBuilder.Entity<Worker>()
-                .HasData(new Worker() { Id = 1, FirstName = "Ivan", LastName = "Raikovskyi", PhoneNumber = "+384613646192", Address="testadd", Email="test@gmail.com", Password ="test", OfficeId = 1, PositionId = 1  });
+                .HasData(new Worker() { Id = 1, FirstName = "Ivan", LastName = "Raikovskyi", PhoneNumber = "+384613646192", Address="testadd", Email="test@gmail.com", Password = "a98ec5c5044800c88e862f007b98d89815fc40ca155d6ce7909530d792e909ce", OfficeId = 1, PositionId = 1  });
 
             modelBuilder.Entity<ServiceType>()
                 .HasData(new ServiceType() { Id = 1, Name = "Консультація" },

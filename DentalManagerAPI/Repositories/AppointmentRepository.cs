@@ -64,6 +64,18 @@ namespace DentalManagerAPI.Repositories
                 .Include(x => x.Patient)
                 .Include(x => x.Status);
         }
+        public IQueryable<Appointment> GetByPhoneNumber(string phoneNumber)
+        {
+            return _context.Appointments
+                .Include(x => x.AppointmentServices)
+                .ThenInclude(x => x.Service)
+                .Include(x => x.Worker)
+                .ThenInclude(x => x.Position)
+                .Include(x => x.Patient)
+                .Where(x => x.Patient.PhoneNumber == phoneNumber)
+                .Include(x => x.Status)
+                ;
+        }
         public override Appointment Edit(Appointment entity)
         {
             

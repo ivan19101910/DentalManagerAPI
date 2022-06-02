@@ -50,6 +50,26 @@ namespace DentalManagerAPI.Controllers
             else
                 return NotFound();
         }
+        [HttpGet]
+        [Route("getByNameSurname/{name}/{surname}")]
+        public ActionResult<List<FullWorkerDTO>> GetWorkersByNameSurname(string name, string surname)
+        {
+            var result = _workerService.GetWorkersByNameSurname(name, surname);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
+        [HttpGet]
+        [Route("getByAddress/{city}/{address}")]
+        public ActionResult<List<FullWorkerDTO>> GetWorkersByAddress(string city, string address)
+        {
+            var result = _workerService.GetWorkersByAddress(city, address);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
         //[Authorize]
         [HttpGet]
         [Route("getAll")]

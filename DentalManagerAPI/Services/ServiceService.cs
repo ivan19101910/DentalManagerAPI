@@ -32,6 +32,13 @@ namespace DentalManagerAPI.Services
             var mappedList = _mapper.Map<List<Service>, List<ServiceDTO>>(services.ToList());
             return mappedList;
         }
+        public List<ServiceDTO> GetByServiceType(string serviceType)
+        {
+            var services = _unitOfWork.ServiceRepository.GetByServiceType(serviceType);
+            var mappedList = _mapper.Map<List<Service>, List<ServiceDTO>>(services.ToList());
+            return mappedList;
+        }
+        
 
         public int Create(ServiceDTO service)
         {

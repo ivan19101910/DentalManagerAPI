@@ -18,6 +18,7 @@ namespace DentalManagerAPI.Controllers
             _appointmentServiceService = appointmentServiceService;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("getAll")]
         public ActionResult<List<ShortAppointmentDTO>> GetAll()
@@ -29,7 +30,7 @@ namespace DentalManagerAPI.Controllers
                 return NotFound();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("getById/{appointmentId}")]
         public ActionResult<FullAppointmentDTO> GetById(int appointmentId)
@@ -40,7 +41,19 @@ namespace DentalManagerAPI.Controllers
             else
                 return NotFound();
         }
+        [Authorize]
+        [HttpGet]
+        [Route("getByPhoneNumber/{phoneNumber}")]
+        public ActionResult<List<FullAppointmentDTO>> GetByPhoneNumber(string phoneNumber)
+        {
+            var result = _appointmentService.GetByPhoneNumber(phoneNumber);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
+        }
 
+        [Authorize]
         [HttpGet]
         [Route("getByWorkerId/{workerId}")]
         public ActionResult<List<FullAppointmentDTO>> GetByWorkerId(int workerId)
@@ -52,6 +65,7 @@ namespace DentalManagerAPI.Controllers
                 return NotFound();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("getByPatientId/{patientId}")]
         public ActionResult<List<FullAppointmentDTO>> GetByPatientId(int patientId)
@@ -63,6 +77,7 @@ namespace DentalManagerAPI.Controllers
                 return NotFound();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("create")]
         public ActionResult<int> Create(CreateAppointmentDTO appointment)
@@ -85,6 +100,7 @@ namespace DentalManagerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPut]
         [Route("update")]
         public ActionResult<EditAppointmentDTO> Update(EditAppointmentDTO appointmentDTO)
@@ -108,7 +124,7 @@ namespace DentalManagerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpDelete]
         [Route("delete/{id}")]
         public ActionResult<int> Delete(int id)

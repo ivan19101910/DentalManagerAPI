@@ -4,6 +4,7 @@ using DentalManagerAPI.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentalManagerAPI.Migrations
 {
     [DbContext(typeof(DentalManagerDBContext))]
-    partial class DentalManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220602173347_appointment_allow_notesnull")]
+    partial class appointment_allow_notesnull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

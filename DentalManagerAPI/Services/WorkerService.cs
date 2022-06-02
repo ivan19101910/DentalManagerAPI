@@ -44,22 +44,16 @@ namespace DentalManagerAPI.Services
             
             var appointments = _unitOfWork.AppointmentRepository.GetByWorkerId(workerId, monthNumber, year);
             decimal monthlySalary;
-            if(appointments != null)
+            if(worker.Position.BaseRate != 0)
             {
-                if(worker.Position.BaseRate != 0)
-                {
-                    monthlySalary = worker.Position.BaseRate;
-                }
-                else
-                {
-                    monthlySalary = appointments.Sum(x => x.TotalSum).GetValueOrDefault();
-                }
-                return monthlySalary;
+                monthlySalary = worker.Position.BaseRate;
             }
             else
             {
-                return 0;
+                monthlySalary = appointments.Sum(x => x.TotalSum).GetValueOrDefault();
             }
+            return monthlySalary;
+
             
         }
 
@@ -78,7 +72,18 @@ namespace DentalManagerAPI.Services
             var mappedList = _mapper.Map<List<Worker>, List<ShowWorkerDTO>>(workers.ToList());
             return mappedList;
         }
-
+        public List<FullWorkerDTO> GetWorkersByNameSurname(string name, string surname)
+        {
+            var workers = _unitOfWork.WorkerRepository.GetByNameSurname(name, surname);
+            var mappedList = _mapper.Map<List<Worker>, List<FullWorkerDTO>>(workers.ToList());
+            return mappedList;
+        }
+        public List<FullWorkerDTO> GetWorkersByAddress(string city, string address)
+        {
+            var workers = _unitOfWork.WorkerRepository.GetByAddress(city, address);
+            var mappedList = _mapper.Map<List<Worker>, List<FullWorkerDTO>>(workers.ToList());
+            return mappedList;
+        }
         public int Create(CreateWorkerDTO worker)
         {
             var mappedWorker = _mapper.Map<CreateWorkerDTO, Worker>(worker);

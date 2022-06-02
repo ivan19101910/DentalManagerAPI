@@ -42,6 +42,33 @@ namespace DentalManagerAPI.Repositories
                 .Include(x => x.Position)
                 .FirstOrDefault();
         }
+        public IQueryable<Worker> GetByNameSurname(string name, string surname)
+        {
+            return _context.Workers.Where(x => x.FirstName == name && x.LastName == surname)
+                .Include(x => x.Office)
+                .ThenInclude(x => x.City)
+                .Include(x => x.Position)
+                .Include(x => x.WorkerSchedules)
+                .ThenInclude(x => x.Schedule)
+                .ThenInclude(x => x.Day)
+                .Include(x => x.WorkerSchedules)
+                .ThenInclude(x => x.Schedule)
+                .ThenInclude(x => x.TimeSegment);           
+        }
+        public IQueryable<Worker> GetByAddress(string city, string address)
+        {
+            return _context.Workers.Where(x => x.Office.City.Name == city && x.Office.Address == address)
+                .Include(x => x.Office)
+                .ThenInclude(x => x.City)
+                .Include(x => x.Position)
+                .Include(x => x.WorkerSchedules)
+                .ThenInclude(x => x.Schedule)
+                .ThenInclude(x => x.Day)
+                .Include(x => x.WorkerSchedules)
+                .ThenInclude(x => x.Schedule)
+                .ThenInclude(x => x.TimeSegment);
+        }
+
 
     }
 }
