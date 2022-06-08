@@ -1,7 +1,9 @@
 ﻿using DentalManagerAPI.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace DentalManagerAPI.Models
 {
+    [Index(nameof(PhoneNumber), IsUnique = true)]
     public partial class Patient : IEntity<int>
     {
         public int Id { get; set; }

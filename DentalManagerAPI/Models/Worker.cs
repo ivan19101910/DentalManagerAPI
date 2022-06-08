@@ -1,5 +1,8 @@
-﻿namespace DentalManagerAPI.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace DentalManagerAPI.Models
 {
+    [Index(nameof(PhoneNumber), IsUnique = true)]
     public class Worker : IEntity<int>
     {
         public int Id { get; set; }

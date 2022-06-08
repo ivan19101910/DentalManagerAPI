@@ -10,30 +10,28 @@ namespace DentalManagerAPI.DAL
         public static void Seed(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Patient>()
-                .HasData(new Patient() { Id = 1, Address = "test", DateOfBirth = new DateTime(2000, 10, 19).Date, FirstName = "Ivan", LastName = "Raikovskyi", PhoneNumber = "+380673646192" },
-                new Patient() { Id = 2, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 3, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 4, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 5, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 6, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 7, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 8, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 9, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 10, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 11, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 12, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 13, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 14, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 15, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 16, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 17, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 18, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 19, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 20, Address = "test2", DateOfBirth = new DateTime(2001, 11, 19).Date, FirstName = "Mykola", LastName = "Harch", PhoneNumber = "+380973656192" },
-                new Patient() { Id = 21, Address = "test3", DateOfBirth = new DateTime(2002, 12, 19).Date, FirstName = "Maksym", LastName = "Boiko", PhoneNumber = "+380963386182" });
+                .HasData(new Patient() { Id = 1, Address = "Миколая 67", DateOfBirth = new DateTime(2000, 10, 19).Date, FirstName = "Микола", LastName = "Харш", PhoneNumber = "0673646191" },
+                new Patient() { Id = 2, Address = "Є. Коновальця 31а", DateOfBirth = new DateTime(2001, 11, 1).Date, FirstName = "Йосип", LastName = "Горняткевич", PhoneNumber = "0973656192" },
+                new Patient() { Id = 3, Address = "Пулюя 24", DateOfBirth = new DateTime(2001, 11, 2).Date, FirstName = "Лев", LastName = "Марунчак", PhoneNumber = "0973656193" },
+                new Patient() { Id = 4, Address = "Наукова 44", DateOfBirth = new DateTime(2001, 11, 3).Date, FirstName = "Йоган", LastName = "Іващук", PhoneNumber = "0973656194" },
+                new Patient() { Id = 5, Address = "Стрийська 192", DateOfBirth = new DateTime(2001, 11, 4).Date, FirstName = "Костянтин", LastName = "Андрухович", PhoneNumber = "0973656195" },
+                new Patient() { Id = 6, Address = "Кн. Ольги 12", DateOfBirth = new DateTime(2001, 11, 5).Date, FirstName = "Марко", LastName = "Клименко", PhoneNumber = "0973656196" },
+                new Patient() { Id = 7, Address = "С. Крушельницької 13", DateOfBirth = new DateTime(2001, 11, 6).Date, FirstName = "Федір", LastName = "Губ'як", PhoneNumber = "0973656197" },
+                new Patient() { Id = 8, Address = "Сміливих 27", DateOfBirth = new DateTime(2001, 11, 7).Date, FirstName = "Юрій", LastName = "Скрипник", PhoneNumber = "0973656198" },
+                new Patient() { Id = 9, Address = "Б.Хмельницкого 155", DateOfBirth = new DateTime(2001, 11, 8).Date, FirstName = "Миролюб", LastName = "Кротевич", PhoneNumber = "0973656199" },
+                new Patient() { Id = 10, Address = "Кульпарківська 1", DateOfBirth = new DateTime(2001, 11, 9).Date, FirstName = "Євген", LastName = "Островський", PhoneNumber = "0973656119" },
+                new Patient() { Id = 11, Address = "Садова 11", DateOfBirth = new DateTime(2001, 11, 10).Date, FirstName = "Євген", LastName = "Чеховський", PhoneNumber = "0973656112" },
+                new Patient() { Id = 12, Address = "Любінська 89", DateOfBirth = new DateTime(2001, 11, 11).Date, FirstName = "Федір", LastName = "Кубів", PhoneNumber = "0973096192" },
+                new Patient() { Id = 13, Address = "Антоновича 67", DateOfBirth = new DateTime(2001, 11, 12).Date, FirstName = "Нестор", LastName = "Дехтяренко", PhoneNumber = "0913656192" },
+                new Patient() { Id = 14, Address = "Героїв УПА 44", DateOfBirth = new DateTime(2001, 11, 13).Date, FirstName = "Ілля", LastName = "Герасимюк", PhoneNumber = "0973678192" },
+                new Patient() { Id = 15, Address = "С. Бандери 22", DateOfBirth = new DateTime(2001, 11, 14).Date, FirstName = "Маркіян", LastName = "Ковтун", PhoneNumber = "0973506192" });
 
             modelBuilder.Entity<Worker>()
-                .HasData(new Worker() { Id = 1, FirstName = "Ivan", LastName = "Raikovskyi", PhoneNumber = "+384613646192", Address="testadd", Email="test@gmail.com", Password = "a98ec5c5044800c88e862f007b98d89815fc40ca155d6ce7909530d792e909ce", OfficeId = 1, PositionId = 1  });
+                .HasData(new Worker() { Id = 1, FirstName = "Іван", LastName = "Райковський", PhoneNumber = "0613646191", Address="І.Пулюя 33а", Email="test@gmail.com", Password = "a98ec5c5044800c88e862f007b98d89815fc40ca155d6ce7909530d792e909ce", OfficeId = 1, PositionId = 1  },
+                new Worker() { Id = 2, FirstName = "Ілля", LastName = "Чеховський", PhoneNumber = "0613646192", Address = "testadd", Email = "test@gmail.com", Password = "a98ec5c5044800c88e862f007b98d89815fc40ca155d6ce7909530d792e909ce", OfficeId = 1, PositionId = 1 },
+                new Worker() { Id = 3, FirstName = "Максим", LastName = "Притула", PhoneNumber = "0613646193", Address = "testadd", Email = "test@gmail.com", Password = "a98ec5c5044800c88e862f007b98d89815fc40ca155d6ce7909530d792e909ce", OfficeId = 1, PositionId = 1 },
+                new Worker() { Id = 4, FirstName = "Федір", LastName = "Бандера", PhoneNumber = "0613646194", Address = "testadd", Email = "test@gmail.com", Password = "a98ec5c5044800c88e862f007b98d89815fc40ca155d6ce7909530d792e909ce", OfficeId = 1, PositionId = 1 },
+                new Worker() { Id = 5, FirstName = "Максим", LastName = "Мовчан", PhoneNumber = "0613646195", Address = "testadd", Email = "test@gmail.com", Password = "a98ec5c5044800c88e862f007b98d89815fc40ca155d6ce7909530d792e909ce", OfficeId = 1, PositionId = 1 });
 
             modelBuilder.Entity<ServiceType>()
                 .HasData(new ServiceType() { Id = 1, Name = "Консультація" },
