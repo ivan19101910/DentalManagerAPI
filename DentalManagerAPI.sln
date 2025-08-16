@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentalManager.Api", "DentalManagerAPI\DentalManager.Api.csproj", "{FD74D750-A106-4653-AD4E-C0456ACF109C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentalManager.Domain", "DentalManager.Domain\DentalManager.Domain.csproj", "{C493F4E9-931E-4F9F-B9B0-02973A46A966}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentalManager.Data", "DentalManager.Data\DentalManager.Data.csproj", "{5912C44F-1B62-4EF6-BABB-5E29FEF7E520}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{FD74D750-A106-4653-AD4E-C0456ACF109C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD74D750-A106-4653-AD4E-C0456ACF109C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD74D750-A106-4653-AD4E-C0456ACF109C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C493F4E9-931E-4F9F-B9B0-02973A46A966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C493F4E9-931E-4F9F-B9B0-02973A46A966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C493F4E9-931E-4F9F-B9B0-02973A46A966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C493F4E9-931E-4F9F-B9B0-02973A46A966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5912C44F-1B62-4EF6-BABB-5E29FEF7E520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5912C44F-1B62-4EF6-BABB-5E29FEF7E520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5912C44F-1B62-4EF6-BABB-5E29FEF7E520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5912C44F-1B62-4EF6-BABB-5E29FEF7E520}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
