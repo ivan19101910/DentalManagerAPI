@@ -1,0 +1,22 @@
+﻿using DentalManager.Application.Contracts.Patients;
+using DentalManager.Application.Contracts.Workers;
+
+namespace DentalManager.Application.Contracts.Appointments;
+
+public class FullAppointmentDTO
+{
+    public int Id { get; set; }
+    public DateTime AppointmentDate { get; set; }
+    public string Notes { get; set; }
+    public TimeSpan? RealEndTime { get; set; }
+    public TimeSpan AppointmentTime { get; set; }
+    public int WorkerId { get; set; }
+    
+    public int PatientId { get; set; }
+    public int StatusId { get; set; }
+    public decimal? TotalSum { get; set; }
+    public FullWorkerDTO Worker { get; set; }
+    public PatientDTO Patient { get; set; }
+    public AppointmentStatusDTO Status { get; set; }
+    public List<AppointmentServiceDTO>? AppointmentServices { get; set; }
+}
