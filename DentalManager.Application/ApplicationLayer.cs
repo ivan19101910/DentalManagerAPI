@@ -29,9 +29,7 @@ public static class ApplicationLayer
     {
         var configuration = services.GetConfiguration();
 
-        var f = configuration.GetSection("AppSettings").Value;
-
-        //services.Configure<AppSettings>(f);
+        services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
 
         services
              .AddTransient<IAppointmentService, AppointmentService>()
@@ -51,13 +49,10 @@ public static class ApplicationLayer
              .AddTransient<IWorkerService, WorkerService>()
              .AddTransient<IWorkerScheduleService, WorkerScheduleService>();
 
-        /*var mappingConfig = new MapperConfiguration(mc =>
+        services.AddAutoMapper(mc =>
         {
             mc.AddProfile(new MappingProfile());
         });
-
-        IMapper mapper = mappingConfig.CreateMapper();
-        services.AddSingleton(mapper);*/
 
         return services;
     }
