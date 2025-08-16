@@ -1,6 +1,4 @@
-﻿using DentalManagerAPI.DTOs;
-using DentalManagerAPI.Helpers;
-using DentalManagerAPI.Services.Abstractions;
+﻿using DentalManager.Application.Contracts.Appointments;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DentalManagerAPI.Controllers

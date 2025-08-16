@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DentalManager.Application.Contracts\DentalManager.Application.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>
