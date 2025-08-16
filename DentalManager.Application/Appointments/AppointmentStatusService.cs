@@ -1,30 +1,30 @@
 ﻿using DentalManager.Application.Contracts.Appointments;
+using DentalManager.Domain.Appointments;
+using AutoMapper;
 
 namespace DentalManager.Application.Appointments;
 
 public sealed class AppointmentStatusService : IAppointmentStatusService
 {
-    private IUnitOfWork _unitOfWork;
-    private IMapper _mapper;
+    private readonly IAppointmentStatusRepository _appointmentStatusRepository;
+    private readonly IMapper _mapper;
 
-    public AppointmentStatusService(IUnitOfWork unitOfWork, IMapper mapper)
+    public AppointmentStatusService(IAppointmentStatusRepository appointmentStatusRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _appointmentStatusRepository = appointmentStatusRepository;
         _mapper = mapper;
     }
 
     public AppointmentStatusDTO GetById(int id)
     {
-        var status = _unitOfWork.AppointmentStatusRepository.GetById(id);
-
+        var status = _appointmentStatusRepository.GetById(id);
         var mappedStatus = _mapper.Map<AppointmentStatusDTO>(status);
         return mappedStatus;
-
     }
 
     public List<AppointmentStatusDTO> GetAll()
     {
-        var statuses = _unitOfWork.AppointmentStatusRepository.GetAll();
+        var statuses = _appointmentStatusRepository.GetAll();
         var mappedList = _mapper.Map<List<AppointmentStatus>, List<AppointmentStatusDTO>>(statuses.ToList());
         return mappedList;
     }
@@ -32,32 +32,24 @@ public sealed class AppointmentStatusService : IAppointmentStatusService
     public int Create(AppointmentStatusDTO status)
     {
         var mappedStatus = _mapper.Map<AppointmentStatusDTO, AppointmentStatus>(status);
-
-        var newStatus = _unitOfWork.AppointmentStatusRepository.Add(mappedStatus);
-        _unitOfWork.Save();
-
+        var newStatus = _appointmentStatusRepository.Add(mappedStatus);
         return newStatus.Id;
     }
 
     public AppointmentStatusDTO Update(AppointmentStatusDTO status)
     {
         var updateStatus = _mapper.Map<AppointmentStatus>(status);
-        var updatedStatus = _unitOfWork.AppointmentStatusRepository.Edit(updateStatus);
-
-        _unitOfWork.Save();
-
+        var updatedStatus = _appointmentStatusRepository.Edit(updateStatus);
         var updatedStatusDTO = _mapper.Map<AppointmentStatusDTO>(updatedStatus);
-
         return updatedStatusDTO;
     }
 
     public void Delete(int id)
     {
-        var status = _unitOfWork.AppointmentStatusRepository.GetById(id);
+        var status = _appointmentStatusRepository.GetById(id);
         if (status != null)
         {
-            _unitOfWork.AppointmentStatusRepository.Delete(id);
-            _unitOfWork.Save();
+            _appointmentStatusRepository.Delete(id);
         }
     }
 }

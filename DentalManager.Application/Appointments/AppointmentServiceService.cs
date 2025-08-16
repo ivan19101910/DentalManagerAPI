@@ -1,35 +1,32 @@
 ﻿using DentalManager.Application.Contracts.Appointments;
+using DomainAppointmentService = DentalManager.Domain.Appointments.AppointmentService;
+using DentalManager.Domain.Appointments;
+using AutoMapper;
+using System.Linq;
 
 namespace DentalManager.Application.Appointments;
 
 public sealed class AppointmentServiceService : IAppointmentServiceService
 {
-    private IUnitOfWork _unitOfWork;
-    private IMapper _mapper;
+    private readonly IAppointmentServiceRepository _appointmentServiceRepository;
+    private readonly IMapper _mapper;
 
-    public AppointmentServiceService(IUnitOfWork unitOfWork, IMapper mapper)
+    public AppointmentServiceService(IAppointmentServiceRepository appointmentServiceRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _appointmentServiceRepository = appointmentServiceRepository;
         _mapper = mapper;
     }
 
     public List<int> CreateMany(List<AppointmentServiceDTO> appointmentList, int appointmentId)
     {
         List<int> createdIds = new List<int>();
-
         foreach (var appointment in appointmentList)
         {
-            var mappedAppointment = _mapper.Map<AppointmentServiceDTO, Models.AppointmentService>(appointment);
-
+            var mappedAppointment = _mapper.Map<AppointmentServiceDTO, DomainAppointmentService>(appointment);
             mappedAppointment.AppointmentId = appointmentId;
-
-            var newAppointment = _unitOfWork.AppointmentServiceRepository.Add(mappedAppointment);
+            var newAppointment = _appointmentServiceRepository.Add(mappedAppointment);
             createdIds.Add(newAppointment.Id);
         }
-
-
-        _unitOfWork.Save();
-
         return createdIds;
     }
 
@@ -37,13 +34,12 @@ public sealed class AppointmentServiceService : IAppointmentServiceService
     {
         var comparer = new AppointmentServiceEqualityComparer();
         var comparerWithoutAmount = new AppointmentServiceEqualityComparerWithoutAmount();
-
-        var appointmentServices = _unitOfWork.AppointmentServiceRepository.GetByAppointmentId(appointmentId);
-        var updateAppointmentServices = _mapper.Map<List<Models.AppointmentService>>(appService);
-        var difference = updateAppointmentServices.Except(appointmentServices, comparer);
-        var forUpdate = difference.Where(x => x.Id != 0);
-        difference = difference.Except(forUpdate, comparer);
-        if (difference.Any())//if difference contains elements means that object was added(changed)//if only amount changed need to update
+        var appointmentServices = _appointmentServiceRepository.GetByAppointmentId(appointmentId).ToList();
+        var updateAppointmentServices = _mapper.Map<List<DomainAppointmentService>>(appService);
+        var difference = updateAppointmentServices.Except(appointmentServices, comparer).ToList();
+        var forUpdate = difference.Where(x => x.Id != 0).ToList();
+        difference = difference.Except(forUpdate, comparer).ToList();
+        if (difference.Any())
         {
             CreateMany(_mapper.Map<List<AppointmentServiceDTO>>(difference), appointmentId);
         }
@@ -52,42 +48,36 @@ public sealed class AppointmentServiceService : IAppointmentServiceService
             foreach (var appointmentService in forUpdate)
             {
                 var update = appointmentService;
-                _unitOfWork.AppointmentServiceRepository.Edit(update);
+                _appointmentServiceRepository.Edit(update);
             }
-            _unitOfWork.Save();
         }
-        difference = appointmentServices.Except(updateAppointmentServices, comparer);
-        difference = difference.Except(forUpdate, comparerWithoutAmount);
-        if (difference.Any())//if difference contains elements means that object was deleted
+        difference = appointmentServices.Except(updateAppointmentServices, comparer).ToList();
+        difference = difference.Except(forUpdate, comparerWithoutAmount).ToList();
+        if (difference.Any())
         {
-            //delete
             foreach(var appointmentService in difference)
             {
-                _unitOfWork.AppointmentServiceRepository.Delete(appointmentService.Id);
+                _appointmentServiceRepository.Delete(appointmentService.Id);
             }
-            _unitOfWork.Save();
         }
-
         return null;
     }
 
     public void DeleteAllByAppointmentId(int id)
     {
-        var appointmentServices = _unitOfWork.AppointmentServiceRepository.GetByAppointmentId(id);
+        var appointmentServices = _appointmentServiceRepository.GetByAppointmentId(id).ToList();
         if(appointmentServices != null)
         {
-            foreach (Models.AppointmentService appService in appointmentServices)
+            foreach (var appService in appointmentServices)
             {
-                _unitOfWork.AppointmentServiceRepository.Delete(appService.Id);
+                _appointmentServiceRepository.Delete(appService.Id);
             }
-            _unitOfWork.Save();
         }
-        
     }
 
-    class AppointmentServiceEqualityComparer : IEqualityComparer<Models.AppointmentService>
+    class AppointmentServiceEqualityComparer : IEqualityComparer<DomainAppointmentService>
     {
-        public bool Equals(Models.AppointmentService x, Models.AppointmentService y)
+        public bool Equals(DomainAppointmentService x, DomainAppointmentService y)
         {
             return x.Id == y.Id && 
                 x.AppointmentId == y.AppointmentId &&
@@ -95,7 +85,7 @@ public sealed class AppointmentServiceService : IAppointmentServiceService
                 x.ServiceId == y.ServiceId;
         }
 
-        public int GetHashCode(Models.AppointmentService obj)
+        public int GetHashCode(DomainAppointmentService obj)
         {
             unchecked
             {
@@ -108,16 +98,16 @@ public sealed class AppointmentServiceService : IAppointmentServiceService
         }
     }
 
-    class AppointmentServiceEqualityComparerWithoutAmount : IEqualityComparer<Models.AppointmentService>
+    class AppointmentServiceEqualityComparerWithoutAmount : IEqualityComparer<DomainAppointmentService>
     {
-        public bool Equals(Models.AppointmentService x, Models.AppointmentService y)
+        public bool Equals(DomainAppointmentService x, DomainAppointmentService y)
         {
             return x.Id == y.Id &&
                 x.AppointmentId == y.AppointmentId &&
                 x.ServiceId == y.ServiceId;
         }
 
-        public int GetHashCode(Models.AppointmentService obj)
+        public int GetHashCode(DomainAppointmentService obj)
         {
             unchecked
             {

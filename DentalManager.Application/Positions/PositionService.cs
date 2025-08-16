@@ -1,60 +1,53 @@
 ﻿using DentalManager.Application.Contracts.Positions;
+using DentalManager.Domain.Positions;
+using AutoMapper;
 
 namespace DentalManager.Application.Positions;
 
 public sealed class PositionService : IPositionService
 {
-    private IUnitOfWork _unitOfWork;
-    private IMapper _mapper;
+    private readonly IPositionRepository _positionRepository;
+    private readonly IMapper _mapper;
 
-    public PositionService(IUnitOfWork unitOfWork, IMapper mapper)
+    public PositionService(IPositionRepository positionRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _positionRepository = positionRepository;
         _mapper = mapper;
     }
 
     public PositionDTO GetById(int id)
     {
-        var position = _unitOfWork.PositionRepository.GetById(id);
-
+        var position = _positionRepository.GetById(id);
         return _mapper.Map<PositionDTO>(position);
     }
 
     public List<PositionDTO> GetAll()
     {
-        var positions = _unitOfWork.PositionRepository.GetAll();
+        var positions = _positionRepository.GetAll();
         return _mapper.Map<List<Position>, List<PositionDTO>>(positions.ToList());
     }
 
     public int Create(PositionDTO office)
     {
         var mappedPosition = _mapper.Map<PositionDTO, Position>(office);
-
-        var newPosition = _unitOfWork.PositionRepository.Add(mappedPosition);
-        _unitOfWork.Save();
-
+        var newPosition = _positionRepository.Add(mappedPosition);
         return newPosition.Id;
     }
 
     public PositionDTO Update(PositionDTO position)
     {
         var updatePosition = _mapper.Map<Position>(position);
-        var updatedPosition = _unitOfWork.PositionRepository.Edit(updatePosition);
-
-        _unitOfWork.Save();
-
+        var updatedPosition = _positionRepository.Edit(updatePosition);
         var updatedPositionDTO = _mapper.Map<PositionDTO>(updatedPosition);
-
         return updatedPositionDTO;
     }
 
     public void Delete(int id)
     {
-        var position = _unitOfWork.PositionRepository.GetById(id);
+        var position = _positionRepository.GetById(id);
         if (position != null)
         {
-            _unitOfWork.PositionRepository.Delete(id);
-            _unitOfWork.Save();
+            _positionRepository.Delete(id);
         }
     }
 }

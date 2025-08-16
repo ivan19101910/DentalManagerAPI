@@ -1,62 +1,52 @@
 ﻿using AutoMapper;
 using DentalManager.Application.Contracts.Salaries;
-using DentalManagerAPI.DTOs;
-using DentalManagerAPI.Models;
-using DentalManagerAPI.Services.Abstractions;
-using DentalManagerAPI.UnitOfWork.Abstractions;
+using DentalManager.Domain.Salaries;
 
 namespace DentalManager.Application.Salaries;
 
 public sealed class SalaryPaymentService : ISalaryPaymentService
 {
-    private IUnitOfWork _unitOfWork;
-    private IMapper _mapper;
+    private readonly ISalaryPaymentRepository _salaryPaymentRepository;
+    private readonly IMapper _mapper;
 
-    public SalaryPaymentService(IUnitOfWork unitOfWork, IMapper mapper)
+    public SalaryPaymentService(ISalaryPaymentRepository salaryPaymentRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _salaryPaymentRepository = salaryPaymentRepository;
         _mapper = mapper;
     }
 
     public SalaryPaymentDTO GetById(int id)
     {
-        var payment = _unitOfWork.SalaryPaymentRepository.GetById(id);
+        var payment = _salaryPaymentRepository.GetById(id);
         return _mapper.Map<SalaryPaymentDTO>(payment);
     }
 
     public List<SalaryPaymentDTO> GetAll()
     {
-        var payments = _unitOfWork.SalaryPaymentRepository.GetAll();
+        var payments = _salaryPaymentRepository.GetAll();
         return _mapper.Map<List<SalaryPayment>, List<SalaryPaymentDTO>>(payments.ToList());
     }
 
     public int Create(CreateSalaryPaymentDTO payment)
     {
         var mappedPayment = _mapper.Map<CreateSalaryPaymentDTO, SalaryPayment>(payment);
-
-        var newPayment = _unitOfWork.SalaryPaymentRepository.Add(mappedPayment);
-        _unitOfWork.Save();
-
+        var newPayment = _salaryPaymentRepository.Add(mappedPayment);
         return newPayment.Id;
     }
 
     public CreateSalaryPaymentDTO Update(CreateSalaryPaymentDTO payment)
     {
         var updatePayment = _mapper.Map<SalaryPayment>(payment);
-        var updatedPayment = _unitOfWork.SalaryPaymentRepository.Edit(updatePayment);
-
-        _unitOfWork.Save();
-
+        var updatedPayment = _salaryPaymentRepository.Edit(updatePayment);
         return _mapper.Map<CreateSalaryPaymentDTO>(updatedPayment);
     }
 
     public void Delete(int id)
     {
-        var payment = _unitOfWork.SalaryPaymentRepository.GetById(id);
+        var payment = _salaryPaymentRepository.GetById(id);
         if (payment != null)
         {
-            _unitOfWork.SalaryPaymentRepository.Delete(id);
-            _unitOfWork.Save();
+            _salaryPaymentRepository.Delete(id);
         }
     }
 }

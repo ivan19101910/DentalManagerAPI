@@ -1,15 +1,5 @@
-
-
-using AutoMapper;
-using DentalManagerAPI;
-using DentalManagerAPI.DAL;
+using DentalManager.Api.Helpers;
 using DentalManagerAPI.Helpers;
-using DentalManagerAPI.Models;
-using DentalManagerAPI.Services;
-using DentalManagerAPI.Services.Abstractions;
-using DentalManagerAPI.UnitOfWork;
-using DentalManagerAPI.UnitOfWork.Abstractions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,8 +19,6 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
-// Add services to the container.
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
@@ -91,7 +79,7 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 app.UseCors("testPolicy");
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -1,134 +1,99 @@
 ﻿using DentalManager.Application.Contracts.Workers;
+using DentalManager.Domain.Workers;
+using AutoMapper;
 
 namespace DentalManager.Application.Workers;
 
 public sealed class WorkerScheduleService : IWorkerScheduleService
 {
-    private IUnitOfWork _unitOfWork;
-    private IMapper _mapper;
+    private readonly IWorkerScheduleRepository _workerScheduleRepository;
+    private readonly IMapper _mapper;
 
-    public WorkerScheduleService(IUnitOfWork unitOfWork, IMapper mapper)
+    public WorkerScheduleService(IWorkerScheduleRepository workerScheduleRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _workerScheduleRepository = workerScheduleRepository;
         _mapper = mapper;
     }
 
     public WorkerScheduleDTO GetById(int id)
     {
-        var schedule = _unitOfWork.WorkerScheduleRepository.GetById(id);
-
+        var schedule = _workerScheduleRepository.GetById(id);
         return _mapper.Map<WorkerScheduleDTO>(schedule);
     }
 
     public List<WorkerScheduleDTO> GetAll()
     {
-        var schedules = _unitOfWork.WorkerScheduleRepository.GetAll();
+        var schedules = _workerScheduleRepository.GetAll();
         return _mapper.Map<List<WorkerSchedule>, List<WorkerScheduleDTO>>(schedules.ToList());
     }
 
     public int Create(WorkerScheduleDTO schedule)
     {
         var mappedSchedule = _mapper.Map<WorkerScheduleDTO, WorkerSchedule>(schedule);
-
-        var newSchedule = _unitOfWork.WorkerScheduleRepository.Add(mappedSchedule);
-        _unitOfWork.Save();
-
+        var newSchedule = _workerScheduleRepository.Add(mappedSchedule);
         return newSchedule.Id;
     }
 
     public WorkerScheduleDTO Update(WorkerScheduleDTO schedule)
     {
         var updateSchedule = _mapper.Map<WorkerSchedule>(schedule);
-        var updatedSchedule = _unitOfWork.WorkerScheduleRepository.Edit(updateSchedule);
-
-        _unitOfWork.Save();
-
+        var updatedSchedule = _workerScheduleRepository.Edit(updateSchedule);
         var updatedScheduleDTO = _mapper.Map<WorkerScheduleDTO>(updatedSchedule);
-
         return updatedScheduleDTO;
     }
 
     public void Delete(int id)
     {
-        var schedule = _unitOfWork.WorkerScheduleRepository.GetById(id);
+        var schedule = _workerScheduleRepository.GetById(id);
         if (schedule != null)
         {
-            _unitOfWork.WorkerScheduleRepository.Delete(id);
-            _unitOfWork.Save();
+            _workerScheduleRepository.Delete(id);
         }
     }
 
     public void DeleteAllByWorkerId(int id)
     {
-        var workerSchedules = _unitOfWork.WorkerScheduleRepository.GetByWorkerId(id);
+        var workerSchedules = _workerScheduleRepository.GetByWorkerId(id);
         if (workerSchedules != null)
         {
             foreach (WorkerSchedule workerSchedule in workerSchedules)
             {
-                _unitOfWork.WorkerScheduleRepository.Delete(workerSchedule.Id);
+                _workerScheduleRepository.Delete(workerSchedule.Id);
             }
-            _unitOfWork.Save();
         }
-
     }
 
     public List<int> CreateMany(List<WorkerScheduleDTO> schedulesList, int workerId)
     {
         List<int> createdIds = new List<int>();
-
         foreach (var schedule in schedulesList)
         {
             var mappedSchedule = _mapper.Map<WorkerScheduleDTO, WorkerSchedule>(schedule);
-
             mappedSchedule.WorkerId = workerId;
-
-            var newSchedule = _unitOfWork.WorkerScheduleRepository.Add(mappedSchedule);
+            var newSchedule = _workerScheduleRepository.Add(mappedSchedule);
             createdIds.Add(newSchedule.Id);
         }
-
-
-        _unitOfWork.Save();
-
         return createdIds;
     }
 
     public List<WorkerScheduleDTO> UpdateMany(List<WorkerScheduleDTO> workerSchedules, int workerId)
     {
         var comparer = new WorkerScheduleEqualityComparer();
-        //var comparerWithoutAmount = new AppointmentServiceEqualityComparerWithoutAmount();
-
-        var schedules = _unitOfWork.WorkerScheduleRepository.GetByWorkerId(workerId);
+        var schedules = _workerScheduleRepository.GetByWorkerId(workerId);
         var updateWorkerSchedules = _mapper.Map<List<WorkerSchedule>>(workerSchedules);
         var difference = updateWorkerSchedules.Except(schedules, comparer);
-        //var forUpdate = difference.Where(x => x.Id != 0);
-        //difference = difference.Except(forUpdate, comparer);
-        if (difference.Any())//if difference contains elements means that object was added(changed)//if only amount changed need to update
+        if (difference.Any())
         {
             CreateMany(_mapper.Map<List<WorkerScheduleDTO>>(difference), workerId);
         }
-        //if (forUpdate.Any())
-        //{
-        //    foreach (var appointmentService in forUpdate)
-        //    {
-        //        var update = appointmentService;
-        //        _unitOfWork.WorkerScheduleRepository.Edit(update);
-        //    }
-        //    _unitOfWork.Save();
-        //}
-
-
         difference = schedules.Except(updateWorkerSchedules, comparer);
-        //difference = difference.Except(forUpdate, comparer);
-        if (difference.Any())//if difference contains elements means that object was deleted
+        if (difference.Any())
         {
-            //delete
             foreach (var workerSchedule in difference)
             {
-                _unitOfWork.WorkerScheduleRepository.Delete(workerSchedule.Id);
+                _workerScheduleRepository.Delete(workerSchedule.Id);
             }
-            _unitOfWork.Save();
         }
-
         return null;
     }
 
@@ -153,26 +118,4 @@ public sealed class WorkerScheduleService : IWorkerScheduleService
             }
         }
     }
-
-    //class AppointmentServiceEqualityComparerWithoutAmount : IEqualityComparer<Models.AppointmentService>
-    //{
-    //    public bool Equals(Models.AppointmentService x, Models.AppointmentService y)
-    //    {
-    //        return x.Id == y.Id &&
-    //            x.AppointmentId == y.AppointmentId &&
-    //            x.ServiceId == y.ServiceId;
-    //    }
-
-    //    public int GetHashCode(Models.AppointmentService obj)
-    //    {
-    //        unchecked
-    //        {
-    //            if (obj == null)
-    //                return 0;
-    //            int hashCode = obj.Id.GetHashCode();
-    //            hashCode = (hashCode * 397) ^ obj.Id.GetHashCode();
-    //            return hashCode;
-    //        }
-    //    }
-    //}
 }

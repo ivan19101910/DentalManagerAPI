@@ -1,4 +1,6 @@
-﻿namespace DentalManager.Application.Contracts.Workers;
+﻿using DentalManagerAPI.Models;
+
+namespace DentalManager.Application.Contracts.Workers;
 
 public interface IWorkerService
 {

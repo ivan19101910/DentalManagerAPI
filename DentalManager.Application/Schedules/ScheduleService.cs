@@ -1,65 +1,53 @@
 ﻿using AutoMapper;
 using DentalManager.Application.Contracts.Schedules;
-using DentalManagerAPI.DTOs;
-using DentalManagerAPI.Models;
-using DentalManagerAPI.Services.Abstractions;
-using DentalManagerAPI.UnitOfWork.Abstractions;
+using DentalManager.Domain.Schedules;
 
 namespace DentalManager.Application.Schedules;
 
 public sealed class ScheduleService : IScheduleService
 {
-    private IUnitOfWork _unitOfWork;
-    private IMapper _mapper;
+    private readonly IScheduleRepository _scheduleRepository;
+    private readonly IMapper _mapper;
 
-    public ScheduleService(IUnitOfWork unitOfWork, IMapper mapper)
+    public ScheduleService(IScheduleRepository scheduleRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _scheduleRepository = scheduleRepository;
         _mapper = mapper;
     }
 
     public ScheduleDTO GetById(int id)
     {
-        var schedule = _unitOfWork.ScheduleRepository.GetById(id);
-
+        var schedule = _scheduleRepository.GetById(id);
         return _mapper.Map<ScheduleDTO>(schedule);
     }
 
     public List<ShowScheduleDTO> GetAll()
     {
-        var schedules = _unitOfWork.ScheduleRepository.GetAll();
+        var schedules = _scheduleRepository.GetAll();
         return _mapper.Map<List<Schedule>, List<ShowScheduleDTO>>(schedules.ToList());
     }
 
     public int Create(ScheduleDTO schedule)
     {
         var mappedSchedule = _mapper.Map<ScheduleDTO, Schedule>(schedule);
-
-        var newSchedule = _unitOfWork.ScheduleRepository.Add(mappedSchedule);
-        _unitOfWork.Save();
-
+        var newSchedule = _scheduleRepository.Add(mappedSchedule);
         return newSchedule.Id;
     }
 
     public ScheduleDTO Update(ScheduleDTO schedule)
     {
         var updateSchedule = _mapper.Map<Schedule>(schedule);
-        var updatedSchedule = _unitOfWork.ScheduleRepository.Edit(updateSchedule);
-
-        _unitOfWork.Save();
-
+        var updatedSchedule = _scheduleRepository.Edit(updateSchedule);
         var updatedScheduleDTO = _mapper.Map<ScheduleDTO>(updatedSchedule);
-
         return updatedScheduleDTO;
     }
 
     public void Delete(int id)
     {
-        var schedule = _unitOfWork.ScheduleRepository.GetById(id);
+        var schedule = _scheduleRepository.GetById(id);
         if (schedule != null)
         {
-            _unitOfWork.ScheduleRepository.Delete(id);
-            _unitOfWork.Save();
+            _scheduleRepository.Delete(id);
         }
     }
 }

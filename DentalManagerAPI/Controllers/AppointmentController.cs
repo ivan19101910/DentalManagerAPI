@@ -1,5 +1,5 @@
 ﻿using DentalManager.Application.Contracts.Appointments;
-using DentalManagerAPI.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DentalManager.Api.Controllers;

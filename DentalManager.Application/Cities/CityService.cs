@@ -1,30 +1,30 @@
 ﻿using DentalManager.Application.Contracts.Cities;
+using DentalManager.Domain.Cities;
+using AutoMapper;
 
 namespace DentalManager.Application.Cities;
 
 public sealed class CityService : ICityService
 {
-    private IUnitOfWork _unitOfWork;
-    private IMapper _mapper;
+    private readonly ICityRepository _cityRepository;
+    private readonly IMapper _mapper;
 
-    public CityService(IUnitOfWork unitOfWork, IMapper mapper)
+    public CityService(ICityRepository cityRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _cityRepository = cityRepository;
         _mapper = mapper;
     }
 
     public CityDTO GetById(int id)
     {
-        var city = _unitOfWork.CityRepository.GetById(id);
-
+        var city = _cityRepository.GetById(id);
         var mappedCity = _mapper.Map<CityDTO>(city);
         return mappedCity;
-
     }
 
     public List<CityDTO> GetAll()
     {
-        var cities = _unitOfWork.CityRepository.GetAll();
+        var cities = _cityRepository.GetAll();
         var mappedList = _mapper.Map<List<City>, List<CityDTO>>(cities.ToList());
         return mappedList;
     }
@@ -32,32 +32,24 @@ public sealed class CityService : ICityService
     public int Create(CityDTO city)
     {
         var mappedCity = _mapper.Map<CityDTO, City>(city);
-
-        var newCity = _unitOfWork.CityRepository.Add(mappedCity);
-        _unitOfWork.Save();
-
+        var newCity = _cityRepository.Add(mappedCity);
         return newCity.Id;
     }
 
     public CityDTO Update(CityDTO city)
     {
         var updateCity = _mapper.Map<City>(city);
-        var updatedCity = _unitOfWork.CityRepository.Edit(updateCity);
-
-        _unitOfWork.Save();
-
+        var updatedCity = _cityRepository.Edit(updateCity);
         var updatedCityDTO = _mapper.Map<CityDTO>(updatedCity);
-
         return updatedCityDTO;
     }
 
     public void Delete(int id)
     {
-        var office = _unitOfWork.CityRepository.GetById(id);
-        if (office != null)
+        var city = _cityRepository.GetById(id);
+        if (city != null)
         {
-            _unitOfWork.CityRepository.Delete(id);
-            _unitOfWork.Save();
+            _cityRepository.Delete(id);
         }
     }
 }

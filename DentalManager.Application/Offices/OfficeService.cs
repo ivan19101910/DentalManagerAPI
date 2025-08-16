@@ -1,30 +1,30 @@
 ﻿using DentalManager.Application.Contracts.Offices;
+using DentalManager.Domain.Offices;
+using AutoMapper;
 
 namespace DentalManager.Application.Offices;
 
 public sealed class OfficeService : IOfficeService
 {
-    private IUnitOfWork _unitOfWork;
-    private IMapper _mapper;
+    private readonly IOfficeRepository _officeRepository;
+    private readonly IMapper _mapper;
 
-    public OfficeService(IUnitOfWork unitOfWork, IMapper mapper)
+    public OfficeService(IOfficeRepository officeRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _officeRepository = officeRepository;
         _mapper = mapper;
     }
 
     public OfficeDTO GetById(int id)
     {
-        var office = _unitOfWork.OfficeRepository.GetById(id);
-
+        var office = _officeRepository.GetById(id);
         var mappedOffice = _mapper.Map<OfficeDTO>(office);
         return mappedOffice;
-
     }
 
     public List<ShowOfficeDTO> GetAll()
     {
-        var offices = _unitOfWork.OfficeRepository.GetAll();
+        var offices = _officeRepository.GetAll();
         var mappedList = _mapper.Map<List<Office>, List<ShowOfficeDTO>>(offices.ToList());
         return mappedList;
     }
@@ -32,32 +32,24 @@ public sealed class OfficeService : IOfficeService
     public int Create(CreateOfficeDTO office)
     {
         var mappedOffice = _mapper.Map<CreateOfficeDTO, Office>(office);
-
-        var newOffice = _unitOfWork.OfficeRepository.Add(mappedOffice);
-        _unitOfWork.Save();
-
+        var newOffice = _officeRepository.Add(mappedOffice);
         return newOffice.Id;
     }
 
     public OfficeDTO Update(CreateOfficeDTO office)
     {
         var updateOffice = _mapper.Map<Office>(office);
-        var updatedOffice = _unitOfWork.OfficeRepository.Edit(updateOffice);
-
-        _unitOfWork.Save();
-
+        var updatedOffice = _officeRepository.Edit(updateOffice);
         var updatedOfficeDTO = _mapper.Map<OfficeDTO>(updatedOffice);
-
         return updatedOfficeDTO;
     }
 
     public void Delete(int id)
     {
-        var office = _unitOfWork.OfficeRepository.GetById(id);
+        var office = _officeRepository.GetById(id);
         if (office != null)
         {
-            _unitOfWork.OfficeRepository.Delete(id);
-            _unitOfWork.Save();
+            _officeRepository.Delete(id);
         }
     }
 }

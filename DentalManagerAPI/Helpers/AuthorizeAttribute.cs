@@ -1,20 +1,19 @@
-﻿using DentalManagerAPI.DTOs;
-using DentalManagerAPI.Models;
+﻿using DentalManager.Application.Contracts.Workers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-namespace DentalManagerAPI.Helpers
+
+namespace DentalManager.Api.Helpers;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class AuthorizeAttribute : Attribute, IAuthorizationFilter
+    public void OnAuthorization(AuthorizationFilterContext context)
     {
-        public void OnAuthorization(AuthorizationFilterContext context)
+        var worker = (FullWorkerDTO)context.HttpContext.Items["User"];
+        if (worker == null)
         {
-            var worker = (FullWorkerDTO)context.HttpContext.Items["User"];
-            if (worker == null)
-            {
-                // not logged in
-                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
-            }
+            // not logged in
+            context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
         }
     }
 }
