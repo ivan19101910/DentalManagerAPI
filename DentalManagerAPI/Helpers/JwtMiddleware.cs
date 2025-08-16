@@ -1,5 +1,5 @@
-﻿using DentalManager.Application.Contracts.Workers;
-using DentalManagerAPI.Helpers;
+﻿using DentalManager.Application;
+using DentalManager.Application.Contracts.Workers;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

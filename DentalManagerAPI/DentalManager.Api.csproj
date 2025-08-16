@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DentalManager.Application.Contracts\DentalManager.Application.Contracts.csproj" />
+    <ProjectReference Include="..\DentalManager.Application\DentalManager.Application.csproj" />
+    <ProjectReference Include="..\DentalManager.Data\DentalManager.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DentalManager.Application.Contracts\DentalManager.Application.Contracts.csproj" />
+    <ProjectReference Include="..\DentalManager.Common\DentalManager.Common.csproj" />
     <ProjectReference Include="..\DentalManager.Domain\DentalManager.Domain.csproj" />
   </ItemGroup>
 

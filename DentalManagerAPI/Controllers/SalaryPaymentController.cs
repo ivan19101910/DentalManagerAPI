@@ -1,89 +1,87 @@
-﻿using DentalManagerAPI.DTOs;
-using DentalManagerAPI.Helpers;
-using DentalManagerAPI.Services.Abstractions;
+﻿using DentalManager.Application.Contracts.Salaries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DentalManagerAPI.Controllers
+namespace DentalManager.Api.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public sealed class SalaryPaymentController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class SalaryPaymentController : ControllerBase
+    private readonly ISalaryPaymentService _salaryPaymentService;
+
+    public SalaryPaymentController(ISalaryPaymentService salaryPaymentService)
     {
-        private ISalaryPaymentService _salaryPaymentService;
-        public SalaryPaymentController(ISalaryPaymentService salaryPaymentService)
-        {
-            _salaryPaymentService = salaryPaymentService;
-        }
+        _salaryPaymentService = salaryPaymentService;
+    }
 
-        [HttpGet]
-        [Route("getById/{paymentId}")]
-        public ActionResult<SalaryPaymentDTO> GetById(int paymentId)
+    [HttpGet]
+    [Route("getById/{paymentId}")]
+    public ActionResult<SalaryPaymentDTO> GetById(int paymentId)
+    {
+        var result = _salaryPaymentService.GetById(paymentId);
+        if (result != null)
+            return result;
+        else
+            return NotFound();
+    }
+    
+    [HttpGet]
+    [Route("getAll")]
+    public ActionResult<List<SalaryPaymentDTO>> GetAll()
+    {
+        var result = _salaryPaymentService.GetAll();
+        if (result != null)
+            return result.ToList();
+        else
+            return NotFound();
+    }
+
+    [HttpPost]
+    [Route("create")]
+    public ActionResult<int> Create(CreateSalaryPaymentDTO payment)
+    {
+        try
         {
-            var result = _salaryPaymentService.GetById(paymentId);
+            var result = _salaryPaymentService.Create(payment);
             if (result != null)
                 return result;
             else
-                return NotFound();
+                return BadRequest();
         }
-        
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
-        [HttpGet]
-        [Route("getAll")]
-        public ActionResult<List<SalaryPaymentDTO>> GetAll()
+    [HttpPut]
+    [Route("update")]
+    public ActionResult<CreateSalaryPaymentDTO> Update(CreateSalaryPaymentDTO salaryPaymentDTO)
+    {
+        try
         {
-            var result = _salaryPaymentService.GetAll();
-            if (result != null)
-                return result.ToList();
-            else
-                return NotFound();
+            var result = _salaryPaymentService.Update(salaryPaymentDTO);
+            return result;
         }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
-        [HttpPost]
-        [Route("create")]
-        public ActionResult<int> Create(CreateSalaryPaymentDTO payment)
+    [HttpDelete]
+    [Route("delete/{id}")]
+    public ActionResult<int> Delete(int id)
+    {
+        try
         {
-            try
-            {
-                var result = _salaryPaymentService.Create(payment);
-                if (result != null)
-                    return result;
-                else
-                    return BadRequest();
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _salaryPaymentService.Delete(id);
         }
-        [HttpPut]
-        [Route("update")]
-        public ActionResult<CreateSalaryPaymentDTO> Update(CreateSalaryPaymentDTO salaryPaymentDTO)
+        catch (ArgumentException ex)
         {
-            try
-            {
-                var result = _salaryPaymentService.Update(salaryPaymentDTO);
-                return result;
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return BadRequest(ex.Message);
         }
-
-        [HttpDelete]
-        [Route("delete/{id}")]
-        public ActionResult<int> Delete(int id)
-        {
-            try
-            {
-                _salaryPaymentService.Delete(id);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return id;
-        }
+        return id;
     }
 }
 

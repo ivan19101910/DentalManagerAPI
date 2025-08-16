@@ -1,152 +1,143 @@
-﻿using DentalManagerAPI.DTOs;
-using DentalManagerAPI.Helpers;
+﻿using DentalManager.Application.Contracts.Workers;
 using DentalManagerAPI.Models;
-using DentalManagerAPI.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DentalManagerAPI.Controllers
+namespace DentalManager.Api.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public sealed class WorkerController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WorkerController : ControllerBase
+    private readonly IWorkerService _workerService;
+
+    private readonly IWorkerScheduleService _workerScheduleService;
+
+    public WorkerController(IWorkerService workerService, IWorkerScheduleService workerScheduleService)
     {
-        private IWorkerService _workerService;
-        private IWorkerScheduleService _workerScheduleService;
-        public WorkerController(IWorkerService workerService, IWorkerScheduleService workerScheduleService)
+        _workerService = workerService;
+        _workerScheduleService = workerScheduleService;
+    }
+
+    [HttpPost("authenticate")]
+    public IActionResult Authenticate(AuthenticateRequest model)
+    {
+        var response = _workerService.Authenticate(model);
+
+        if (response == null)
+            return BadRequest(new { message = "Username or password is incorrect" });
+
+        return Ok(response);
+    }
+
+    [HttpGet]
+    [Route("getById/{workerId}")]
+    public ActionResult<FullWorkerDTO> GetById(int workerId)
+    {
+        var result = _workerService.GetWorkerById(workerId);
+        if (result != null)
+            return result;
+        else
+            return NotFound();
+    }
+
+    [HttpGet]
+    [Route("getSalaryById/{workerId}/{monthNumber}/{year}")]
+    public ActionResult<decimal> GetSalaryById(int workerId, int monthNumber, int year)
+    {
+        var result = _workerService.CalculateSalaryByWorkerId(workerId, monthNumber, year);
+        if (result != null)
+            return result;
+        else
+            return NotFound();
+    }
+
+    [HttpGet]
+    [Route("getByNameSurname/{name}/{surname}")]
+    public ActionResult<List<FullWorkerDTO>> GetWorkersByNameSurname(string name, string surname)
+    {
+        var result = _workerService.GetWorkersByNameSurname(name, surname);
+        if (result != null)
+            return result;
+        else
+            return NotFound();
+    }
+
+    [HttpGet]
+    [Route("getByAddress/{city}/{address}")]
+    public ActionResult<List<FullWorkerDTO>> GetWorkersByAddress(string city, string address)
+    {
+        var result = _workerService.GetWorkersByAddress(city, address);
+        if (result != null)
+            return result;
+        else
+            return NotFound();
+    }
+
+    [HttpGet]
+    [Route("getAll")]
+    public ActionResult<List<ShowWorkerDTO>> GetAll()
+    {
+        var result = _workerService.GetAll();
+        if (result != null)
+            return result.ToList();
+        else
+            return NotFound();
+    }
+
+    [HttpPost]
+    [Route("create")]
+    public ActionResult<int> Create(CreateWorkerDTO worker)
+    {
+        try
         {
-            _workerService = workerService;
-            _workerScheduleService = workerScheduleService;
-        }
-
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate(AuthenticateRequest model)
-        {
-            var response = _workerService.Authenticate(model);
-
-            if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-
-            return Ok(response);
-        }
-
-        //[Authorize]
-        [HttpGet]
-        [Route("getById/{workerId}")]
-        public ActionResult<FullWorkerDTO> GetById(int workerId)
-        {
-            var result = _workerService.GetWorkerById(workerId);
+            var result = _workerService.Create(worker);
             if (result != null)
                 return result;
             else
-                return NotFound();
+                return BadRequest();
         }
-        [HttpGet]
-        [Route("getSalaryById/{workerId}/{monthNumber}/{year}")]
-        public ActionResult<decimal> GetSalaryById(int workerId, int monthNumber, int year)
+        catch (ArgumentException ex)
         {
-            var result = _workerService.CalculateSalaryByWorkerId(workerId, monthNumber, year);
-            if (result != null)
-                return result;
-            else
-                return NotFound();
+            return BadRequest(ex.Message);
         }
-        [HttpGet]
-        [Route("getByNameSurname/{name}/{surname}")]
-        public ActionResult<List<FullWorkerDTO>> GetWorkersByNameSurname(string name, string surname)
-        {
-            var result = _workerService.GetWorkersByNameSurname(name, surname);
-            if (result != null)
-                return result;
-            else
-                return NotFound();
-        }
-        [HttpGet]
-        [Route("getByAddress/{city}/{address}")]
-        public ActionResult<List<FullWorkerDTO>> GetWorkersByAddress(string city, string address)
-        {
-            var result = _workerService.GetWorkersByAddress(city, address);
-            if (result != null)
-                return result;
-            else
-                return NotFound();
-        }
-        //[Authorize]
-        [HttpGet]
-        [Route("getAll")]
-        public ActionResult<List<ShowWorkerDTO>> GetAll()
-        {
-            var result = _workerService.GetAll();
-            if (result != null)
-                return result.ToList();
-            else
-                return NotFound();
-        }
+    }
 
-        [HttpPost]
-        [Route("create")]
-        public ActionResult<int> Create(CreateWorkerDTO worker)
+    [HttpPut]
+    [Route("update")]
+    public ActionResult<UpdateWorkerDTO> Update(UpdateWorkerDTO workerDTO)
+    {
+        try
         {
-            try
+            var result = _workerService.Update(workerDTO);
+            
+            if (result.WorkerSchedules == null || result.WorkerSchedules.Count == 0)
             {
-                var result = _workerService.Create(worker);
-                if (result != null)
-                    return result;
-                else
-                    return BadRequest();
+                _workerScheduleService.DeleteAllByWorkerId(result.Id);
             }
-            catch (ArgumentException ex)
+            else
             {
-                return BadRequest(ex.Message);
+                _workerScheduleService.UpdateMany(workerDTO.WorkerSchedules, result.Id);
             }
+            return result;
         }
-
-        [HttpPut]
-        [Route("update")]
-        public ActionResult<UpdateWorkerDTO> Update(UpdateWorkerDTO workerDTO)
+        catch (ArgumentException ex)
         {
-            //try
-            //{
-            //    var result = _workerService.Update(workerDTO);
-            //    return result;
-            //}
-            //catch (ArgumentException ex)
-            //{
-            //    return BadRequest(ex.Message);
-            //}
-
-            try
-            {
-                var result = _workerService.Update(workerDTO);
-                //_appointmentServiceService.Update()
-                if (result.WorkerSchedules == null || result.WorkerSchedules.Count == 0)
-                {
-                    _workerScheduleService.DeleteAllByWorkerId(result.Id);
-                }
-                else
-                {
-                    _workerScheduleService.UpdateMany(workerDTO.WorkerSchedules, result.Id);
-                }
-                return result;
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return BadRequest(ex.Message);
         }
+    }
 
-        [HttpDelete]
-        [Route("delete/{id}")]
-        public ActionResult<int> Delete(int id)
+    [HttpDelete]
+    [Route("delete/{id}")]
+    public ActionResult<int> Delete(int id)
+    {
+        try
         {
-            try
-            {
-                _workerService.Delete(id);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return id;
+            _workerService.Delete(id);
         }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        return id;
     }
 }

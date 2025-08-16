@@ -1,87 +1,86 @@
-﻿using DentalManagerAPI.DTOs;
-using DentalManagerAPI.Helpers;
-using DentalManagerAPI.Services.Abstractions;
+﻿using DentalManager.Application.Contracts.Offices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DentalManagerAPI.Controllers
+namespace DentalManager.Api.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public sealed class OfficeController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class OfficeController : ControllerBase
+    private IOfficeService _officeService;
+
+    public OfficeController(IOfficeService officeService)
     {
-        private IOfficeService _officeService;
-        public OfficeController(IOfficeService officeService)
-        {
-            _officeService = officeService;
-        }
+        _officeService = officeService;
+    }
 
-        [HttpGet]
-        [Route("getById/{cityId}")]
-        public ActionResult<OfficeDTO> GetById(int cityId)
+    [HttpGet]
+    [Route("getById/{cityId}")]
+    public ActionResult<OfficeDTO> GetById(int cityId)
+    {
+        var result = _officeService.GetById(cityId);
+        if (result != null)
+            return result;
+        else
+            return NotFound();
+    }
+
+    [HttpGet]
+    [Route("getAll")]
+    public ActionResult<List<ShowOfficeDTO>> GetAll()
+    {
+        var result = _officeService.GetAll();
+        if (result != null)
+            return result.ToList();
+        else
+            return NotFound();
+    }
+
+    [HttpPost]
+    [Route("create")]
+    public ActionResult<int> Create(CreateOfficeDTO office)
+    {
+        try
         {
-            var result = _officeService.GetById(cityId);
+            var result = _officeService.Create(office);
             if (result != null)
                 return result;
             else
-                return NotFound();
+                return BadRequest();
         }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
-        [HttpGet]
-        [Route("getAll")]
-        public ActionResult<List<ShowOfficeDTO>> GetAll()
+    [HttpPut]
+    [Route("update")]
+    public ActionResult<OfficeDTO> Update(CreateOfficeDTO officeDTO)
+    {
+        try
         {
-            var result = _officeService.GetAll();
-            if (result != null)
-                return result.ToList();
-            else
-                return NotFound();
+            var result = _officeService.Update(officeDTO);
+            return result;
         }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
-        [HttpPost]
-        [Route("create")]
-        public ActionResult<int> Create(CreateOfficeDTO office)
+    [HttpDelete]
+    [Route("delete/{id}")]
+    public ActionResult<int> Delete(int id)
+    {
+        try
         {
-            try
-            {
-                var result = _officeService.Create(office);
-                if (result != null)
-                    return result;
-                else
-                    return BadRequest();
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _officeService.Delete(id);
         }
-        [HttpPut]
-        [Route("update")]
-        public ActionResult<OfficeDTO> Update(CreateOfficeDTO officeDTO)
+        catch (ArgumentException ex)
         {
-            try
-            {
-                var result = _officeService.Update(officeDTO);
-                return result;
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return BadRequest(ex.Message);
         }
-
-        [HttpDelete]
-        [Route("delete/{id}")]
-        public ActionResult<int> Delete(int id)
-        {
-            try
-            {
-                _officeService.Delete(id);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return id;
-        }
+        return id;
     }
 }

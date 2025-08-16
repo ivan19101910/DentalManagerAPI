@@ -83,8 +83,6 @@ public class AppointmentController : ControllerBase
             var result = _appointmentService.Create(appointment);
             if (result != null)
             {
-                //if(appointment.AppointmentServices != null)//Bug on my PC, need to remove?
-                    //_appointmentServiceService.CreateMany(appointment.AppointmentServices, result);//Create services to binded appointment
                 return result;
             }
                 
@@ -104,7 +102,7 @@ public class AppointmentController : ControllerBase
         try
         {
             var result = _appointmentService.Update(appointmentDTO);
-            //_appointmentServiceService.Update()
+
             if (result.AppointmentServices == null || result.AppointmentServices.Count == 0)
             {
                 _appointmentServiceService.DeleteAllByAppointmentId(result.Id);

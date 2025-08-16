@@ -1,13 +1,9 @@
 using DentalManager.Api.Helpers;
-using DentalManagerAPI.Helpers;
+using DentalManager.Data;
 using Microsoft.OpenApi.Models;
+using DentalManager.Application;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var connection = builder.Configuration.GetConnectionString("DatabaseConection");
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-
-builder.Services.AddDbContext<DentalManagerDBContext>(e => e.UseSqlServer(connection));
 
 builder.Services.AddCors(options =>
 {
@@ -20,30 +16,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-var mappingConfig = new MapperConfiguration(mc =>
-{
-    mc.AddProfile(new MappingProfile());
-});
-
-IMapper mapper = mappingConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
-
-builder.Services.AddScoped<IPatientService, PatientService>();
-builder.Services.AddScoped<IWorkerService, WorkerService>();
-builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
-builder.Services.AddScoped<IServiceService, ServiceService>();
-builder.Services.AddScoped<ICityService, CityService>();
-builder.Services.AddScoped<IOfficeService, OfficeService>();
-builder.Services.AddScoped<IAppointmentPaymentService, AppointmentPaymentService>();
-builder.Services.AddScoped<IAppointmentStatusService, AppointmentStatusService>();
-builder.Services.AddScoped<IAppointmentService, DentalManagerAPI.Services.AppointmentService>();
-builder.Services.AddScoped<IPositionService, PositionService>();
-builder.Services.AddScoped<ISalaryPaymentService, SalaryPaymentService>();
-builder.Services.AddScoped<IDayService, DayService>();
-builder.Services.AddScoped<IScheduleService, ScheduleService>();
-builder.Services.AddScoped<ITimeSegmentService, TimeSegmentService>();
-builder.Services.AddScoped<IAppointmentServiceService, AppointmentServiceService>();
-builder.Services.AddScoped<IWorkerScheduleService, WorkerScheduleService>();
+builder.Services.AddDataAccessLayer()
+    .AddApplicationLayer();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

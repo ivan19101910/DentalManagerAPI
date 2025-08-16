@@ -1,75 +1,74 @@
-﻿using DentalManagerAPI.DTOs;
-using DentalManagerAPI.Services.Abstractions;
+﻿using DentalManager.Application.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DentalManagerAPI.Controllers
+namespace DentalManager.Api.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public sealed class ServiceTypeController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class ServiceTypeController : ControllerBase
+    private readonly IServiceTypeService _serviceTypeService;
+
+    public ServiceTypeController(IServiceTypeService serviceTypeService)
     {
-        private IServiceTypeService _serviceTypeService;
-        public ServiceTypeController(IServiceTypeService serviceTypeService)
-        {
-            _serviceTypeService = serviceTypeService;
-        }
+        _serviceTypeService = serviceTypeService;
+    }
 
-        [HttpGet]
-        [Route("getAll")]
-        public ActionResult<List<ServiceTypeDTO>> GetAll()
+    [HttpGet]
+    [Route("getAll")]
+    public ActionResult<List<ServiceTypeDTO>> GetAll()
+    {
+        var result = _serviceTypeService.GetAll();
+        if (result != null)
+            return result.ToList();
+        else
+            return NotFound();
+    }
+
+    [HttpPost]
+    [Route("create")]
+    public ActionResult<int> Create(ServiceTypeDTO patient)
+    {
+        try
         {
-            var result = _serviceTypeService.GetAll();
+            var result = _serviceTypeService.Create(patient);
             if (result != null)
-                return result.ToList();
-            else
-                return NotFound();
-        }
-
-        [HttpPost]
-        [Route("create")]
-        public ActionResult<int> Create(ServiceTypeDTO patient)
-        {
-            try
-            {
-                var result = _serviceTypeService.Create(patient);
-                if (result != null)
-                    return result;
-                else
-                    return BadRequest();
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPut]
-        [Route("update")]
-        public ActionResult<ServiceTypeDTO> Update(ServiceTypeDTO serviceTypeDTO)
-        {
-            try
-            {
-                var result = _serviceTypeService.Update(serviceTypeDTO);
                 return result;
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            else
+                return BadRequest();
         }
-
-        [HttpDelete]
-        [Route("delete/{id}")]
-        public ActionResult<int> Delete(int id)
+        catch (ArgumentException ex)
         {
-            try
-            {
-                _serviceTypeService.Delete(id);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return id;
+            return BadRequest(ex.Message);
         }
+    }
+    [HttpPut]
+    [Route("update")]
+    public ActionResult<ServiceTypeDTO> Update(ServiceTypeDTO serviceTypeDTO)
+    {
+        try
+        {
+            var result = _serviceTypeService.Update(serviceTypeDTO);
+            return result;
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpDelete]
+    [Route("delete/{id}")]
+    public ActionResult<int> Delete(int id)
+    {
+        try
+        {
+            _serviceTypeService.Delete(id);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        return id;
     }
 }
