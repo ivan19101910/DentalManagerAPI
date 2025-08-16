@@ -3,10 +3,13 @@ using DentalManager.Domain.Cities;
 
 namespace DentalManager.Domain.Offices;
 
-public class Office : IEntity<int>
+public sealed class Office : IEntity<int>
 {
-    public int Id { get; set; }
-    public string Address { get; set; }
-    public int CityId { get; set; }
-    public virtual City City { get; set; }
+    public int Id { get; init; }
+
+    public required string Address { get; init; }
+
+    public int CityId { get; init; }
+
+    public City? City { get; init; }
 }

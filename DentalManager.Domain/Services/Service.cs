@@ -2,12 +2,17 @@
 
 namespace DentalManager.Domain.Services;
 
-public class Service : IEntity<int>
+public sealed class Service : IEntity<int>
 {
-    public int Id { get; set; }
-    public decimal Price { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public int ServiceTypeId { get; set; }
-    public virtual ServiceType ServiceType { get; set; }
+    public int Id { get; init; }
+
+    public decimal Price { get; init; }
+
+    public required string Name { get; init; }
+
+    public required string Description { get; init; }
+
+    public int ServiceTypeId { get; init; }
+
+    public ServiceType? ServiceType { get; init; }
 }

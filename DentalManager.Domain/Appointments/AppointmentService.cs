@@ -3,12 +3,15 @@ using DentalManager.Domain.Services;
 
 namespace DentalManager.Domain.Appointments;
 
-public class AppointmentService : IEntity<int>
+public sealed class AppointmentService : IEntity<int>
 {
-    public int Id { get; set; }
-    public int ServiceId { get; set; }
-    public int AppointmentId { get; set; }
-    public int Amount { get; set; }
-    //public virtual Appointment Appointment { get; set; }
-    public virtual Service Service { get; set; }
+    public int Id { get; init; }
+
+    public int ServiceId { get; init; }
+
+    public int AppointmentId { get; init; }
+
+    public int Amount { get; init; }
+    
+    public Service? Service { get; set; }
 }

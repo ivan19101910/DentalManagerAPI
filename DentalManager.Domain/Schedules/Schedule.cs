@@ -3,11 +3,11 @@ using DentalManager.Domain.Days;
 
 namespace DentalManager.Domain.Schedules;
 
-public class Schedule : IEntity<int>
+public sealed class Schedule : IEntity<int>
 {
-    public int Id { get; set; }
-    public int DayId { get; set; }
-    public int TimeSegmentId { get; set; }
-    public virtual Day Day { get; set; }
-    public virtual TimeSegment TimeSegment { get; set; }
+    public int Id { get; init; }
+    public int DayId { get; init; }
+    public int TimeSegmentId { get; init; }
+    public Day? Day { get; init; }
+    public TimeSegment? TimeSegment { get; init; }
 }

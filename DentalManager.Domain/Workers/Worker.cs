@@ -5,19 +5,31 @@ using DentalManager.Domain.Positions;
 
 namespace DentalManager.Domain.Workers;
 
-public class Worker : IEntity<int>
+public sealed class Worker : IEntity<int>
 {
-    public int Id { get; set; }
-    public string FirstName { get; set; }   
-    public string LastName { get; set; }  
-    public string? PhoneNumber { get; set; }       
-    public string? Email { get; set; }        
-    public string? Password { get; set; }      
-    public string Address { get; set; }     
-    public int? PositionId { get; set; }       
-    public int? OfficeId { get; set; }
-    public virtual Office Office { get; set; }
-    public virtual Position Position { get; set; }
-    public virtual IList<WorkerSchedule>? WorkerSchedules { get; set; }
-    public virtual IList<Appointment>? Appointments { get; set; }
+    public int Id { get; init; }
+
+    public required string FirstName { get; init; }   
+
+    public required string LastName { get; init; }  
+
+    public string? PhoneNumber { get; init; }   
+    
+    public string? Email { get; init; }
+    
+    public string? Password { get; init; }
+    
+    public required string Address { get; init; }
+
+    public int? PositionId { get; init; }
+
+    public int? OfficeId { get; init; }
+
+    public Office? Office { get; init; }
+
+    public Position? Position { get; init; }
+
+    public IList<WorkerSchedule> WorkerSchedules { get; init; } = [];
+
+    public IList<Appointment> Appointments { get; init; } = [];
 }

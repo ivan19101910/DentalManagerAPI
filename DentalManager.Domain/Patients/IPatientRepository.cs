@@ -4,4 +4,5 @@ namespace DentalManager.Domain.Patients;
 
 public interface IPatientRepository : IRepository<Patient>
 {
+
 }

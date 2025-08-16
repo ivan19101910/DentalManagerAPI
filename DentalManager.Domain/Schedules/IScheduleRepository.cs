@@ -4,4 +4,5 @@ namespace DentalManager.Domain.Schedules;
 
 public interface IScheduleRepository : IRepository<Schedule>
 {
+
 }

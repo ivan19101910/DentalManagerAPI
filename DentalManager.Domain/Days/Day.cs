@@ -2,8 +2,9 @@
 
 namespace DentalManager.Domain.Days;
 
-public class Day : IEntity<int>
+public sealed class Day : IEntity<int>
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
+    public int Id { get; init; }
+    
+    public required string Name { get; init; }
 }

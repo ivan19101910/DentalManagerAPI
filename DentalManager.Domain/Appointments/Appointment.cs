@@ -4,19 +4,31 @@ using DentalManager.Domain.Workers;
 
 namespace DentalManager.Domain.Appointments;
 
-public class Appointment : IEntity<int>
+public sealed class Appointment : IEntity<int>
 {
-    public int Id { get; set; }
-    public DateTime AppointmentDate { get; set; }
-    public string? Notes { get; set; }
-    public TimeSpan? RealEndTime { get; set; }
-    public TimeSpan AppointmentTime { get; set; }
-    public int WorkerId { get; set; }
-    public int PatientId { get; set; }
-    public int StatusId { get; set; }
-    public decimal? TotalSum { get; set; }
-    public virtual Patient Patient { get; set; }
-    public virtual AppointmentStatus Status { get; set; }
-    public virtual Worker Worker { get; set; }
-    public virtual IList<AppointmentService>? AppointmentServices { get; set; }
+    public int Id { get; init; }
+
+    public DateTime AppointmentDate { get; init; }
+
+    public string? Notes { get; init; }
+
+    public TimeSpan? RealEndTime { get; init; }
+
+    public TimeSpan AppointmentTime { get; init; }
+
+    public int WorkerId { get; init; }
+
+    public int PatientId { get; init; }
+
+    public int StatusId { get; init; }
+
+    public decimal? TotalSum { get; init; }
+
+    public Patient? Patient { get; init; }
+
+    public AppointmentStatus? Status { get; init; }
+
+    public Worker? Worker { get; init; }
+
+    public IList<AppointmentService> AppointmentServices { get; init; } = [];
 }

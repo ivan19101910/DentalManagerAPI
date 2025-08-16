@@ -2,9 +2,11 @@
 
 namespace DentalManager.Domain.Schedules;
 
-public class TimeSegment : IEntity<int>
+public sealed class TimeSegment : IEntity<int>
 {
-    public int Id { get; set; }
-    public TimeSpan TimeStart { get; set; }
-    public TimeSpan TimeEnd { get; set; }
+    public int Id { get; init; }
+
+    public TimeSpan TimeStart { get; init; }
+
+    public TimeSpan TimeEnd { get; init; }
 }

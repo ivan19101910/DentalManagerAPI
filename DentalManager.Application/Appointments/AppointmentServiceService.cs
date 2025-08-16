@@ -1,8 +1,7 @@
-﻿using DentalManager.Application.Contracts.Appointments;
-using DomainAppointmentService = DentalManager.Domain.Appointments.AppointmentService;
+﻿using AutoMapper;
+using DentalManager.Application.Contracts.Appointments;
 using DentalManager.Domain.Appointments;
-using AutoMapper;
-using System.Linq;
+using DomainAppointmentService = DentalManager.Domain.Appointments.AppointmentService;
 
 namespace DentalManager.Application.Appointments;
 
@@ -20,6 +19,7 @@ public sealed class AppointmentServiceService : IAppointmentServiceService
     public List<int> CreateMany(List<AppointmentServiceDTO> appointmentList, int appointmentId)
     {
         List<int> createdIds = new List<int>();
+
         foreach (var appointment in appointmentList)
         {
             var mappedAppointment = _mapper.Map<AppointmentServiceDTO, DomainAppointmentService>(appointment);
@@ -27,6 +27,7 @@ public sealed class AppointmentServiceService : IAppointmentServiceService
             var newAppointment = _appointmentServiceRepository.Add(mappedAppointment);
             createdIds.Add(newAppointment.Id);
         }
+
         return createdIds;
     }
 

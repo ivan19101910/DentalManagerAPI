@@ -2,11 +2,13 @@
 
 namespace DentalManager.Domain.Positions;
 
-public class Position : IEntity<int>
+public sealed class Position : IEntity<int>
 {
-    public int Id { get; set; }
-    public decimal AppointmentPercentage { get; set; }
-    public decimal BaseRate { get; set; }
-    public string PositionName { get; set; }
+    public int Id { get; init; }
 
+    public decimal AppointmentPercentage { get; init; }
+
+    public decimal BaseRate { get; init; }
+
+    public required string PositionName { get; init; }
 }
