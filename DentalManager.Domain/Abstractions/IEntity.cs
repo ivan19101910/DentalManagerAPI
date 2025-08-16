@@ -1,4 +1,4 @@
-﻿namespace DentalManager.Domain;
+﻿namespace DentalManager.Domain.Abstractions;
 
 public interface IEntity<T>
 {

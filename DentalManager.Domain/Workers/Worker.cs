@@ -2,7 +2,6 @@
 using DentalManager.Domain.Appointments;
 using DentalManager.Domain.Offices;
 using DentalManager.Domain.Positions;
-using DentalManagerAPI.Models;
 
 namespace DentalManager.Domain.Workers;
 

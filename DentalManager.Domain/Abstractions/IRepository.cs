@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
 
-namespace DentalManager.Domain;
+namespace DentalManager.Domain.Abstractions;
 
 public interface IRepository<TEntity> where TEntity : IEntity<int>
 {
-    TEntity GetById(int id);
+    TEntity? GetById(int id);
 
     IQueryable<TEntity> GetAll();
 
