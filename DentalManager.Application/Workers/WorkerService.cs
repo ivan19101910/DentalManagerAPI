@@ -15,8 +15,11 @@ namespace DentalManager.Application.Workers;
 public sealed class WorkerService : IWorkerService
 {
     private readonly IWorkerRepository _workerRepository;
+
     private readonly IAppointmentRepository _appointmentRepository;
+
     private readonly IMapper _mapper;
+
     private readonly AppSettings _appSettings;
 
     public WorkerService(IWorkerRepository workerRepository, IAppointmentRepository appointmentRepository, IMapper mapper, IOptions<AppSettings> appSettings)
@@ -30,9 +33,14 @@ public sealed class WorkerService : IWorkerService
     public AuthenticateResponse Authenticate(AuthenticateRequest model)
     {
         var worker = _workerRepository.GetByEmailAndPassword(model.Login, model.Password);
-        if (worker == null) return null;
+        var mappedWorker = _mapper.Map<WorkerDTO>(worker);
+
+        if (worker == null) 
+            return null;
+
         var token = generateJwtToken(worker);
-        return new AuthenticateResponse(worker, token);
+
+        return new AuthenticateResponse(mappedWorker, token);
     }
 
     public decimal CalculateSalaryByWorkerId(int workerId, int monthNumber, int year)
@@ -40,6 +48,7 @@ public sealed class WorkerService : IWorkerService
         var worker = _workerRepository.GetById(workerId);
         var appointments = _appointmentRepository.GetByWorkerId(workerId, monthNumber, year);
         decimal monthlySalary;
+
         if(worker.Position.BaseRate != 0)
         {
             monthlySalary = worker.Position.BaseRate;
@@ -48,6 +57,7 @@ public sealed class WorkerService : IWorkerService
         {
             monthlySalary = appointments.Sum(x => x.TotalSum).GetValueOrDefault();
         }
+
         return monthlySalary;
     }
 
@@ -55,6 +65,7 @@ public sealed class WorkerService : IWorkerService
     {
         var worker = _workerRepository.GetById(id);
         var mappedWorker = _mapper.Map<FullWorkerDTO>(worker);
+
         return mappedWorker;
     }
 
@@ -62,24 +73,28 @@ public sealed class WorkerService : IWorkerService
     {
         var workers = _workerRepository.GetAll();
         var mappedList = _mapper.Map<List<Worker>, List<ShowWorkerDTO>>(workers.ToList());
+
         return mappedList;
     }
     public List<FullWorkerDTO> GetWorkersByNameSurname(string name, string surname)
     {
         var workers = _workerRepository.GetByNameSurname(name, surname);
         var mappedList = _mapper.Map<List<Worker>, List<FullWorkerDTO>>(workers.ToList());
+
         return mappedList;
     }
     public List<FullWorkerDTO> GetWorkersByAddress(string city, string address)
     {
         var workers = _workerRepository.GetByAddress(city, address);
         var mappedList = _mapper.Map<List<Worker>, List<FullWorkerDTO>>(workers.ToList());
+
         return mappedList;
     }
     public int Create(CreateWorkerDTO worker)
     {
         var mappedWorker = _mapper.Map<CreateWorkerDTO, Worker>(worker);
         var newWorker = _workerRepository.Add(mappedWorker);
+
         return newWorker.Id;
     }
 
@@ -88,12 +103,14 @@ public sealed class WorkerService : IWorkerService
         var updateWorker = _mapper.Map<Worker>(worker);
         var updatedWorker = _workerRepository.Edit(updateWorker);
         var updatedWorkerDTO = _mapper.Map<UpdateWorkerDTO>(updatedWorker);
+
         return updatedWorkerDTO;
     }
 
     public void Delete(int id)
     {
         var worker = _workerRepository.GetById(id);
+
         if (worker != null)
         {
             _workerRepository.Delete(id);
@@ -104,13 +121,16 @@ public sealed class WorkerService : IWorkerService
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
+
         var token = tokenHandler.CreateToken(tokenDescriptor);
+
         return tokenHandler.WriteToken(token);
     }
 }

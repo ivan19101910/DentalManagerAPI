@@ -1,4 +1,6 @@
-﻿namespace DentalManager.Application.Contracts;
+﻿using DentalManager.Application.Contracts.Workers;
+
+namespace DentalManager.Application.Contracts;
 
 public class AuthenticateResponse
 {
@@ -8,8 +10,7 @@ public class AuthenticateResponse
     public string Login { get; set; }
     public string Token { get; set; }
 
-
-    public AuthenticateResponse(Worker worker, string token)
+    public AuthenticateResponse(WorkerDTO worker, string token)
     {
         Id = worker.Id;
         FirstName = worker.FirstName;
