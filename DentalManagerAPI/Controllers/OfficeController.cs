@@ -38,11 +38,11 @@ public sealed class OfficeController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(CreateOfficeDTO office)
+    public ActionResult<int> Create(CreateOfficeDTO office, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _officeService.Create(office);
+            var result = _officeService.Create(office, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -56,11 +56,11 @@ public sealed class OfficeController : ControllerBase
 
     [HttpPut]
     [Route("update")]
-    public ActionResult<OfficeDTO> Update(CreateOfficeDTO officeDTO)
+    public ActionResult<OfficeDTO> Update(CreateOfficeDTO officeDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _officeService.Update(officeDTO);
+            var result = _officeService.Update(officeDTO, cancellationToken);
             return result;
         }
         catch (ArgumentException ex)

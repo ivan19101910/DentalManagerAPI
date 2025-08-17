@@ -2,7 +2,7 @@
 
 namespace DentalManager.Data.Appointments;
 
-internal sealed class AppointmentStatusRepository : BaseRepository<AppointmentStatus>, IAppointmentStatusRepository
+internal sealed class AppointmentStatusRepository : RepositoryBase<AppointmentStatus>, IAppointmentStatusRepository
 {
     public AppointmentStatusRepository(DentalManagerDBContext context) : base(context)
     {

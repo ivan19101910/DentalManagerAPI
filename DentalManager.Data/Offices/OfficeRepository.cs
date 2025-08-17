@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentalManager.Data.Offices;
 
-internal sealed class OfficeRepository : BaseRepository<Office>, IOfficeRepository
+internal sealed class OfficeRepository : RepositoryBase<Office>, IOfficeRepository
 {
     public OfficeRepository(DentalManagerDBContext context) : base(context)
     {

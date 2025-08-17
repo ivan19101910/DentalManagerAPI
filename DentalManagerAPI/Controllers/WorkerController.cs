@@ -86,11 +86,11 @@ public sealed class WorkerController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(CreateWorkerDTO worker)
+    public ActionResult<int> Create(CreateWorkerDTO worker, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _workerService.Create(worker);
+            var result = _workerService.Create(worker, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -104,11 +104,11 @@ public sealed class WorkerController : ControllerBase
 
     [HttpPut]
     [Route("update")]
-    public ActionResult<UpdateWorkerDTO> Update(UpdateWorkerDTO workerDTO)
+    public ActionResult<UpdateWorkerDTO> Update(UpdateWorkerDTO workerDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _workerService.Update(workerDTO);
+            var result = _workerService.Update(workerDTO, cancellationToken);
             
             if (result.WorkerSchedules == null || result.WorkerSchedules.Count == 0)
             {
@@ -116,7 +116,7 @@ public sealed class WorkerController : ControllerBase
             }
             else
             {
-                _workerScheduleService.UpdateMany(workerDTO.WorkerSchedules, result.Id);
+                _workerScheduleService.UpdateMany(workerDTO.WorkerSchedules, result.Id, cancellationToken);
             }
             return result;
         }

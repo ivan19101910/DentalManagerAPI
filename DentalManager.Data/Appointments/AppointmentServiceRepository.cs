@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentalManager.Data.Appointments;
 
-internal sealed class AppointmentServiceRepository : BaseRepository<AppointmentService>, IAppointmentServiceRepository
+internal sealed class AppointmentServiceRepository : RepositoryBase<AppointmentService>, IAppointmentServiceRepository
 {
     public AppointmentServiceRepository(DentalManagerDBContext context) : base(context)
     {
@@ -17,11 +17,11 @@ internal sealed class AppointmentServiceRepository : BaseRepository<AppointmentS
             .ToList();
     }
 
-    public override AppointmentService Edit(AppointmentService entity)
+    public override Task<AppointmentService> Update(AppointmentService entity, CancellationToken cancellationToken)
     {
         _context.Entry(entity).State = EntityState.Detached;
         _context.Entry(entity).State = EntityState.Modified;
 
-        return entity;
+        return Task.FromResult(entity);
     }
 }

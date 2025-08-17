@@ -10,9 +10,9 @@ public interface IRepository<TEntity> where TEntity : IEntity<int>
 
     IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
 
-    TEntity Add(TEntity entity);
+    Task<TEntity> Add(TEntity entity, CancellationToken cancellationToken);
 
     void Delete(int id);
 
-    TEntity Edit(TEntity entity);
+    Task<TEntity> Update(TEntity entity, CancellationToken cancellationToken);
 }

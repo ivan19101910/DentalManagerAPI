@@ -9,8 +9,8 @@ public interface IWorkerService
     List<ShowWorkerDTO> GetAll();
     List<FullWorkerDTO> GetWorkersByNameSurname(string name, string surname);
     List<FullWorkerDTO> GetWorkersByAddress(string city, string address);
-    int Create(CreateWorkerDTO worker);
-    UpdateWorkerDTO Update(UpdateWorkerDTO worker);
+    int Create(CreateWorkerDTO worker, CancellationToken cancellationToken);
+    UpdateWorkerDTO Update(UpdateWorkerDTO worker, CancellationToken cancellationToken);
     void Delete(int id);
     public decimal CalculateSalaryByWorkerId(int workerId, int monthNumber, int year);
 }

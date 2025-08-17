@@ -38,11 +38,11 @@ public sealed class SalaryPaymentController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(CreateSalaryPaymentDTO payment)
+    public ActionResult<int> Create(CreateSalaryPaymentDTO payment, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _salaryPaymentService.Create(payment);
+            var result = _salaryPaymentService.Create(payment, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -56,11 +56,11 @@ public sealed class SalaryPaymentController : ControllerBase
 
     [HttpPut]
     [Route("update")]
-    public ActionResult<CreateSalaryPaymentDTO> Update(CreateSalaryPaymentDTO salaryPaymentDTO)
+    public ActionResult<CreateSalaryPaymentDTO> Update(CreateSalaryPaymentDTO salaryPaymentDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _salaryPaymentService.Update(salaryPaymentDTO);
+            var result = _salaryPaymentService.Update(salaryPaymentDTO, cancellationToken);
             return result;
         }
         catch (ArgumentException ex)

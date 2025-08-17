@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentalManager.Data.Services;
 
-internal sealed class ServiceRepository : BaseRepository<Service>, IServiceRepository
+internal sealed class ServiceRepository : RepositoryBase<Service>, IServiceRepository
 {
     public ServiceRepository(DentalManagerDBContext context) : base(context)
     {

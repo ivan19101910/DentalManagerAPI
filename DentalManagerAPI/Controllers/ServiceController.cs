@@ -49,11 +49,11 @@ public sealed class ServiceController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(ServiceDTO patient)
+    public ActionResult<int> Create(ServiceDTO patient, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _serviceService.Create(patient);
+            var result = _serviceService.Create(patient, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -67,11 +67,11 @@ public sealed class ServiceController : ControllerBase
 
     [HttpPut]
     [Route("update")]
-    public ActionResult<ServiceDTO> Update(ServiceDTO serviceDTO)
+    public ActionResult<ServiceDTO> Update(ServiceDTO serviceDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _serviceService.Update(serviceDTO);
+            var result = _serviceService.Update(serviceDTO, cancellationToken);
             return result;
         }
         catch (ArgumentException ex)

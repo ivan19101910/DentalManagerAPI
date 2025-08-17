@@ -8,6 +8,7 @@ namespace DentalManager.Application.Appointments;
 public sealed class AppointmentServiceService : IAppointmentServiceService
 {
     private readonly IAppointmentServiceRepository _appointmentServiceRepository;
+
     private readonly IMapper _mapper;
 
     public AppointmentServiceService(IAppointmentServiceRepository appointmentServiceRepository, IMapper mapper)
@@ -16,22 +17,7 @@ public sealed class AppointmentServiceService : IAppointmentServiceService
         _mapper = mapper;
     }
 
-    public List<int> CreateMany(List<AppointmentServiceDTO> appointmentList, int appointmentId)
-    {
-        List<int> createdIds = new List<int>();
-
-        foreach (var appointment in appointmentList)
-        {
-            var mappedAppointment = _mapper.Map<AppointmentServiceDTO, DomainAppointmentService>(appointment);
-            mappedAppointment.AppointmentId = appointmentId;
-            var newAppointment = _appointmentServiceRepository.Add(mappedAppointment);
-            createdIds.Add(newAppointment.Id);
-        }
-
-        return createdIds;
-    }
-
-    public List<AppointmentServiceDTO> UpdateMany(List<AppointmentServiceDTO> appService, int appointmentId)
+    public List<AppointmentServiceDTO> UpdateMany(List<AppointmentServiceDTO> appService, int appointmentId, CancellationToken cancellationToken)
     {
         var comparer = new AppointmentServiceEqualityComparer();
         var comparerWithoutAmount = new AppointmentServiceEqualityComparerWithoutAmount();
@@ -40,20 +26,19 @@ public sealed class AppointmentServiceService : IAppointmentServiceService
         var difference = updateAppointmentServices.Except(appointmentServices, comparer).ToList();
         var forUpdate = difference.Where(x => x.Id != 0).ToList();
         difference = difference.Except(forUpdate, comparer).ToList();
-        if (difference.Any())
-        {
-            CreateMany(_mapper.Map<List<AppointmentServiceDTO>>(difference), appointmentId);
-        }
+
         if (forUpdate.Any())
         {
             foreach (var appointmentService in forUpdate)
             {
                 var update = appointmentService;
-                _appointmentServiceRepository.Edit(update);
+                _appointmentServiceRepository.Update(update, cancellationToken);
             }
         }
+
         difference = appointmentServices.Except(updateAppointmentServices, comparer).ToList();
         difference = difference.Except(forUpdate, comparerWithoutAmount).ToList();
+
         if (difference.Any())
         {
             foreach(var appointmentService in difference)
@@ -61,6 +46,7 @@ public sealed class AppointmentServiceService : IAppointmentServiceService
                 _appointmentServiceRepository.Delete(appointmentService.Id);
             }
         }
+
         return null;
     }
 

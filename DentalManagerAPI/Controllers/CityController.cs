@@ -38,11 +38,11 @@ public class CityController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(CityDTO patient)
+    public ActionResult<int> Create(CityDTO patient, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _cityService.Create(patient);
+            var result = _cityService.Create(patient, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -55,11 +55,11 @@ public class CityController : ControllerBase
     }
     [HttpPut]
     [Route("update")]
-    public ActionResult<CityDTO> Update(CityDTO serviceDTO)
+    public ActionResult<CityDTO> Update(CityDTO serviceDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _cityService.Update(serviceDTO);
+            var result = _cityService.Update(serviceDTO, cancellationToken);
             return result;
         }
         catch (ArgumentException ex)

@@ -2,7 +2,7 @@
 
 namespace DentalManager.Data.Patients;
 
-internal sealed class PatientRepository : BaseRepository<Patient>, IPatientRepository
+internal sealed class PatientRepository : RepositoryBase<Patient>, IPatientRepository
 {
     public PatientRepository(DentalManagerDBContext context) : base(context)
     {

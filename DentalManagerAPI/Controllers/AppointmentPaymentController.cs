@@ -38,11 +38,11 @@ public class AppointmentPaymentController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(AppointmentPaymentDTO patient)
+    public ActionResult<int> Create(AppointmentPaymentDTO patient, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _appointmentPaymentService.Create(patient);
+            var result = _appointmentPaymentService.Create(patient, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -55,11 +55,11 @@ public class AppointmentPaymentController : ControllerBase
     }
     [HttpPut]
     [Route("update")]
-    public ActionResult<AppointmentPaymentDTO> Update(AppointmentPaymentDTO appointmentPaymentDTO)
+    public ActionResult<AppointmentPaymentDTO> Update(AppointmentPaymentDTO appointmentPaymentDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _appointmentPaymentService.Update(appointmentPaymentDTO);
+            var result = _appointmentPaymentService.Update(appointmentPaymentDTO, cancellationToken);
             return result;
         }
         catch (ArgumentException ex)

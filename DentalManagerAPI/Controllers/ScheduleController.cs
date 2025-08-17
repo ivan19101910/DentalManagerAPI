@@ -38,11 +38,11 @@ public sealed class ScheduleController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(ScheduleDTO schedule)
+    public ActionResult<int> Create(ScheduleDTO schedule, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _scheduleService.Create(schedule);
+            var result = _scheduleService.Create(schedule, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -56,11 +56,11 @@ public sealed class ScheduleController : ControllerBase
 
     [HttpPut]
     [Route("update")]
-    public ActionResult<ScheduleDTO> Update(ScheduleDTO scheduleDTO)
+    public ActionResult<ScheduleDTO> Update(ScheduleDTO scheduleDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _scheduleService.Update(scheduleDTO);
+            var result = _scheduleService.Update(scheduleDTO, cancellationToken);
             return result;
         }
         catch (ArgumentException ex)

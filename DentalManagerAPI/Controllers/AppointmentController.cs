@@ -76,11 +76,11 @@ public class AppointmentController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(CreateAppointmentDTO appointment)
+    public ActionResult<int> Create(CreateAppointmentDTO appointment, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _appointmentService.Create(appointment);
+            var result = _appointmentService.Create(appointment, cancellationToken);
             if (result != null)
             {
                 return result;
@@ -97,11 +97,11 @@ public class AppointmentController : ControllerBase
 
     [HttpPut]
     [Route("update")]
-    public ActionResult<EditAppointmentDTO> Update(EditAppointmentDTO appointmentDTO)
+    public ActionResult<EditAppointmentDTO> Update(EditAppointmentDTO appointmentDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _appointmentService.Update(appointmentDTO);
+            var result = _appointmentService.Update(appointmentDTO, cancellationToken);
 
             if (result.AppointmentServices == null || result.AppointmentServices.Count == 0)
             {
@@ -109,7 +109,7 @@ public class AppointmentController : ControllerBase
             }
             else
             {
-                _appointmentServiceService.UpdateMany(appointmentDTO.AppointmentServices, result.Id);
+                _appointmentServiceService.UpdateMany(appointmentDTO.AppointmentServices, result.Id, cancellationToken);
             }
             return result;
         }

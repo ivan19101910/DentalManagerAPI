@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentalManager.Data.Workers;
 
-internal sealed class WorkerRepository : BaseRepository<Worker>, IWorkerRepository
+internal sealed class WorkerRepository : RepositoryBase<Worker>, IWorkerRepository
 {
     public WorkerRepository(DentalManagerDBContext context) : base(context)
     {

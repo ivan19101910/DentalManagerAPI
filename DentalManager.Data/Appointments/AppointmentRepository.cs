@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentalManager.Data.Appointments;
 
-internal sealed class AppointmentRepository : BaseRepository<Appointment>, IAppointmentRepository
+internal sealed class AppointmentRepository : RepositoryBase<Appointment>, IAppointmentRepository
 {
     public AppointmentRepository(DentalManagerDBContext context) : base(context)
     {
@@ -72,11 +72,5 @@ internal sealed class AppointmentRepository : BaseRepository<Appointment>, IAppo
             .Where(x => x.Patient.PhoneNumber == phoneNumber)
             .Include(x => x.Status)
             ;
-    }
-    public override Appointment Edit(Appointment entity)
-    {
-        _context.Entry(entity).State = EntityState.Modified;
-        
-        return entity;
     }
 }

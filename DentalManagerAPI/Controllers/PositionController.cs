@@ -38,11 +38,11 @@ public sealed class PositionController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(PositionDTO position)
+    public ActionResult<int> Create(PositionDTO position, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _positionService.Create(position);
+            var result = _positionService.Create(position, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -55,11 +55,11 @@ public sealed class PositionController : ControllerBase
     }
     [HttpPut]
     [Route("update")]
-    public ActionResult<PositionDTO> Update(PositionDTO positionDTO)
+    public ActionResult<PositionDTO> Update(PositionDTO positionDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _positionService.Update(positionDTO);
+            var result = _positionService.Update(positionDTO, cancellationToken);
             return result;
         }
         catch (ArgumentException ex)

@@ -90,18 +90,18 @@ public sealed class WorkerService : IWorkerService
 
         return mappedList;
     }
-    public int Create(CreateWorkerDTO worker)
+    public int Create(CreateWorkerDTO worker, CancellationToken cancellationToken)
     {
         var mappedWorker = _mapper.Map<CreateWorkerDTO, Worker>(worker);
-        var newWorker = _workerRepository.Add(mappedWorker);
+        var newWorker = _workerRepository.Add(mappedWorker, cancellationToken);
 
         return newWorker.Id;
     }
 
-    public UpdateWorkerDTO Update(UpdateWorkerDTO worker)
+    public UpdateWorkerDTO Update(UpdateWorkerDTO worker, CancellationToken cancellationToken)
     {
         var updateWorker = _mapper.Map<Worker>(worker);
-        var updatedWorker = _workerRepository.Edit(updateWorker);
+        var updatedWorker = _workerRepository.Update(updateWorker, cancellationToken);
         var updatedWorkerDTO = _mapper.Map<UpdateWorkerDTO>(updatedWorker);
 
         return updatedWorkerDTO;

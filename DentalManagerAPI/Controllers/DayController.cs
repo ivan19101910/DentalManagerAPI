@@ -27,11 +27,11 @@ public class DayController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(DayDTO day)
+    public ActionResult<int> Create(DayDTO day, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _dayService.Create(day);
+            var result = _dayService.Create(day, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -44,11 +44,11 @@ public class DayController : ControllerBase
     }
     [HttpPut]
     [Route("update")]
-    public ActionResult<DayDTO> Update(DayDTO dayDTO)
+    public ActionResult<DayDTO> Update(DayDTO dayDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _dayService.Update(dayDTO);
+            var result = _dayService.Update(dayDTO, cancellationToken);
             return result;
         }
         catch (ArgumentException ex)

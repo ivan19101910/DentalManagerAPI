@@ -19,32 +19,37 @@ public sealed class AppointmentPaymentService : IAppointmentPaymentService
     public AppointmentPaymentDTO GetById(int id)
     {
         var payment = _appointmentPaymentRepository.GetById(id);
+
         return _mapper.Map<AppointmentPaymentDTO>(payment);
     }
 
     public List<AppointmentPaymentDTO> GetAll()
     {
         var payments = _appointmentPaymentRepository.GetAll();
+
         return _mapper.Map<List<AppointmentPayment>, List<AppointmentPaymentDTO>>(payments.ToList());
     }
 
-    public int Create(AppointmentPaymentDTO payment)
+    public int Create(AppointmentPaymentDTO payment, CancellationToken cancellationToken)
     {
         var mappedPayment = _mapper.Map<AppointmentPaymentDTO, AppointmentPayment>(payment);
-        var newPayment = _appointmentPaymentRepository.Add(mappedPayment);
+        var newPayment = _appointmentPaymentRepository.Add(mappedPayment, cancellationToken);
+
         return newPayment.Id;
     }
 
-    public AppointmentPaymentDTO Update(AppointmentPaymentDTO payment)
+    public AppointmentPaymentDTO Update(AppointmentPaymentDTO payment, CancellationToken cancellationToken)
     {
         var updatePayment = _mapper.Map<AppointmentPayment>(payment);
-        var updatedPayment = _appointmentPaymentRepository.Edit(updatePayment);
+        var updatedPayment = _appointmentPaymentRepository.Update(updatePayment, cancellationToken);
+
         return _mapper.Map<AppointmentPaymentDTO>(updatedPayment);
     }
 
     public void Delete(int id)
     {
         var payment = _appointmentPaymentRepository.GetById(id);
+
         if (payment != null)
         {
             _appointmentPaymentRepository.Delete(id);

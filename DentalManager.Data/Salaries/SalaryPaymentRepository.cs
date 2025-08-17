@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentalManager.Data.Salaries;
 
-internal sealed class SalaryPaymentRepository : BaseRepository<SalaryPayment>, ISalaryPaymentRepository
+internal sealed class SalaryPaymentRepository : RepositoryBase<SalaryPayment>, ISalaryPaymentRepository
 {
     public SalaryPaymentRepository(DentalManagerDBContext context) : base(context)
     {

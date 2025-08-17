@@ -1,25 +1,28 @@
 ﻿using DentalManager.Domain.Abstractions;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace DentalManager.Data;
 
-public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity<int>
+public class RepositoryBase<TEntity> : IRepository<TEntity> 
+    where TEntity : class, 
+    IEntity<int>
 {
     protected readonly DentalManagerDBContext _context;
 
-    public BaseRepository(DentalManagerDBContext context)
+    public RepositoryBase(DentalManagerDBContext context)
     {
         _context = context;
     }
 
-    public virtual TEntity Add(TEntity entity)
+    public async virtual Task<TEntity> Add(TEntity entity, CancellationToken cancellationToken)
     {
         var includeEntity = _context.Set<TEntity>().Find(entity.Id);
 
         if (includeEntity == null)
             _context.Set<TEntity>().Add(entity);
         else throw new ArgumentException("This value already in the database");
+
+        await _context.SaveChangesAsync(cancellationToken);
 
         return entity;
     }
@@ -34,9 +37,10 @@ public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : clas
             throw new Exception("Not found");
     }
 
-    public virtual TEntity Edit(TEntity entity)
+    public async virtual Task<TEntity> Update(TEntity entity, CancellationToken cancellationToken)
     {
-        _context.Entry(entity).State = EntityState.Modified;
+        _context.Set<TEntity>().Update(entity);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return entity;
     }

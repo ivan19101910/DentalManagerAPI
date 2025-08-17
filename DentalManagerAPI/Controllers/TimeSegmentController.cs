@@ -27,11 +27,11 @@ public sealed class TimeSegmentController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    public ActionResult<int> Create(TimeSegmentDTO timeSegment)
+    public ActionResult<int> Create(TimeSegmentDTO timeSegment, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _timeSegmentService.Create(timeSegment);
+            var result = _timeSegmentService.Create(timeSegment, cancellationToken);
             if (result != null)
                 return result;
             else
@@ -45,11 +45,11 @@ public sealed class TimeSegmentController : ControllerBase
 
     [HttpPut]
     [Route("update")]
-    public ActionResult<TimeSegmentDTO> Update(TimeSegmentDTO timeSegmentDTO)
+    public ActionResult<TimeSegmentDTO> Update(TimeSegmentDTO timeSegmentDTO, CancellationToken cancellationToken)
     {
         try
         {
-            var result = _timeSegmentService.Update(timeSegmentDTO);
+            var result = _timeSegmentService.Update(timeSegmentDTO, cancellationToken);
             return result;
         }
         catch (ArgumentException ex)
