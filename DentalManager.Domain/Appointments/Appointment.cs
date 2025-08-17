@@ -30,10 +30,10 @@ public sealed class Appointment : IEntity<int>
 
     public Worker? Worker { get; init; }
 
-    public IList<AppointmentService> AppointmentServices { get; init; } = [];
+    public List<AppointmentService> AppointmentServices { get; init; } = [];
 
-    public void AddServices(IEnumerable<AppointmentService> services)
+    public void AddServices(List<AppointmentService> services)
     {
-
+        AppointmentServices.AddRange(services);
     }
 }

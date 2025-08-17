@@ -70,32 +70,12 @@ public sealed class WorkerScheduleService : IWorkerScheduleService
         }
     }
 
-    public List<int> CreateMany(List<WorkerScheduleDTO> schedulesList, int workerId, CancellationToken cancellationToken)
-    {
-        List<int> createdIds = new List<int>();
-
-        foreach (var schedule in schedulesList)
-        {
-            var mappedSchedule = _mapper.Map<WorkerScheduleDTO, WorkerSchedule>(schedule);
-            mappedSchedule.WorkerId = workerId;
-            var newSchedule = _workerScheduleRepository.Add(mappedSchedule, cancellationToken);
-            createdIds.Add(newSchedule.Id);
-        }
-
-        return createdIds;
-    }
-
     public List<WorkerScheduleDTO> UpdateMany(List<WorkerScheduleDTO> workerSchedules, int workerId, CancellationToken cancellationToken)
     {
         var comparer = new WorkerScheduleEqualityComparer();
         var schedules = _workerScheduleRepository.GetByWorkerId(workerId);
         var updateWorkerSchedules = _mapper.Map<List<WorkerSchedule>>(workerSchedules);
         var difference = updateWorkerSchedules.Except(schedules, comparer);
-
-        if (difference.Any())
-        {
-            CreateMany(_mapper.Map<List<WorkerScheduleDTO>>(difference), workerId, cancellationToken);
-        }
 
         difference = schedules.Except(updateWorkerSchedules, comparer);
 

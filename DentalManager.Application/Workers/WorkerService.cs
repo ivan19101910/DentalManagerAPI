@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DentalManager.Application.Contracts;
+using DentalManager.Application.Contracts.Appointments;
 using DentalManager.Application.Contracts.Workers;
 using DentalManager.Domain.Appointments;
 using DentalManager.Domain.Workers;
@@ -76,6 +77,7 @@ public sealed class WorkerService : IWorkerService
 
         return mappedList;
     }
+
     public List<FullWorkerDTO> GetWorkersByNameSurname(string name, string surname)
     {
         var workers = _workerRepository.GetByNameSurname(name, surname);
@@ -83,6 +85,7 @@ public sealed class WorkerService : IWorkerService
 
         return mappedList;
     }
+
     public List<FullWorkerDTO> GetWorkersByAddress(string city, string address)
     {
         var workers = _workerRepository.GetByAddress(city, address);
@@ -90,6 +93,7 @@ public sealed class WorkerService : IWorkerService
 
         return mappedList;
     }
+
     public int Create(CreateWorkerDTO worker, CancellationToken cancellationToken)
     {
         var mappedWorker = _mapper.Map<CreateWorkerDTO, Worker>(worker);
@@ -115,6 +119,22 @@ public sealed class WorkerService : IWorkerService
         {
             _workerRepository.Delete(id);
         }
+    }
+
+    public async Task AddSchedule(List<WorkerScheduleDTO> schedulesList, int workerId, CancellationToken cancellationToken)
+    {
+        var worker = _workerRepository.GetById(workerId);
+
+        if (worker == null)
+        {
+            //TODO: Add NotFoundException or similar exception
+            throw new ArgumentException($"Worker with ID {workerId} does not exist.");
+        }
+
+        var mappedSchedules = _mapper.Map<List<WorkerScheduleDTO>, List<WorkerSchedule>>(schedulesList);
+        worker.AddSchedules(mappedSchedules);
+
+        await _workerRepository.Update(worker, cancellationToken);
     }
 
     private string generateJwtToken(Worker user)

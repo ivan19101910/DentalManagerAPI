@@ -29,7 +29,12 @@ public sealed class Worker : IEntity<int>
 
     public Position? Position { get; init; }
 
-    public IList<WorkerSchedule> WorkerSchedules { get; init; } = [];
+    public List<WorkerSchedule> WorkerSchedules { get; init; } = [];
 
     public IList<Appointment> Appointments { get; init; } = [];
+
+    public void AddSchedules(List<WorkerSchedule> schedules)
+    {
+        WorkerSchedules.AddRange(schedules); 
+    }
 }
