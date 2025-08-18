@@ -40,46 +40,25 @@ public class CityController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(CityDTO patient, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _cityService.Create(patient, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _cityService.Create(patient, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
     [HttpPut]
     [Route("update")]
     public ActionResult<CityDTO> Update(CityDTO serviceDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _cityService.Update(serviceDTO, cancellationToken);
-            return result;
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _cityService.Update(serviceDTO, cancellationToken);
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _cityService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _cityService.Delete(id);
         return id;
     }
 }

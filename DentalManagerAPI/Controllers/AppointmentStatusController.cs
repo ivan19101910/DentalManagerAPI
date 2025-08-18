@@ -39,46 +39,25 @@ public class AppointmentStatusController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(AppointmentStatusDTO patient, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _appointmentStatusService.Create(patient, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _appointmentStatusService.Create(patient, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
     [HttpPut]
     [Route("update")]
     public ActionResult<AppointmentStatusDTO> Update(AppointmentStatusDTO appointmentStatusDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _appointmentStatusService.Update(appointmentStatusDTO, cancellationToken);
-            return result;
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _appointmentStatusService.Update(appointmentStatusDTO, cancellationToken);
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _appointmentStatusService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _appointmentStatusService.Delete(id);
         return id;
     }
 }

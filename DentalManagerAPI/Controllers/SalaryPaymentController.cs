@@ -40,47 +40,26 @@ public sealed class SalaryPaymentController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(CreateSalaryPaymentDTO payment, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _salaryPaymentService.Create(payment, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _salaryPaymentService.Create(payment, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
 
     [HttpPut]
     [Route("update")]
     public ActionResult<CreateSalaryPaymentDTO> Update(CreateSalaryPaymentDTO salaryPaymentDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _salaryPaymentService.Update(salaryPaymentDTO, cancellationToken);
-            return result;
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _salaryPaymentService.Update(salaryPaymentDTO, cancellationToken);
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _salaryPaymentService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _salaryPaymentService.Delete(id);
         return id;
     }
 }

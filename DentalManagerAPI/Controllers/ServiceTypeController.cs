@@ -29,46 +29,25 @@ public sealed class ServiceTypeController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(ServiceTypeDTO patient, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _serviceTypeService.Create(patient, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _serviceTypeService.Create(patient, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
     [HttpPut]
     [Route("update")]
     public ActionResult<ServiceTypeDTO> Update(ServiceTypeDTO serviceTypeDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _serviceTypeService.Update(serviceTypeDTO, cancellationToken);
-            return result;
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _serviceTypeService.Update(serviceTypeDTO, cancellationToken);
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _serviceTypeService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _serviceTypeService.Delete(id);
         return id;
     }
 }

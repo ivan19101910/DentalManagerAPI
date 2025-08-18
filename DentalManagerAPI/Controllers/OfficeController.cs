@@ -40,47 +40,26 @@ public sealed class OfficeController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(CreateOfficeDTO office, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _officeService.Create(office, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _officeService.Create(office, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
 
     [HttpPut]
     [Route("update")]
     public ActionResult<OfficeDTO> Update(CreateOfficeDTO officeDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _officeService.Update(officeDTO, cancellationToken);
-            return result;
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _officeService.Update(officeDTO, cancellationToken);
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _officeService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _officeService.Delete(id);
         return id;
     }
 }

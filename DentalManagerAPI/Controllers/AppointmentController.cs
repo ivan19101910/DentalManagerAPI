@@ -78,59 +78,37 @@ public class AppointmentController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(CreateAppointmentDTO appointment, CancellationToken cancellationToken)
     {
-        try
+        var result = _appointmentService.Create(appointment, cancellationToken);
+        if (result != null)
         {
-            var result = _appointmentService.Create(appointment, cancellationToken);
-            if (result != null)
-            {
-                return result;
-            }
-                
-            else
-                return BadRequest();
+            return result;
         }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        else
+            return BadRequest();
     }
 
     [HttpPut]
     [Route("update")]
     public ActionResult<EditAppointmentDTO> Update(EditAppointmentDTO appointmentDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _appointmentService.Update(appointmentDTO, cancellationToken);
+        var result = _appointmentService.Update(appointmentDTO, cancellationToken);
 
-            if (result.AppointmentServices == null || result.AppointmentServices.Count == 0)
-            {
-                _appointmentServiceService.DeleteAllByAppointmentId(result.Id);
-            }
-            else
-            {
-                _appointmentServiceService.UpdateMany(appointmentDTO.AppointmentServices, result.Id, cancellationToken);
-            }
-            return result;
-        }
-        catch (ArgumentException ex)
+        if (result.AppointmentServices == null || result.AppointmentServices.Count == 0)
         {
-            return BadRequest(ex.Message);
+            _appointmentServiceService.DeleteAllByAppointmentId(result.Id);
         }
+        else
+        {
+            _appointmentServiceService.UpdateMany(appointmentDTO.AppointmentServices, result.Id, cancellationToken);
+        }
+        return result;
     }
     
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _appointmentService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _appointmentService.Delete(id);
         return id;
     }
 }

@@ -41,47 +41,26 @@ public sealed class PatientController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(PatientDTO patient, CancellationToken cancellationToken)
     {            
-        try
-        {
-            var result = _patientService.CreatePatient(patient, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _patientService.CreatePatient(patient, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
     
     [HttpPut]
     [Route("update")]
     public ActionResult<PatientDTO> Update(PatientDTO patientDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _patientService.Update(patientDTO, cancellationToken);
-            return result;
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _patientService.Update(patientDTO, cancellationToken);
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _patientService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _patientService.Delete(id);
         return id;
     }
 } 

@@ -40,47 +40,26 @@ public sealed class WorkerScheduleController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(WorkerScheduleDTO schedule, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _workerScheduleService.Create(schedule, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _workerScheduleService.Create(schedule, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
 
     [HttpPut]
     [Route("update")]
     public ActionResult<WorkerScheduleDTO> Update(WorkerScheduleDTO scheduleDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _workerScheduleService.Update(scheduleDTO, cancellationToken);
-            return result;
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _workerScheduleService.Update(scheduleDTO, cancellationToken);
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _workerScheduleService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _workerScheduleService.Delete(id);
         return id;
     }
 }

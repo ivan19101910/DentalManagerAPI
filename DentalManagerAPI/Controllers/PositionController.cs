@@ -40,46 +40,25 @@ public sealed class PositionController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(PositionDTO position, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _positionService.Create(position, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _positionService.Create(position, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
     [HttpPut]
     [Route("update")]
     public ActionResult<PositionDTO> Update(PositionDTO positionDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _positionService.Update(positionDTO, cancellationToken);
-            return result;
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _positionService.Update(positionDTO, cancellationToken);
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _positionService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _positionService.Delete(id);
         return id;
     }
 }

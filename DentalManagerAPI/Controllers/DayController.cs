@@ -29,46 +29,25 @@ public class DayController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(DayDTO day, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _dayService.Create(day, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _dayService.Create(day, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
     [HttpPut]
     [Route("update")]
     public ActionResult<DayDTO> Update(DayDTO dayDTO, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _dayService.Update(dayDTO, cancellationToken);
-            return result;
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _dayService.Update(dayDTO, cancellationToken);
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _dayService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _dayService.Delete(id);
         return id;
     }
 }

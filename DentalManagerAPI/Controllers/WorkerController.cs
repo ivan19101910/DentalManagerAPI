@@ -88,56 +88,35 @@ public sealed class WorkerController : ControllerBase
     [Route("create")]
     public ActionResult<int> Create(CreateWorkerDTO worker, CancellationToken cancellationToken)
     {
-        try
-        {
-            var result = _workerService.Create(worker, cancellationToken);
-            if (result != null)
-                return result;
-            else
-                return BadRequest();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = _workerService.Create(worker, cancellationToken);
+        if (result != null)
+            return result;
+        else
+            return BadRequest();
     }
 
     [HttpPut]
     [Route("update")]
     public ActionResult<UpdateWorkerDTO> Update(UpdateWorkerDTO workerDTO, CancellationToken cancellationToken)
     {
-        try
+        var result = _workerService.Update(workerDTO, cancellationToken);
+        
+        if (result.WorkerSchedules == null || result.WorkerSchedules.Count == 0)
         {
-            var result = _workerService.Update(workerDTO, cancellationToken);
-            
-            if (result.WorkerSchedules == null || result.WorkerSchedules.Count == 0)
-            {
-                _workerScheduleService.DeleteAllByWorkerId(result.Id);
-            }
-            else
-            {
-                _workerScheduleService.UpdateMany(workerDTO.WorkerSchedules, result.Id, cancellationToken);
-            }
-            return result;
+            _workerScheduleService.DeleteAllByWorkerId(result.Id);
         }
-        catch (ArgumentException ex)
+        else
         {
-            return BadRequest(ex.Message);
+            _workerScheduleService.UpdateMany(workerDTO.WorkerSchedules, result.Id, cancellationToken);
         }
+        return result;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
-        try
-        {
-            _workerService.Delete(id);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        _workerService.Delete(id);
         return id;
     }
 }
