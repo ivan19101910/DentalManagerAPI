@@ -16,25 +16,25 @@ public sealed class PatientController : ControllerBase
     }
     
     [HttpGet("get-by-id/{patientId}")]
-    public ActionResult<PatientDTO> GetById(int patientId)
+    public ActionResult<PatientDto> GetById(int patientId)
     {
         return Ok(_patientService.GetUserById(patientId));
     }
     
     [HttpGet("getAll")]
-    public ActionResult<List<PatientDTO>> GetAll()
+    public ActionResult<List<PatientDto>> GetAll()
     {
         return Ok(_patientService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(PatientDTO patient, CancellationToken cancellationToken)
+    public ActionResult<int> Create(PatientDto patient, CancellationToken cancellationToken)
     {
         return Ok(_patientService.CreatePatient(patient, cancellationToken));
     }
     
     [HttpPut("update")]
-    public ActionResult<PatientDTO> Update(PatientDTO patientDTO, CancellationToken cancellationToken)
+    public ActionResult<PatientDto> Update(PatientDto patientDTO, CancellationToken cancellationToken)
     {
         return Ok(_patientService.Update(patientDTO, cancellationToken));
     }

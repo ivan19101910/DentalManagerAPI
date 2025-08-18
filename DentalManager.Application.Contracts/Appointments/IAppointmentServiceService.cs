@@ -3,5 +3,5 @@
 public interface IAppointmentServiceService
 {
     void DeleteAllByAppointmentId(int id);
-    public List<AppointmentServiceDTO> UpdateMany(List<AppointmentServiceDTO> appService, int appointmentId, CancellationToken cancellationToken);
+    public List<AppointmentServiceDto> UpdateMany(List<AppointmentServiceDto> appService, int appointmentId, CancellationToken cancellationToken);
 }

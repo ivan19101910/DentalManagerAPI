@@ -3,7 +3,7 @@ using DentalManager.Application.Contracts.Workers;
 
 namespace DentalManager.Application.Contracts.Appointments;
 
-public class FullAppointmentDTO
+public class FullAppointmentDto
 {
     public int Id { get; set; }
     public DateTime AppointmentDate { get; set; }
@@ -15,8 +15,8 @@ public class FullAppointmentDTO
     public int PatientId { get; set; }
     public int StatusId { get; set; }
     public decimal? TotalSum { get; set; }
-    public FullWorkerDTO Worker { get; set; }
-    public PatientDTO Patient { get; set; }
-    public AppointmentStatusDTO Status { get; set; }
-    public List<AppointmentServiceDTO>? AppointmentServices { get; set; }
+    public FullWorkerDto Worker { get; set; }
+    public PatientDto Patient { get; set; }
+    public AppointmentStatusDto Status { get; set; }
+    public List<AppointmentServiceDto>? AppointmentServices { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Appointments;
 
-public class CreateAppointmentDTO
+public sealed class CreateAppointmentDto
 {
     public DateTime AppointmentDate { get; set; }
     public string? Notes { get; set; }
@@ -10,5 +10,5 @@ public class CreateAppointmentDTO
     public int PatientId { get; set; }
     public int StatusId { get; set; }
     public decimal? TotalSum { get; set; }
-    public List<AppointmentServiceDTO>? AppointmentServices { get; set; }
+    public List<AppointmentServiceDto>? AppointmentServices { get; set; }
 }

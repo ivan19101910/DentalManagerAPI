@@ -28,7 +28,7 @@ public sealed class WorkerController : ControllerBase
     }
 
     [HttpGet("getById/{workerId}")]
-    public ActionResult<FullWorkerDTO> GetById(int workerId)
+    public ActionResult<FullWorkerDto> GetById(int workerId)
     {
         return Ok(_workerService.GetWorkerById(workerId));
     }
@@ -40,31 +40,31 @@ public sealed class WorkerController : ControllerBase
     }
 
     [HttpGet("getByNameSurname/{name}/{surname}")]
-    public ActionResult<List<FullWorkerDTO>> GetWorkersByNameSurname(string name, string surname)
+    public ActionResult<List<FullWorkerDto>> GetWorkersByNameSurname(string name, string surname)
     {
         return Ok(_workerService.GetWorkersByNameSurname(name, surname));
     }
 
     [HttpGet("getByAddress/{city}/{address}")]
-    public ActionResult<List<FullWorkerDTO>> GetWorkersByAddress(string city, string address)
+    public ActionResult<List<FullWorkerDto>> GetWorkersByAddress(string city, string address)
     {
         return Ok(_workerService.GetWorkersByAddress(city, address));
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<ShowWorkerDTO>> GetAll()
+    public ActionResult<List<ShowWorkerDto>> GetAll()
     {
         return Ok(_workerService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(CreateWorkerDTO worker, CancellationToken cancellationToken)
+    public ActionResult<int> Create(CreateWorkerDto worker, CancellationToken cancellationToken)
     {
         return Ok(_workerService.Create(worker, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<UpdateWorkerDTO> Update(UpdateWorkerDTO workerDTO, CancellationToken cancellationToken)
+    public ActionResult<UpdateWorkerDto> Update(UpdateWorkerDto workerDTO, CancellationToken cancellationToken)
     {
         var result = _workerService.Update(workerDTO, cancellationToken);
 

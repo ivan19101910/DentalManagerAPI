@@ -15,25 +15,25 @@ public sealed class AppointmentStatusController : ControllerBase
     }
 
     [HttpGet("getById/{statusId}")]
-    public ActionResult<AppointmentStatusDTO> GetById(int statusId)
+    public ActionResult<AppointmentStatusDto> GetById(int statusId)
     {
         return Ok(_appointmentStatusService.GetById(statusId));
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<AppointmentStatusDTO>> GetAll()
+    public ActionResult<List<AppointmentStatusDto>> GetAll()
     {
         return Ok(_appointmentStatusService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(AppointmentStatusDTO patient, CancellationToken cancellationToken)
+    public ActionResult<int> Create(AppointmentStatusDto patient, CancellationToken cancellationToken)
     {
         return Ok(_appointmentStatusService.Create(patient, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<AppointmentStatusDTO> Update(AppointmentStatusDTO appointmentStatusDTO, CancellationToken cancellationToken)
+    public ActionResult<AppointmentStatusDto> Update(AppointmentStatusDto appointmentStatusDTO, CancellationToken cancellationToken)
     {
         return Ok(_appointmentStatusService.Update(appointmentStatusDTO, cancellationToken));
     }

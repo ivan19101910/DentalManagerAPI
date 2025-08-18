@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Workers;
 
-public sealed class UpdateWorkerDTO
+public sealed class UpdateWorkerDto
 {
     public int Id { get; set; }
     public string FirstName { get; set; }
@@ -11,5 +11,5 @@ public sealed class UpdateWorkerDTO
     public string Address { get; set; }
     public int PositionId { get; set; }
     public int? OfficeId { get; set; }
-    public List<WorkerScheduleDTO>? WorkerSchedules { get; set; }
+    public List<WorkerScheduleDto>? WorkerSchedules { get; set; }
 }

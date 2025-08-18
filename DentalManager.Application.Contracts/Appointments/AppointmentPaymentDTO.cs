@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Appointments;
 
-public class AppointmentPaymentDTO
+public class AppointmentPaymentDto
 {
     public int Id { get; set; }
 

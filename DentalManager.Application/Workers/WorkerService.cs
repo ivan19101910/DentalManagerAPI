@@ -34,7 +34,7 @@ public sealed class WorkerService : IWorkerService
     public AuthenticateResponse Authenticate(AuthenticateRequest model)
     {
         var worker = _workerRepository.GetByEmailAndPassword(model.Login, model.Password);
-        var mappedWorker = _mapper.Map<WorkerDTO>(worker);
+        var mappedWorker = _mapper.Map<WorkerDto>(worker);
 
         if (worker == null) 
             return null;
@@ -62,51 +62,51 @@ public sealed class WorkerService : IWorkerService
         return monthlySalary;
     }
 
-    public FullWorkerDTO GetWorkerById(int id)
+    public FullWorkerDto GetWorkerById(int id)
     {
         var worker = _workerRepository.GetById(id);
-        var mappedWorker = _mapper.Map<FullWorkerDTO>(worker);
+        var mappedWorker = _mapper.Map<FullWorkerDto>(worker);
 
         return mappedWorker;
     }
 
-    public List<ShowWorkerDTO> GetAll()
+    public List<ShowWorkerDto> GetAll()
     {
         var workers = _workerRepository.GetAll();
-        var mappedList = _mapper.Map<List<Worker>, List<ShowWorkerDTO>>(workers.ToList());
+        var mappedList = _mapper.Map<List<Worker>, List<ShowWorkerDto>>(workers.ToList());
 
         return mappedList;
     }
 
-    public List<FullWorkerDTO> GetWorkersByNameSurname(string name, string surname)
+    public List<FullWorkerDto> GetWorkersByNameSurname(string name, string surname)
     {
         var workers = _workerRepository.GetByNameSurname(name, surname);
-        var mappedList = _mapper.Map<List<Worker>, List<FullWorkerDTO>>(workers.ToList());
+        var mappedList = _mapper.Map<List<Worker>, List<FullWorkerDto>>(workers.ToList());
 
         return mappedList;
     }
 
-    public List<FullWorkerDTO> GetWorkersByAddress(string city, string address)
+    public List<FullWorkerDto> GetWorkersByAddress(string city, string address)
     {
         var workers = _workerRepository.GetByAddress(city, address);
-        var mappedList = _mapper.Map<List<Worker>, List<FullWorkerDTO>>(workers.ToList());
+        var mappedList = _mapper.Map<List<Worker>, List<FullWorkerDto>>(workers.ToList());
 
         return mappedList;
     }
 
-    public int Create(CreateWorkerDTO worker, CancellationToken cancellationToken)
+    public int Create(CreateWorkerDto worker, CancellationToken cancellationToken)
     {
-        var mappedWorker = _mapper.Map<CreateWorkerDTO, Worker>(worker);
+        var mappedWorker = _mapper.Map<CreateWorkerDto, Worker>(worker);
         var newWorker = _workerRepository.Add(mappedWorker, cancellationToken);
 
         return newWorker.Id;
     }
 
-    public UpdateWorkerDTO Update(UpdateWorkerDTO worker, CancellationToken cancellationToken)
+    public UpdateWorkerDto Update(UpdateWorkerDto worker, CancellationToken cancellationToken)
     {
         var updateWorker = _mapper.Map<Worker>(worker);
         var updatedWorker = _workerRepository.Update(updateWorker, cancellationToken);
-        var updatedWorkerDTO = _mapper.Map<UpdateWorkerDTO>(updatedWorker);
+        var updatedWorkerDTO = _mapper.Map<UpdateWorkerDto>(updatedWorker);
 
         return updatedWorkerDTO;
     }
@@ -121,7 +121,7 @@ public sealed class WorkerService : IWorkerService
         }
     }
 
-    public async Task AddSchedule(List<WorkerScheduleDTO> schedulesList, int workerId, CancellationToken cancellationToken)
+    public async Task AddSchedule(List<WorkerScheduleDto> schedulesList, int workerId, CancellationToken cancellationToken)
     {
         var worker = _workerRepository.GetById(workerId);
 
@@ -131,7 +131,7 @@ public sealed class WorkerService : IWorkerService
             throw new ArgumentException($"Worker with ID {workerId} does not exist.");
         }
 
-        var mappedSchedules = _mapper.Map<List<WorkerScheduleDTO>, List<WorkerSchedule>>(schedulesList);
+        var mappedSchedules = _mapper.Map<List<WorkerScheduleDto>, List<WorkerSchedule>>(schedulesList);
         worker.AddSchedules(mappedSchedules);
 
         await _workerRepository.Update(worker, cancellationToken);

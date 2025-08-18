@@ -15,25 +15,25 @@ public sealed class SalaryPaymentController : ControllerBase
     }
 
     [HttpGet("getById/{paymentId}")]
-    public ActionResult<SalaryPaymentDTO> GetById(int paymentId)
+    public ActionResult<SalaryPaymentDto> GetById(int paymentId)
     {
         return Ok(_salaryPaymentService.GetById(paymentId));
     }
     
     [HttpGet("getAll")]
-    public ActionResult<List<SalaryPaymentDTO>> GetAll()
+    public ActionResult<List<SalaryPaymentDto>> GetAll()
     {
         return Ok(_salaryPaymentService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(CreateSalaryPaymentDTO payment, CancellationToken cancellationToken)
+    public ActionResult<int> Create(CreateSalaryPaymentDto payment, CancellationToken cancellationToken)
     {
         return Ok(_salaryPaymentService.Create(payment, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<CreateSalaryPaymentDTO> Update(CreateSalaryPaymentDTO salaryPaymentDTO, CancellationToken cancellationToken)
+    public ActionResult<CreateSalaryPaymentDto> Update(CreateSalaryPaymentDto salaryPaymentDTO, CancellationToken cancellationToken)
     {
         return Ok(_salaryPaymentService.Update(salaryPaymentDTO, cancellationToken));
     }

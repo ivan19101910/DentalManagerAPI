@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Offices;
 
-public sealed class OfficeDTO
+public sealed class OfficeDto
 {
     public int Id { get; set; }
     public string Address { get; set; }

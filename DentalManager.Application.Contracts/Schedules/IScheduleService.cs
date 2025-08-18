@@ -2,9 +2,9 @@
 
 public interface IScheduleService
 {
-    List<ShowScheduleDTO> GetAll();
-    ScheduleDTO GetById(int id);
-    int Create(ScheduleDTO serviceType, CancellationToken cancellationToken);
-    ScheduleDTO Update(ScheduleDTO serviceType, CancellationToken cancellationToken);
+    List<ShowScheduleDto> GetAll();
+    ScheduleDto GetById(int id);
+    int Create(ScheduleDto serviceType, CancellationToken cancellationToken);
+    ScheduleDto Update(ScheduleDto serviceType, CancellationToken cancellationToken);
     void Delete(int id);
 }

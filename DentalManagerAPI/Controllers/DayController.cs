@@ -15,19 +15,19 @@ public sealed class DayController : ControllerBase
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<DayDTO>> GetAll()
+    public ActionResult<List<DayDto>> GetAll()
     {
         return Ok(_dayService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(DayDTO day, CancellationToken cancellationToken)
+    public ActionResult<int> Create(DayDto day, CancellationToken cancellationToken)
     {
         return Ok(_dayService.Create(day, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<DayDTO> Update(DayDTO dayDTO, CancellationToken cancellationToken)
+    public ActionResult<DayDto> Update(DayDto dayDTO, CancellationToken cancellationToken)
     {
         return Ok(_dayService.Update(dayDTO, cancellationToken));
     }

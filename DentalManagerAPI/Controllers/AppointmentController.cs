@@ -20,43 +20,43 @@ public sealed class AppointmentController : ControllerBase
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<ShortAppointmentDTO>> GetAll()
+    public ActionResult<List<ShortAppointmentDto>> GetAll()
     {
         return Ok(_appointmentService.GetAll());
     }
 
     [HttpGet("getById/{appointmentId}")]
-    public ActionResult<FullAppointmentDTO> GetById(int appointmentId)
+    public ActionResult<FullAppointmentDto> GetById(int appointmentId)
     {
         return Ok(_appointmentService.GetById(appointmentId));
     }
 
     [HttpGet("getByPhoneNumber/{phoneNumber}")]
-    public ActionResult<List<FullAppointmentDTO>> GetByPhoneNumber(string phoneNumber)
+    public ActionResult<List<FullAppointmentDto>> GetByPhoneNumber(string phoneNumber)
     {
         return Ok(_appointmentService.GetByPhoneNumber(phoneNumber));
     }
 
     [HttpGet("getByWorkerId/{workerId}")]
-    public ActionResult<List<FullAppointmentDTO>> GetByWorkerId(int workerId)
+    public ActionResult<List<FullAppointmentDto>> GetByWorkerId(int workerId)
     {
         return Ok(_appointmentService.GetByWorkerId(workerId));
     }
 
     [HttpGet("getByPatientId/{patientId}")]
-    public ActionResult<List<FullAppointmentDTO>> GetByPatientId(int patientId)
+    public ActionResult<List<FullAppointmentDto>> GetByPatientId(int patientId)
     {
         return Ok(_appointmentService.GetByPatientId(patientId));
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(CreateAppointmentDTO appointment, CancellationToken cancellationToken)
+    public ActionResult<int> Create(CreateAppointmentDto appointment, CancellationToken cancellationToken)
     {
         return Ok(_appointmentService.Create(appointment, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<EditAppointmentDTO> Update(EditAppointmentDTO appointmentDTO, CancellationToken cancellationToken)
+    public ActionResult<EditAppointmentDto> Update(EditAppointmentDto appointmentDTO, CancellationToken cancellationToken)
     {
         var result = _appointmentService.Update(appointmentDTO, cancellationToken);
 

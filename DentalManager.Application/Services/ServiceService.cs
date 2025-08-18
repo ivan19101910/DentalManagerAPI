@@ -16,42 +16,42 @@ public sealed class ServiceService : IServiceService
         _mapper = mapper;
     }
 
-    public ServiceDTO GetById(int id)
+    public ServiceDto GetById(int id)
     {
         var service = _serviceRepository.GetById(id);
-        var mappedService = _mapper.Map<ServiceDTO>(service);
+        var mappedService = _mapper.Map<ServiceDto>(service);
 
         return mappedService;
     }
 
-    public List<ServiceDTO> GetAll()
+    public List<ServiceDto> GetAll()
     {
         var services = _serviceRepository.GetAll();
-        var mappedList = _mapper.Map<List<Service>, List<ServiceDTO>>(services.ToList());
+        var mappedList = _mapper.Map<List<Service>, List<ServiceDto>>(services.ToList());
 
         return mappedList;
     }
-    public List<ServiceDTO> GetByServiceType(string serviceType)
+    public List<ServiceDto> GetByServiceType(string serviceType)
     {
         var services = _serviceRepository.GetByServiceType(serviceType);
-        var mappedList = _mapper.Map<List<Service>, List<ServiceDTO>>(services.ToList());
+        var mappedList = _mapper.Map<List<Service>, List<ServiceDto>>(services.ToList());
 
         return mappedList;
     }
     
-    public int Create(ServiceDTO service, CancellationToken cancellationToken)
+    public int Create(ServiceDto service, CancellationToken cancellationToken)
     {
-        var mappedService = _mapper.Map<ServiceDTO, Service>(service);
+        var mappedService = _mapper.Map<ServiceDto, Service>(service);
         var newService = _serviceRepository.Add(mappedService, cancellationToken);
 
         return newService.Id;
     }
 
-    public ServiceDTO Update(ServiceDTO service, CancellationToken cancellationToken)
+    public ServiceDto Update(ServiceDto service, CancellationToken cancellationToken)
     {
         var updateService = _mapper.Map<Service>(service);
         var updatedService = _serviceRepository.Update(updateService, cancellationToken);
-        var updatedServiceDTO = _mapper.Map<ServiceDTO>(updatedService);
+        var updatedServiceDTO = _mapper.Map<ServiceDto>(updatedService);
 
         return updatedServiceDTO;
     }

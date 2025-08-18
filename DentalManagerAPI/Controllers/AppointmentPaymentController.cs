@@ -15,25 +15,25 @@ public sealed class AppointmentPaymentController : ControllerBase
     }
 
     [HttpGet("getById/{paymentId}")]
-    public ActionResult<AppointmentPaymentDTO> GetById(int paymentId)
+    public ActionResult<AppointmentPaymentDto> GetById(int paymentId)
     {
         return Ok(_appointmentPaymentService.GetById(paymentId));
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<AppointmentPaymentDTO>> GetAll()
+    public ActionResult<List<AppointmentPaymentDto>> GetAll()
     {
         return Ok(_appointmentPaymentService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(AppointmentPaymentDTO patient, CancellationToken cancellationToken)
+    public ActionResult<int> Create(AppointmentPaymentDto patient, CancellationToken cancellationToken)
     {
         return Ok(_appointmentPaymentService.Create(patient, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<AppointmentPaymentDTO> Update(AppointmentPaymentDTO appointmentPaymentDTO, CancellationToken cancellationToken)
+    public ActionResult<AppointmentPaymentDto> Update(AppointmentPaymentDto appointmentPaymentDTO, CancellationToken cancellationToken)
     {
         return Ok(_appointmentPaymentService.Update(appointmentPaymentDTO, cancellationToken));
     }

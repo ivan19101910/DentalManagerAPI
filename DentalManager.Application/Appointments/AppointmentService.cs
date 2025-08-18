@@ -17,7 +17,7 @@ public sealed class AppointmentService : IAppointmentService
         _mapper = mapper;
     }
 
-    public async Task AddService(List<AppointmentServiceDTO> appointmentList, int appointmentId, CancellationToken cancellationToken)
+    public async Task AddService(List<AppointmentServiceDto> appointmentList, int appointmentId, CancellationToken cancellationToken)
     {
         var appointment = _appointmentRepository.GetById(appointmentId);
 
@@ -27,60 +27,60 @@ public sealed class AppointmentService : IAppointmentService
             throw new ArgumentException($"Appointment with ID {appointmentId} does not exist.");
         }
 
-        var mappedAppointmentServices = _mapper.Map<List<AppointmentServiceDTO>, List<DomainAppointmentService>>(appointmentList);
+        var mappedAppointmentServices = _mapper.Map<List<AppointmentServiceDto>, List<DomainAppointmentService>>(appointmentList);
 
         appointment.AddServices(mappedAppointmentServices);
         await _appointmentRepository.Update(appointment, cancellationToken);
     }
 
-    public FullAppointmentDTO GetById(int id)
+    public FullAppointmentDto GetById(int id)
     {
         var appointment = _appointmentRepository.GetById(id);
 
-        return _mapper.Map<FullAppointmentDTO>(appointment);
+        return _mapper.Map<FullAppointmentDto>(appointment);
     }
 
-    public List<FullAppointmentDTO> GetByWorkerId(int id)
+    public List<FullAppointmentDto> GetByWorkerId(int id)
     {
         var appointments = _appointmentRepository.GetByWorkerId(id);
 
-        return _mapper.Map<List<Appointment>, List<FullAppointmentDTO>>(appointments.ToList());
+        return _mapper.Map<List<Appointment>, List<FullAppointmentDto>>(appointments.ToList());
     }
 
-    public List<FullAppointmentDTO> GetByPatientId(int id)
+    public List<FullAppointmentDto> GetByPatientId(int id)
     {
         var appointments = _appointmentRepository.GetByPatientId(id);
 
-        return _mapper.Map<List<Appointment>, List<FullAppointmentDTO>>(appointments.ToList());
+        return _mapper.Map<List<Appointment>, List<FullAppointmentDto>>(appointments.ToList());
     }
-    public List<FullAppointmentDTO> GetByPhoneNumber(string phoneNumber)
+    public List<FullAppointmentDto> GetByPhoneNumber(string phoneNumber)
     {
         var appointments = _appointmentRepository.GetByPhoneNumber(phoneNumber);
 
-        return _mapper.Map<List<Appointment>, List<FullAppointmentDTO>>(appointments.ToList());
+        return _mapper.Map<List<Appointment>, List<FullAppointmentDto>>(appointments.ToList());
     }
 
-    public List<ShortAppointmentDTO> GetAll()
+    public List<ShortAppointmentDto> GetAll()
     {
         var appointments = _appointmentRepository.GetAll();
 
-        return _mapper.Map<List<Appointment>, List<ShortAppointmentDTO>>(appointments.ToList());
+        return _mapper.Map<List<Appointment>, List<ShortAppointmentDto>>(appointments.ToList());
     }
 
-    public int Create(CreateAppointmentDTO appointment, CancellationToken cancellationToken)
+    public int Create(CreateAppointmentDto appointment, CancellationToken cancellationToken)
     {
-        var mappedAppointment = _mapper.Map<CreateAppointmentDTO, Appointment>(appointment);
+        var mappedAppointment = _mapper.Map<CreateAppointmentDto, Appointment>(appointment);
         var newAppointment = _appointmentRepository.Add(mappedAppointment, cancellationToken);
 
         return newAppointment.Id;
     }
 
-    public EditAppointmentDTO Update(EditAppointmentDTO appointment, CancellationToken cancellationToken)
+    public EditAppointmentDto Update(EditAppointmentDto appointment, CancellationToken cancellationToken)
     {
         var updateAppointment = _mapper.Map<Appointment>(appointment);
         var updatedAppointment = _appointmentRepository.Update(updateAppointment, cancellationToken);
 
-        return _mapper.Map<EditAppointmentDTO>(updatedAppointment);
+        return _mapper.Map<EditAppointmentDto>(updatedAppointment);
     }
 
     public void Delete(int id)

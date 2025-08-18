@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Salaries;
 
-public sealed class CreateSalaryPaymentDTO
+public sealed class CreateSalaryPaymentDto
 {
     public int Id { get; set; }
     public short MonthNumber { get; set; }

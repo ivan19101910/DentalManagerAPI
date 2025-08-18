@@ -2,13 +2,13 @@
 
 public interface ISalaryPaymentService
 {
-    List<SalaryPaymentDTO> GetAll();
+    List<SalaryPaymentDto> GetAll();
 
-    SalaryPaymentDTO GetById(int id);
+    SalaryPaymentDto GetById(int id);
 
-    int Create(CreateSalaryPaymentDTO serviceType, CancellationToken cancellationToken);
+    int Create(CreateSalaryPaymentDto serviceType, CancellationToken cancellationToken);
 
-    CreateSalaryPaymentDTO Update(CreateSalaryPaymentDTO serviceType, CancellationToken cancellationToken);
+    CreateSalaryPaymentDto Update(CreateSalaryPaymentDto serviceType, CancellationToken cancellationToken);
 
     void Delete(int id);
 }

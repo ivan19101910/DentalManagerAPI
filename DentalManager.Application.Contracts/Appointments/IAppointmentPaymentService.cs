@@ -2,9 +2,9 @@
 
 public interface IAppointmentPaymentService
 {
-    List<AppointmentPaymentDTO> GetAll();
-    AppointmentPaymentDTO GetById(int id);
-    int Create(AppointmentPaymentDTO serviceType, CancellationToken cancellationToken);
-    AppointmentPaymentDTO Update(AppointmentPaymentDTO serviceType, CancellationToken cancellationToken);
+    List<AppointmentPaymentDto> GetAll();
+    AppointmentPaymentDto GetById(int id);
+    int Create(AppointmentPaymentDto serviceType, CancellationToken cancellationToken);
+    AppointmentPaymentDto Update(AppointmentPaymentDto serviceType, CancellationToken cancellationToken);
     void Delete(int id);
 }

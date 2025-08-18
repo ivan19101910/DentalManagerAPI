@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Workers;
 
-public sealed class FullWorkerDTO
+public sealed class FullWorkerDto
 {
     public int Id { get; set; }
     public string FirstName { get; set; }
@@ -14,5 +14,5 @@ public sealed class FullWorkerDTO
     public string OfficeCity { get; set; }
     public string OfficeAddress { get; set; }
     public string PositionName { get; set; }
-    public IList<WorkerScheduleByIdDTO> WorkerSchedules { get; set; }
+    public IList<WorkerScheduleByIdDto> WorkerSchedules { get; set; }
 }

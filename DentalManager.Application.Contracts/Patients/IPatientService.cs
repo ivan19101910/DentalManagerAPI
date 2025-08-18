@@ -2,10 +2,10 @@
 
 public interface IPatientService
 {
-    PatientDTO GetUserById(int id);
-    int CreatePatient(PatientDTO patient, CancellationToken cancellationToken);
-    List<PatientDTO> GetAll();
-    PatientDTO Update(PatientDTO user, CancellationToken cancellationToken);
+    PatientDto GetUserById(int id);
+    int CreatePatient(PatientDto patient, CancellationToken cancellationToken);
+    List<PatientDto> GetAll();
+    PatientDto Update(PatientDto user, CancellationToken cancellationToken);
     void Delete(int id);
 }
 

@@ -16,35 +16,35 @@ public sealed class PatientService : IPatientService
         _mapper = mapper;
     }
 
-    public PatientDTO GetUserById(int id)
+    public PatientDto GetUserById(int id)
     {
         var user = _patientRepository.GetById(id);
-        var mappedUser = _mapper.Map<PatientDTO>(user);
+        var mappedUser = _mapper.Map<PatientDto>(user);
 
         return mappedUser;
     }
 
-    public List<PatientDTO> GetAll()
+    public List<PatientDto> GetAll()
     {
         var patients = _patientRepository.GetAll();
-        var mappedList = _mapper.Map<List<Patient>, List<PatientDTO>>(patients.ToList());
+        var mappedList = _mapper.Map<List<Patient>, List<PatientDto>>(patients.ToList());
 
         return mappedList;
     }
 
-    public int CreatePatient(PatientDTO patient, CancellationToken cancellationToken)
+    public int CreatePatient(PatientDto patient, CancellationToken cancellationToken)
     {
-        var mappedPatient = _mapper.Map<PatientDTO, Patient>(patient);
+        var mappedPatient = _mapper.Map<PatientDto, Patient>(patient);
         var newPatient = _patientRepository.Add(mappedPatient, cancellationToken);
 
         return newPatient.Id;
     }
 
-    public PatientDTO Update(PatientDTO patient, CancellationToken cancellationToken)
+    public PatientDto Update(PatientDto patient, CancellationToken cancellationToken)
     {
         var updatePatient = _mapper.Map<Patient>(patient);
         var updatedPatient = _patientRepository.Update(updatePatient, cancellationToken);
-        var updatedUserDTO = _mapper.Map<PatientDTO>(updatedPatient);
+        var updatedUserDTO = _mapper.Map<PatientDto>(updatedPatient);
 
         return updatedUserDTO;
     }

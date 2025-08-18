@@ -15,35 +15,35 @@ public sealed class OfficeService : IOfficeService
         _mapper = mapper;
     }
 
-    public OfficeDTO GetById(int id)
+    public OfficeDto GetById(int id)
     {
         var office = _officeRepository.GetById(id);
-        var mappedOffice = _mapper.Map<OfficeDTO>(office);
+        var mappedOffice = _mapper.Map<OfficeDto>(office);
 
         return mappedOffice;
     }
 
-    public List<ShowOfficeDTO> GetAll()
+    public List<ShowOfficeDto> GetAll()
     {
         var offices = _officeRepository.GetAll();
-        var mappedList = _mapper.Map<List<Office>, List<ShowOfficeDTO>>(offices.ToList());
+        var mappedList = _mapper.Map<List<Office>, List<ShowOfficeDto>>(offices.ToList());
 
         return mappedList;
     }
 
-    public int Create(CreateOfficeDTO office, CancellationToken cancellationToken)
+    public int Create(CreateOfficeDto office, CancellationToken cancellationToken)
     {
-        var mappedOffice = _mapper.Map<CreateOfficeDTO, Office>(office);
+        var mappedOffice = _mapper.Map<CreateOfficeDto, Office>(office);
         var newOffice = _officeRepository.Add(mappedOffice, cancellationToken);
 
         return newOffice.Id;
     }
 
-    public OfficeDTO Update(CreateOfficeDTO office, CancellationToken cancellationToken)
+    public OfficeDto Update(CreateOfficeDto office, CancellationToken cancellationToken)
     {
         var updateOffice = _mapper.Map<Office>(office);
         var updatedOffice = _officeRepository.Update(updateOffice, cancellationToken);
-        var updatedOfficeDTO = _mapper.Map<OfficeDTO>(updatedOffice);
+        var updatedOfficeDTO = _mapper.Map<OfficeDto>(updatedOffice);
 
         return updatedOfficeDTO;
     }

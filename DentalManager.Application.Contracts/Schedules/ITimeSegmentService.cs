@@ -2,9 +2,9 @@
 
 public interface ITimeSegmentService
 {
-    List<TimeSegmentDTO> GetAll();
-    TimeSegmentDTO GetById(int id);
-    int Create(TimeSegmentDTO serviceType, CancellationToken cancellationToken);
-    TimeSegmentDTO Update(TimeSegmentDTO serviceType, CancellationToken cancellationToken);
+    List<TimeSegmentDto> GetAll();
+    TimeSegmentDto GetById(int id);
+    int Create(TimeSegmentDto serviceType, CancellationToken cancellationToken);
+    TimeSegmentDto Update(TimeSegmentDto serviceType, CancellationToken cancellationToken);
     void Delete(int id);
 }

@@ -15,24 +15,24 @@ public sealed class PositionController : ControllerBase
     }
 
     [HttpGet("getById/{positionId}")]
-    public ActionResult<PositionDTO> GetById(int positionId)
+    public ActionResult<PositionDto> GetById(int positionId)
     {
         return Ok(_positionService.GetById(positionId));
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<PositionDTO>> GetAll()
+    public ActionResult<List<PositionDto>> GetAll()
     {
         return Ok(_positionService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(PositionDTO position, CancellationToken cancellationToken)
+    public ActionResult<int> Create(PositionDto position, CancellationToken cancellationToken)
     {
         return Ok(_positionService.Create(position, cancellationToken));
     }
     [HttpPut("update")]
-    public ActionResult<PositionDTO> Update(PositionDTO positionDTO, CancellationToken cancellationToken)
+    public ActionResult<PositionDto> Update(PositionDto positionDTO, CancellationToken cancellationToken)
     {
         return Ok(_positionService.Update(positionDTO, cancellationToken));
     }

@@ -16,33 +16,33 @@ public sealed class DayService : IDayService
         _mapper = mapper;
     }
 
-    public DayDTO GetById(int id)
+    public DayDto GetById(int id)
     {
         var day = _dayRepository.GetById(id);
 
-        return _mapper.Map<DayDTO>(day);
+        return _mapper.Map<DayDto>(day);
     }
 
-    public List<DayDTO> GetAll()
+    public List<DayDto> GetAll()
     {
         var days = _dayRepository.GetAll();
 
-        return _mapper.Map<List<Day>, List<DayDTO>>(days.ToList());
+        return _mapper.Map<List<Day>, List<DayDto>>(days.ToList());
     }
 
-    public int Create(DayDTO day, CancellationToken cancellationToken)
+    public int Create(DayDto day, CancellationToken cancellationToken)
     {
-        var mappedDay = _mapper.Map<DayDTO, Day>(day);
+        var mappedDay = _mapper.Map<DayDto, Day>(day);
         var newDay = _dayRepository.Add(mappedDay, cancellationToken);
 
         return newDay.Id;
     }
 
-    public DayDTO Update(DayDTO day, CancellationToken cancellationToken)
+    public DayDto Update(DayDto day, CancellationToken cancellationToken)
     {
         var updateDay = _mapper.Map<Day>(day);
         var updatedDay = _dayRepository.Update(updateDay, cancellationToken);
-        var updatedDayDTO = _mapper.Map<DayDTO>(updatedDay);
+        var updatedDayDTO = _mapper.Map<DayDto>(updatedDay);
 
         return updatedDayDTO;
     }

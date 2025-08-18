@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Schedules;
 
-public sealed class TimeSegmentDTO
+public sealed class TimeSegmentDto
 {
     public int Id { get; set; }
     public string TimeStart { get; set; }

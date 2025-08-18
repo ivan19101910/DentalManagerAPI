@@ -2,9 +2,9 @@
 
 public interface ICityService
 {
-    List<CityDTO> GetAll();
-    CityDTO GetById(int id);
-    int Create(CityDTO serviceType, CancellationToken cancellationToken);
-    CityDTO Update(CityDTO serviceType, CancellationToken cancellationToken);
+    List<CityDto> GetAll();
+    CityDto GetById(int id);
+    int Create(CityDto serviceType, CancellationToken cancellationToken);
+    CityDto Update(CityDto serviceType, CancellationToken cancellationToken);
     void Delete(int id);
 }

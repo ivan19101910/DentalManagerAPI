@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Schedules;
 
-public sealed class ScheduleDTO
+public sealed class ScheduleDto
 {
     public int Id { get; set; }
     public int DayId { get; set; }

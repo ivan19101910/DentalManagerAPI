@@ -9,7 +9,7 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        var worker = (FullWorkerDTO)context.HttpContext.Items["User"];
+        var worker = (FullWorkerDto)context.HttpContext.Items["User"];
         if (worker == null)
         {
             // not logged in

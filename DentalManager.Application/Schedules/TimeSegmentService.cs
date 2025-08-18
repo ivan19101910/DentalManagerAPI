@@ -16,34 +16,34 @@ public sealed class TimeSegmentService : ITimeSegmentService
         _mapper = mapper;
     }
 
-    public TimeSegmentDTO GetById(int id)
+    public TimeSegmentDto GetById(int id)
     {
         var segment = _timeSegmentRepository.GetById(id);
 
-        return _mapper.Map<TimeSegmentDTO>(segment);
+        return _mapper.Map<TimeSegmentDto>(segment);
     }
 
-    public List<TimeSegmentDTO> GetAll()
+    public List<TimeSegmentDto> GetAll()
     {
         var segment = _timeSegmentRepository.GetAll();
 
-        return _mapper.Map<List<TimeSegment>, List<TimeSegmentDTO>>(segment.ToList());
+        return _mapper.Map<List<TimeSegment>, List<TimeSegmentDto>>(segment.ToList());
     }
 
-    public int Create(TimeSegmentDTO segment, CancellationToken cancellationToken)
+    public int Create(TimeSegmentDto segment, CancellationToken cancellationToken)
     {
-        var mappedSegment = _mapper.Map<TimeSegmentDTO, TimeSegment>(segment);
+        var mappedSegment = _mapper.Map<TimeSegmentDto, TimeSegment>(segment);
         var newSegment = _timeSegmentRepository.Add(mappedSegment, cancellationToken);
 
         return newSegment.Id;
     }
 
-    public TimeSegmentDTO Update(TimeSegmentDTO segment, CancellationToken cancellationToken)
+    public TimeSegmentDto Update(TimeSegmentDto segment, CancellationToken cancellationToken)
     {
         var updateSegment = _mapper.Map<TimeSegment>(segment);
         var updatedSegment = _timeSegmentRepository.Update(updateSegment, cancellationToken);
 
-        return _mapper.Map<TimeSegmentDTO>(updatedSegment);
+        return _mapper.Map<TimeSegmentDto>(updatedSegment);
     }
 
     public void Delete(int id)

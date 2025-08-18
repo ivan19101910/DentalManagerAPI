@@ -2,15 +2,15 @@
 
 public interface IWorkerScheduleService
 {
-    List<WorkerScheduleDTO> GetAll();
+    List<WorkerScheduleDto> GetAll();
 
-    WorkerScheduleDTO GetById(int id);
+    WorkerScheduleDto GetById(int id);
 
-    int Create(WorkerScheduleDTO workerSchedule, CancellationToken cancellationToken);
+    int Create(WorkerScheduleDto workerSchedule, CancellationToken cancellationToken);
 
-    WorkerScheduleDTO Update(WorkerScheduleDTO workerSchedule, CancellationToken cancellationToken);
+    WorkerScheduleDto Update(WorkerScheduleDto workerSchedule, CancellationToken cancellationToken);
 
-    List<WorkerScheduleDTO> UpdateMany(List<WorkerScheduleDTO> workerSchedules, int workerId, CancellationToken cancellationToken);
+    List<WorkerScheduleDto> UpdateMany(List<WorkerScheduleDto> workerSchedules, int workerId, CancellationToken cancellationToken);
 
     void Delete(int id);
 

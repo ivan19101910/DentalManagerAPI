@@ -16,33 +16,33 @@ public sealed class ScheduleService : IScheduleService
         _mapper = mapper;
     }
 
-    public ScheduleDTO GetById(int id)
+    public ScheduleDto GetById(int id)
     {
         var schedule = _scheduleRepository.GetById(id);
 
-        return _mapper.Map<ScheduleDTO>(schedule);
+        return _mapper.Map<ScheduleDto>(schedule);
     }
 
-    public List<ShowScheduleDTO> GetAll()
+    public List<ShowScheduleDto> GetAll()
     {
         var schedules = _scheduleRepository.GetAll();
 
-        return _mapper.Map<List<Schedule>, List<ShowScheduleDTO>>(schedules.ToList());
+        return _mapper.Map<List<Schedule>, List<ShowScheduleDto>>(schedules.ToList());
     }
 
-    public int Create(ScheduleDTO schedule, CancellationToken cancellationToken)
+    public int Create(ScheduleDto schedule, CancellationToken cancellationToken)
     {
-        var mappedSchedule = _mapper.Map<ScheduleDTO, Schedule>(schedule);
+        var mappedSchedule = _mapper.Map<ScheduleDto, Schedule>(schedule);
         var newSchedule = _scheduleRepository.Add(mappedSchedule, cancellationToken);
 
         return newSchedule.Id;
     }
 
-    public ScheduleDTO Update(ScheduleDTO schedule, CancellationToken cancellationToken)
+    public ScheduleDto Update(ScheduleDto schedule, CancellationToken cancellationToken)
     {
         var updateSchedule = _mapper.Map<Schedule>(schedule);
         var updatedSchedule = _scheduleRepository.Update(updateSchedule, cancellationToken);
-        var updatedScheduleDTO = _mapper.Map<ScheduleDTO>(updatedSchedule);
+        var updatedScheduleDTO = _mapper.Map<ScheduleDto>(updatedSchedule);
 
         return updatedScheduleDTO;
     }

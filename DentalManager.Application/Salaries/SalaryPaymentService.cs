@@ -16,34 +16,34 @@ public sealed class SalaryPaymentService : ISalaryPaymentService
         _mapper = mapper;
     }
 
-    public SalaryPaymentDTO GetById(int id)
+    public SalaryPaymentDto GetById(int id)
     {
         var payment = _salaryPaymentRepository.GetById(id);
 
-        return _mapper.Map<SalaryPaymentDTO>(payment);
+        return _mapper.Map<SalaryPaymentDto>(payment);
     }
 
-    public List<SalaryPaymentDTO> GetAll()
+    public List<SalaryPaymentDto> GetAll()
     {
         var payments = _salaryPaymentRepository.GetAll();
 
-        return _mapper.Map<List<SalaryPayment>, List<SalaryPaymentDTO>>(payments.ToList());
+        return _mapper.Map<List<SalaryPayment>, List<SalaryPaymentDto>>(payments.ToList());
     }
 
-    public int Create(CreateSalaryPaymentDTO payment, CancellationToken cancellationToken)
+    public int Create(CreateSalaryPaymentDto payment, CancellationToken cancellationToken)
     {
-        var mappedPayment = _mapper.Map<CreateSalaryPaymentDTO, SalaryPayment>(payment);
+        var mappedPayment = _mapper.Map<CreateSalaryPaymentDto, SalaryPayment>(payment);
         var newPayment = _salaryPaymentRepository.Add(mappedPayment, cancellationToken);
 
         return newPayment.Id;
     }
 
-    public CreateSalaryPaymentDTO Update(CreateSalaryPaymentDTO payment, CancellationToken cancellationToken)
+    public CreateSalaryPaymentDto Update(CreateSalaryPaymentDto payment, CancellationToken cancellationToken)
     {
         var updatePayment = _mapper.Map<SalaryPayment>(payment);
         var updatedPayment = _salaryPaymentRepository.Update(updatePayment, cancellationToken);
 
-        return _mapper.Map<CreateSalaryPaymentDTO>(updatedPayment);
+        return _mapper.Map<CreateSalaryPaymentDto>(updatedPayment);
     }
 
     public void Delete(int id)

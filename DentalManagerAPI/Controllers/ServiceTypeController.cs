@@ -15,19 +15,19 @@ public sealed class ServiceTypeController : ControllerBase
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<ServiceTypeDTO>> GetAll()
+    public ActionResult<List<ServiceTypeDto>> GetAll()
     {
         return Ok(_serviceTypeService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(ServiceTypeDTO patient, CancellationToken cancellationToken)
+    public ActionResult<int> Create(ServiceTypeDto patient, CancellationToken cancellationToken)
     {
         return Ok(_serviceTypeService.Create(patient, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<ServiceTypeDTO> Update(ServiceTypeDTO serviceTypeDTO, CancellationToken cancellationToken)
+    public ActionResult<ServiceTypeDto> Update(ServiceTypeDto serviceTypeDTO, CancellationToken cancellationToken)
     {
         return Ok(_serviceTypeService.Update(serviceTypeDTO, cancellationToken));
     }

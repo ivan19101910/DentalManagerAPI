@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Workers;
 
-public sealed class WorkerScheduleDTO
+public sealed class WorkerScheduleDto
 {
     public int Id { get; set; }
     public int WorkerId { get; set; }

@@ -2,10 +2,10 @@
 
 public interface IServiceService
 {
-    List<ServiceDTO> GetAll();
-    List<ServiceDTO> GetByServiceType(string serviceType);
-    ServiceDTO GetById(int id);
-    int Create(ServiceDTO serviceType, CancellationToken cancellationToken);
-    ServiceDTO Update(ServiceDTO serviceType, CancellationToken cancellationToken);
+    List<ServiceDto> GetAll();
+    List<ServiceDto> GetByServiceType(string serviceType);
+    ServiceDto GetById(int id);
+    int Create(ServiceDto serviceType, CancellationToken cancellationToken);
+    ServiceDto Update(ServiceDto serviceType, CancellationToken cancellationToken);
     void Delete(int id);       
 }

@@ -15,25 +15,25 @@ public sealed class ScheduleController : ControllerBase
     }
 
     [HttpGet("getById/{scheduleId}")]
-    public ActionResult<ScheduleDTO> GetById(int scheduleId)
+    public ActionResult<ScheduleDto> GetById(int scheduleId)
     {
         return Ok(_scheduleService.GetById(scheduleId));
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<ShowScheduleDTO>> GetAll()
+    public ActionResult<List<ShowScheduleDto>> GetAll()
     {
         return Ok(_scheduleService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(ScheduleDTO schedule, CancellationToken cancellationToken)
+    public ActionResult<int> Create(ScheduleDto schedule, CancellationToken cancellationToken)
     {
         return Ok(_scheduleService.Create(schedule, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<ScheduleDTO> Update(ScheduleDTO scheduleDTO, CancellationToken cancellationToken)
+    public ActionResult<ScheduleDto> Update(ScheduleDto scheduleDTO, CancellationToken cancellationToken)
     {
         return Ok(_scheduleService.Update(scheduleDTO, cancellationToken));
     }

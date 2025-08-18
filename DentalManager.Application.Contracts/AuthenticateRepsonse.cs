@@ -10,7 +10,7 @@ public class AuthenticateResponse
     public string Login { get; set; }
     public string Token { get; set; }
 
-    public AuthenticateResponse(WorkerDTO worker, string token)
+    public AuthenticateResponse(WorkerDto worker, string token)
     {
         Id = worker.Id;
         FirstName = worker.FirstName;

@@ -16,33 +16,33 @@ public sealed class PositionService : IPositionService
         _mapper = mapper;
     }
 
-    public PositionDTO GetById(int id)
+    public PositionDto GetById(int id)
     {
         var position = _positionRepository.GetById(id);
 
-        return _mapper.Map<PositionDTO>(position);
+        return _mapper.Map<PositionDto>(position);
     }
 
-    public List<PositionDTO> GetAll()
+    public List<PositionDto> GetAll()
     {
         var positions = _positionRepository.GetAll();
 
-        return _mapper.Map<List<Position>, List<PositionDTO>>(positions.ToList());
+        return _mapper.Map<List<Position>, List<PositionDto>>(positions.ToList());
     }
 
-    public int Create(PositionDTO office, CancellationToken cancellationToken)
+    public int Create(PositionDto office, CancellationToken cancellationToken)
     {
-        var mappedPosition = _mapper.Map<PositionDTO, Position>(office);
+        var mappedPosition = _mapper.Map<PositionDto, Position>(office);
         var newPosition = _positionRepository.Add(mappedPosition, cancellationToken);
 
         return newPosition.Id;
     }
 
-    public PositionDTO Update(PositionDTO position, CancellationToken cancellationToken)
+    public PositionDto Update(PositionDto position, CancellationToken cancellationToken)
     {
         var updatePosition = _mapper.Map<Position>(position);
         var updatedPosition = _positionRepository.Update(updatePosition, cancellationToken);
-        var updatedPositionDTO = _mapper.Map<PositionDTO>(updatedPosition);
+        var updatedPositionDTO = _mapper.Map<PositionDto>(updatedPosition);
 
         return updatedPositionDTO;
     }

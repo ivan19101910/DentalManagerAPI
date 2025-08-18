@@ -16,35 +16,35 @@ public sealed class AppointmentStatusService : IAppointmentStatusService
         _mapper = mapper;
     }
 
-    public AppointmentStatusDTO GetById(int id)
+    public AppointmentStatusDto GetById(int id)
     {
         var status = _appointmentStatusRepository.GetById(id);
-        var mappedStatus = _mapper.Map<AppointmentStatusDTO>(status);
+        var mappedStatus = _mapper.Map<AppointmentStatusDto>(status);
 
         return mappedStatus;
     }
 
-    public List<AppointmentStatusDTO> GetAll()
+    public List<AppointmentStatusDto> GetAll()
     {
         var statuses = _appointmentStatusRepository.GetAll();
-        var mappedList = _mapper.Map<List<AppointmentStatus>, List<AppointmentStatusDTO>>(statuses.ToList());
+        var mappedList = _mapper.Map<List<AppointmentStatus>, List<AppointmentStatusDto>>(statuses.ToList());
 
         return mappedList;
     }
 
-    public int Create(AppointmentStatusDTO status, CancellationToken cancellationToken)
+    public int Create(AppointmentStatusDto status, CancellationToken cancellationToken)
     {
-        var mappedStatus = _mapper.Map<AppointmentStatusDTO, AppointmentStatus>(status);
+        var mappedStatus = _mapper.Map<AppointmentStatusDto, AppointmentStatus>(status);
         var newStatus = _appointmentStatusRepository.Add(mappedStatus, cancellationToken);
 
         return newStatus.Id;
     }
 
-    public AppointmentStatusDTO Update(AppointmentStatusDTO status, CancellationToken cancellationToken)
+    public AppointmentStatusDto Update(AppointmentStatusDto status, CancellationToken cancellationToken)
     {
         var updateStatus = _mapper.Map<AppointmentStatus>(status);
         var updatedStatus = _appointmentStatusRepository.Update(updateStatus, cancellationToken);
-        var updatedStatusDTO = _mapper.Map<AppointmentStatusDTO>(updatedStatus);
+        var updatedStatusDTO = _mapper.Map<AppointmentStatusDto>(updatedStatus);
 
         return updatedStatusDTO;
     }

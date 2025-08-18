@@ -16,33 +16,33 @@ public sealed class WorkerScheduleService : IWorkerScheduleService
         _mapper = mapper;
     }
 
-    public WorkerScheduleDTO GetById(int id)
+    public WorkerScheduleDto GetById(int id)
     {
         var schedule = _workerScheduleRepository.GetById(id);
 
-        return _mapper.Map<WorkerScheduleDTO>(schedule);
+        return _mapper.Map<WorkerScheduleDto>(schedule);
     }
 
-    public List<WorkerScheduleDTO> GetAll()
+    public List<WorkerScheduleDto> GetAll()
     {
         var schedules = _workerScheduleRepository.GetAll();
 
-        return _mapper.Map<List<WorkerSchedule>, List<WorkerScheduleDTO>>(schedules.ToList());
+        return _mapper.Map<List<WorkerSchedule>, List<WorkerScheduleDto>>(schedules.ToList());
     }
 
-    public int Create(WorkerScheduleDTO schedule, CancellationToken cancellationToken)
+    public int Create(WorkerScheduleDto schedule, CancellationToken cancellationToken)
     {
-        var mappedSchedule = _mapper.Map<WorkerScheduleDTO, WorkerSchedule>(schedule);
+        var mappedSchedule = _mapper.Map<WorkerScheduleDto, WorkerSchedule>(schedule);
         var newSchedule = _workerScheduleRepository.Add(mappedSchedule, cancellationToken);
 
         return newSchedule.Id;
     }
 
-    public WorkerScheduleDTO Update(WorkerScheduleDTO schedule, CancellationToken cancellationToken)
+    public WorkerScheduleDto Update(WorkerScheduleDto schedule, CancellationToken cancellationToken)
     {
         var updateSchedule = _mapper.Map<WorkerSchedule>(schedule);
         var updatedSchedule = _workerScheduleRepository.Update(updateSchedule, cancellationToken);
-        var updatedScheduleDTO = _mapper.Map<WorkerScheduleDTO>(updatedSchedule);
+        var updatedScheduleDTO = _mapper.Map<WorkerScheduleDto>(updatedSchedule);
 
         return updatedScheduleDTO;
     }
@@ -70,7 +70,7 @@ public sealed class WorkerScheduleService : IWorkerScheduleService
         }
     }
 
-    public List<WorkerScheduleDTO> UpdateMany(List<WorkerScheduleDTO> workerSchedules, int workerId, CancellationToken cancellationToken)
+    public List<WorkerScheduleDto> UpdateMany(List<WorkerScheduleDto> workerSchedules, int workerId, CancellationToken cancellationToken)
     {
         var comparer = new WorkerScheduleEqualityComparer();
         var schedules = _workerScheduleRepository.GetByWorkerId(workerId);

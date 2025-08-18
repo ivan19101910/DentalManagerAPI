@@ -16,35 +16,35 @@ public sealed class ServiceTypeService : IServiceTypeService
         _mapper = mapper;
     }
 
-    public ServiceTypeDTO GetById(int id)
+    public ServiceTypeDto GetById(int id)
     {
         var serviceType = _serviceTypeRepository.GetById(id);
-        var mappedService = _mapper.Map<ServiceTypeDTO>(serviceType);
+        var mappedService = _mapper.Map<ServiceTypeDto>(serviceType);
 
         return mappedService;
     }
 
-    public List<ServiceTypeDTO> GetAll()
+    public List<ServiceTypeDto> GetAll()
     {
         var serviceTypes = _serviceTypeRepository.GetAll();
-        var mappedList = _mapper.Map<List<ServiceType>, List<ServiceTypeDTO>>(serviceTypes.ToList());
+        var mappedList = _mapper.Map<List<ServiceType>, List<ServiceTypeDto>>(serviceTypes.ToList());
 
         return mappedList;
     }
 
-    public int Create(ServiceTypeDTO serviceType, CancellationToken cancellationToken)
+    public int Create(ServiceTypeDto serviceType, CancellationToken cancellationToken)
     {
-        var mappedServiceType = _mapper.Map<ServiceTypeDTO, ServiceType>(serviceType);
+        var mappedServiceType = _mapper.Map<ServiceTypeDto, ServiceType>(serviceType);
         var newServiceType = _serviceTypeRepository.Add(mappedServiceType, cancellationToken);
 
         return newServiceType.Id;
     }
 
-    public ServiceTypeDTO Update(ServiceTypeDTO serviceType, CancellationToken cancellationToken)
+    public ServiceTypeDto Update(ServiceTypeDto serviceType, CancellationToken cancellationToken)
     {
         var updateServiceType = _mapper.Map<ServiceType>(serviceType);
         var updatedServiceType = _serviceTypeRepository.Update(updateServiceType, cancellationToken);
-        var updatedServiceTypeDTO = _mapper.Map<ServiceTypeDTO>(updatedServiceType);
+        var updatedServiceTypeDTO = _mapper.Map<ServiceTypeDto>(updatedServiceType);
 
         return updatedServiceTypeDTO;
     }

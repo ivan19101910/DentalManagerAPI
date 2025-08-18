@@ -15,19 +15,19 @@ public sealed class TimeSegmentController : ControllerBase
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<TimeSegmentDTO>> GetAll()
+    public ActionResult<List<TimeSegmentDto>> GetAll()
     {
         return Ok(_timeSegmentService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(TimeSegmentDTO timeSegment, CancellationToken cancellationToken)
+    public ActionResult<int> Create(TimeSegmentDto timeSegment, CancellationToken cancellationToken)
     {
         return Ok(_timeSegmentService.Create(timeSegment, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<TimeSegmentDTO> Update(TimeSegmentDTO timeSegmentDTO, CancellationToken cancellationToken)
+    public ActionResult<TimeSegmentDto> Update(TimeSegmentDto timeSegmentDTO, CancellationToken cancellationToken)
     {
         return Ok(_timeSegmentService.Update(timeSegmentDTO, cancellationToken));
     }

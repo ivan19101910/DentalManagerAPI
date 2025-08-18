@@ -15,31 +15,31 @@ public sealed class ServiceController : ControllerBase
     }
 
     [HttpGet("get-by-id/{serviceId}")]
-    public ActionResult<ServiceDTO> GetById(int serviceId)
+    public ActionResult<ServiceDto> GetById(int serviceId)
     {
         return Ok(_serviceService.GetById(serviceId));
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<ServiceDTO>> GetAll()
+    public ActionResult<List<ServiceDto>> GetAll()
     {
         return Ok(_serviceService.GetAll());
     }
 
     [HttpGet("getByServiceType/{serviceType}")]
-    public ActionResult<List<ServiceDTO>> GetWorkersByAddress(string serviceType)
+    public ActionResult<List<ServiceDto>> GetWorkersByAddress(string serviceType)
     {
         return Ok(_serviceService.GetByServiceType(serviceType));
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(ServiceDTO patient, CancellationToken cancellationToken)
+    public ActionResult<int> Create(ServiceDto patient, CancellationToken cancellationToken)
     {
         return Ok(_serviceService.Create(patient, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<ServiceDTO> Update(ServiceDTO serviceDTO, CancellationToken cancellationToken)
+    public ActionResult<ServiceDto> Update(ServiceDto serviceDTO, CancellationToken cancellationToken)
     {
         return Ok(_serviceService.Update(serviceDTO, cancellationToken));
     }

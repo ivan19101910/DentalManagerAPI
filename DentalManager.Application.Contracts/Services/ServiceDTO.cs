@@ -1,6 +1,6 @@
 ﻿namespace DentalManager.Application.Contracts.Services;
 
-public sealed class ServiceDTO
+public sealed class ServiceDto
 {
     public int Id { get; set; }
     public decimal Price { get; set; }

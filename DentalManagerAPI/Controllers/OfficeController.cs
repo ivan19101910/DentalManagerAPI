@@ -15,25 +15,25 @@ public sealed class OfficeController : ControllerBase
     }
 
     [HttpGet("getById/{cityId}")]
-    public ActionResult<OfficeDTO> GetById(int cityId)
+    public ActionResult<OfficeDto> GetById(int cityId)
     {
         return Ok(_officeService.GetById(cityId));
     }
 
     [HttpGet("getAll")]
-    public ActionResult<List<ShowOfficeDTO>> GetAll()
+    public ActionResult<List<ShowOfficeDto>> GetAll()
     {
         return Ok(_officeService.GetAll());
     }
 
     [HttpPost("create")]
-    public ActionResult<int> Create(CreateOfficeDTO office, CancellationToken cancellationToken)
+    public ActionResult<int> Create(CreateOfficeDto office, CancellationToken cancellationToken)
     {
         return Ok(_officeService.Create(office, cancellationToken));
     }
 
     [HttpPut("update")]
-    public ActionResult<OfficeDTO> Update(CreateOfficeDTO officeDTO, CancellationToken cancellationToken)
+    public ActionResult<OfficeDto> Update(CreateOfficeDto officeDTO, CancellationToken cancellationToken)
     {
         return Ok(_officeService.Update(officeDTO, cancellationToken));
     }

@@ -16,35 +16,35 @@ public sealed class CityService : ICityService
         _mapper = mapper;
     }
 
-    public CityDTO GetById(int id)
+    public CityDto GetById(int id)
     {
         var city = _cityRepository.GetById(id);
-        var mappedCity = _mapper.Map<CityDTO>(city);
+        var mappedCity = _mapper.Map<CityDto>(city);
 
         return mappedCity;
     }
 
-    public List<CityDTO> GetAll()
+    public List<CityDto> GetAll()
     {
         var cities = _cityRepository.GetAll();
-        var mappedList = _mapper.Map<List<City>, List<CityDTO>>(cities.ToList());
+        var mappedList = _mapper.Map<List<City>, List<CityDto>>(cities.ToList());
 
         return mappedList;
     }
 
-    public int Create(CityDTO city, CancellationToken cancellationToken)
+    public int Create(CityDto city, CancellationToken cancellationToken)
     {
-        var mappedCity = _mapper.Map<CityDTO, City>(city);
+        var mappedCity = _mapper.Map<CityDto, City>(city);
         var newCity = _cityRepository.Add(mappedCity, cancellationToken);
 
         return newCity.Id;
     }
 
-    public CityDTO Update(CityDTO city, CancellationToken cancellationToken)
+    public CityDto Update(CityDto city, CancellationToken cancellationToken)
     {
         var updateCity = _mapper.Map<City>(city);
         var updatedCity = _cityRepository.Update(updateCity, cancellationToken);
-        var updatedCityDTO = _mapper.Map<CityDTO>(updatedCity);
+        var updatedCityDTO = _mapper.Map<CityDto>(updatedCity);
 
         return updatedCityDTO;
     }

@@ -16,34 +16,34 @@ public sealed class AppointmentPaymentService : IAppointmentPaymentService
         _mapper = mapper;
     }
 
-    public AppointmentPaymentDTO GetById(int id)
+    public AppointmentPaymentDto GetById(int id)
     {
         var payment = _appointmentPaymentRepository.GetById(id);
 
-        return _mapper.Map<AppointmentPaymentDTO>(payment);
+        return _mapper.Map<AppointmentPaymentDto>(payment);
     }
 
-    public List<AppointmentPaymentDTO> GetAll()
+    public List<AppointmentPaymentDto> GetAll()
     {
         var payments = _appointmentPaymentRepository.GetAll();
 
-        return _mapper.Map<List<AppointmentPayment>, List<AppointmentPaymentDTO>>(payments.ToList());
+        return _mapper.Map<List<AppointmentPayment>, List<AppointmentPaymentDto>>(payments.ToList());
     }
 
-    public int Create(AppointmentPaymentDTO payment, CancellationToken cancellationToken)
+    public int Create(AppointmentPaymentDto payment, CancellationToken cancellationToken)
     {
-        var mappedPayment = _mapper.Map<AppointmentPaymentDTO, AppointmentPayment>(payment);
+        var mappedPayment = _mapper.Map<AppointmentPaymentDto, AppointmentPayment>(payment);
         var newPayment = _appointmentPaymentRepository.Add(mappedPayment, cancellationToken);
 
         return newPayment.Id;
     }
 
-    public AppointmentPaymentDTO Update(AppointmentPaymentDTO payment, CancellationToken cancellationToken)
+    public AppointmentPaymentDto Update(AppointmentPaymentDto payment, CancellationToken cancellationToken)
     {
         var updatePayment = _mapper.Map<AppointmentPayment>(payment);
         var updatedPayment = _appointmentPaymentRepository.Update(updatePayment, cancellationToken);
 
-        return _mapper.Map<AppointmentPaymentDTO>(updatedPayment);
+        return _mapper.Map<AppointmentPaymentDto>(updatedPayment);
     }
 
     public void Delete(int id)
