@@ -1,7 +1,9 @@
 using DentalManager.Api.Helpers;
+using DentalManager.Api.Middlewares;
+using DentalManager.Api.Middlewares.Writers;
+using DentalManager.Application;
 using DentalManager.Data;
 using Microsoft.OpenApi.Models;
-using DentalManager.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +22,9 @@ builder.Services.AddDataAccessLayer()
     .AddApplicationLayer();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 
-//authenticate for some methods
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -51,7 +52,14 @@ builder.Services.AddSwaggerGen(options =>
  });
 });
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>()
+            .AddSingleton<IProblemWriter, DefaultProblemWriter>()
+            .AddProblemDetails();
+
 var app = builder.Build();
+
+app.UseExceptionHandler();
+
 app.UseCors("testPolicy");
 
 if (app.Environment.IsDevelopment())
