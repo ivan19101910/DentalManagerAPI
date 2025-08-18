@@ -14,53 +14,35 @@ public sealed class SalaryPaymentController : ControllerBase
         _salaryPaymentService = salaryPaymentService;
     }
 
-    [HttpGet]
-    [Route("getById/{paymentId}")]
+    [HttpGet("getById/{paymentId}")]
     public ActionResult<SalaryPaymentDTO> GetById(int paymentId)
     {
-        var result = _salaryPaymentService.GetById(paymentId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_salaryPaymentService.GetById(paymentId));
     }
     
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<SalaryPaymentDTO>> GetAll()
     {
-        var result = _salaryPaymentService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_salaryPaymentService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(CreateSalaryPaymentDTO payment, CancellationToken cancellationToken)
     {
-        var result = _salaryPaymentService.Create(payment, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
+        return Ok(_salaryPaymentService.Create(payment, cancellationToken));
     }
 
-    [HttpPut]
-    [Route("update")]
+    [HttpPut("update")]
     public ActionResult<CreateSalaryPaymentDTO> Update(CreateSalaryPaymentDTO salaryPaymentDTO, CancellationToken cancellationToken)
     {
-        var result = _salaryPaymentService.Update(salaryPaymentDTO, cancellationToken);
-        return result;
+        return Ok(_salaryPaymentService.Update(salaryPaymentDTO, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _salaryPaymentService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }
 

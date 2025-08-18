@@ -15,52 +15,34 @@ public sealed class PatientController : ControllerBase
         _patientService = accountService;
     }
     
-    [HttpGet]
-    [Route("get-by-id/{patientId}")]
+    [HttpGet("get-by-id/{patientId}")]
     public ActionResult<PatientDTO> GetById(int patientId)
     {
-        var result = _patientService.GetUserById(patientId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_patientService.GetUserById(patientId));
     }
     
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<PatientDTO>> GetAll()
     {
-        var result = _patientService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_patientService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(PatientDTO patient, CancellationToken cancellationToken)
-    {            
-        var result = _patientService.CreatePatient(patient, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
+    {
+        return Ok(_patientService.CreatePatient(patient, cancellationToken));
     }
     
-    [HttpPut]
-    [Route("update")]
+    [HttpPut("update")]
     public ActionResult<PatientDTO> Update(PatientDTO patientDTO, CancellationToken cancellationToken)
     {
-        var result = _patientService.Update(patientDTO, cancellationToken);
-        return result;
+        return Ok(_patientService.Update(patientDTO, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _patientService.Delete(id);
-        return id;
+        return Ok(id);
     }
 } 

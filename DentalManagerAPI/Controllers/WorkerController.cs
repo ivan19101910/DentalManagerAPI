@@ -22,85 +22,52 @@ public sealed class WorkerController : ControllerBase
     public IActionResult Authenticate(AuthenticateRequest model)
     {
         var response = _workerService.Authenticate(model);
-
         if (response == null)
             return BadRequest(new { message = "Username or password is incorrect" });
-
         return Ok(response);
     }
 
-    [HttpGet]
-    [Route("getById/{workerId}")]
+    [HttpGet("getById/{workerId}")]
     public ActionResult<FullWorkerDTO> GetById(int workerId)
     {
-        var result = _workerService.GetWorkerById(workerId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_workerService.GetWorkerById(workerId));
     }
 
-    [HttpGet]
-    [Route("getSalaryById/{workerId}/{monthNumber}/{year}")]
+    [HttpGet("getSalaryById/{workerId}/{monthNumber}/{year}")]
     public ActionResult<decimal> GetSalaryById(int workerId, int monthNumber, int year)
     {
-        var result = _workerService.CalculateSalaryByWorkerId(workerId, monthNumber, year);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_workerService.CalculateSalaryByWorkerId(workerId, monthNumber, year));
     }
 
-    [HttpGet]
-    [Route("getByNameSurname/{name}/{surname}")]
+    [HttpGet("getByNameSurname/{name}/{surname}")]
     public ActionResult<List<FullWorkerDTO>> GetWorkersByNameSurname(string name, string surname)
     {
-        var result = _workerService.GetWorkersByNameSurname(name, surname);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_workerService.GetWorkersByNameSurname(name, surname));
     }
 
-    [HttpGet]
-    [Route("getByAddress/{city}/{address}")]
+    [HttpGet("getByAddress/{city}/{address}")]
     public ActionResult<List<FullWorkerDTO>> GetWorkersByAddress(string city, string address)
     {
-        var result = _workerService.GetWorkersByAddress(city, address);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_workerService.GetWorkersByAddress(city, address));
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<ShowWorkerDTO>> GetAll()
     {
-        var result = _workerService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_workerService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(CreateWorkerDTO worker, CancellationToken cancellationToken)
     {
-        var result = _workerService.Create(worker, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
+        return Ok(_workerService.Create(worker, cancellationToken));
     }
 
-    [HttpPut]
-    [Route("update")]
+    [HttpPut("update")]
     public ActionResult<UpdateWorkerDTO> Update(UpdateWorkerDTO workerDTO, CancellationToken cancellationToken)
     {
         var result = _workerService.Update(workerDTO, cancellationToken);
-        
+
         if (result.WorkerSchedules == null || result.WorkerSchedules.Count == 0)
         {
             _workerScheduleService.DeleteAllByWorkerId(result.Id);
@@ -109,14 +76,14 @@ public sealed class WorkerController : ControllerBase
         {
             _workerScheduleService.UpdateMany(workerDTO.WorkerSchedules, result.Id, cancellationToken);
         }
-        return result;
+
+        return Ok(result);
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _workerService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }

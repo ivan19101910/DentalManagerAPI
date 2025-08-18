@@ -14,64 +14,41 @@ public sealed class ServiceController : ControllerBase
         _serviceService = serviceService;
     }
 
-    [HttpGet]
-    [Route("get-by-id/{serviceId}")]
+    [HttpGet("get-by-id/{serviceId}")]
     public ActionResult<ServiceDTO> GetById(int serviceId)
     {
-        var result = _serviceService.GetById(serviceId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_serviceService.GetById(serviceId));
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<ServiceDTO>> GetAll()
     {
-        var result = _serviceService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_serviceService.GetAll());
     }
 
-    [HttpGet]
-    [Route("getByServiceType/{serviceType}")]
+    [HttpGet("getByServiceType/{serviceType}")]
     public ActionResult<List<ServiceDTO>> GetWorkersByAddress(string serviceType)
     {
-        var result = _serviceService.GetByServiceType(serviceType);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_serviceService.GetByServiceType(serviceType));
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(ServiceDTO patient, CancellationToken cancellationToken)
     {
-        var result = _serviceService.Create(patient, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
+        return Ok(_serviceService.Create(patient, cancellationToken));
     }
 
-    [HttpPut]
-    [Route("update")]
+    [HttpPut("update")]
     public ActionResult<ServiceDTO> Update(ServiceDTO serviceDTO, CancellationToken cancellationToken)
     {
-        var result = _serviceService.Update(serviceDTO, cancellationToken);
-        return result;
+        return Ok(_serviceService.Update(serviceDTO, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _serviceService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }
 

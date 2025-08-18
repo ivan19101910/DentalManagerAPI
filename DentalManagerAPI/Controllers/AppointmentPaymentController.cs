@@ -5,7 +5,7 @@ namespace DentalManager.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AppointmentPaymentController : ControllerBase
+public sealed class AppointmentPaymentController : ControllerBase
 {
     private readonly IAppointmentPaymentService _appointmentPaymentService;
 
@@ -14,52 +14,35 @@ public class AppointmentPaymentController : ControllerBase
         _appointmentPaymentService = appointmentPaymentService;
     }
 
-    [HttpGet]
-    [Route("getById/{paymentId}")]
+    [HttpGet("getById/{paymentId}")]
     public ActionResult<AppointmentPaymentDTO> GetById(int paymentId)
     {
-        var result = _appointmentPaymentService.GetById(paymentId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_appointmentPaymentService.GetById(paymentId));
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<AppointmentPaymentDTO>> GetAll()
     {
-        var result = _appointmentPaymentService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_appointmentPaymentService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(AppointmentPaymentDTO patient, CancellationToken cancellationToken)
     {
-        var result = _appointmentPaymentService.Create(patient, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
-    }
-    [HttpPut]
-    [Route("update")]
-    public ActionResult<AppointmentPaymentDTO> Update(AppointmentPaymentDTO appointmentPaymentDTO, CancellationToken cancellationToken)
-    {
-        var result = _appointmentPaymentService.Update(appointmentPaymentDTO, cancellationToken);
-        return result;
+        return Ok(_appointmentPaymentService.Create(patient, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpPut("update")]
+    public ActionResult<AppointmentPaymentDTO> Update(AppointmentPaymentDTO appointmentPaymentDTO, CancellationToken cancellationToken)
+    {
+        return Ok(_appointmentPaymentService.Update(appointmentPaymentDTO, cancellationToken));
+    }
+
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _appointmentPaymentService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }
 

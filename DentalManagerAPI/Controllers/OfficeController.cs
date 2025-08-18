@@ -14,52 +14,34 @@ public sealed class OfficeController : ControllerBase
         _officeService = officeService;
     }
 
-    [HttpGet]
-    [Route("getById/{cityId}")]
+    [HttpGet("getById/{cityId}")]
     public ActionResult<OfficeDTO> GetById(int cityId)
     {
-        var result = _officeService.GetById(cityId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_officeService.GetById(cityId));
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<ShowOfficeDTO>> GetAll()
     {
-        var result = _officeService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_officeService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(CreateOfficeDTO office, CancellationToken cancellationToken)
     {
-        var result = _officeService.Create(office, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
+        return Ok(_officeService.Create(office, cancellationToken));
     }
 
-    [HttpPut]
-    [Route("update")]
+    [HttpPut("update")]
     public ActionResult<OfficeDTO> Update(CreateOfficeDTO officeDTO, CancellationToken cancellationToken)
     {
-        var result = _officeService.Update(officeDTO, cancellationToken);
-        return result;
+        return Ok(_officeService.Update(officeDTO, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _officeService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }

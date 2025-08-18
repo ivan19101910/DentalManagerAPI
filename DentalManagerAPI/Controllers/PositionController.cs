@@ -14,52 +14,34 @@ public sealed class PositionController : ControllerBase
         _positionService = positionService;
     }
 
-    [HttpGet]
-    [Route("getById/{positionId}")]
+    [HttpGet("getById/{positionId}")]
     public ActionResult<PositionDTO> GetById(int positionId)
     {
-        var result = _positionService.GetById(positionId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_positionService.GetById(positionId));
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<PositionDTO>> GetAll()
     {
-        var result = _positionService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_positionService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(PositionDTO position, CancellationToken cancellationToken)
     {
-        var result = _positionService.Create(position, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
+        return Ok(_positionService.Create(position, cancellationToken));
     }
-    [HttpPut]
-    [Route("update")]
+    [HttpPut("update")]
     public ActionResult<PositionDTO> Update(PositionDTO positionDTO, CancellationToken cancellationToken)
     {
-        var result = _positionService.Update(positionDTO, cancellationToken);
-        return result;
+        return Ok(_positionService.Update(positionDTO, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _positionService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }
 

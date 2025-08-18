@@ -5,60 +5,44 @@ namespace DentalManager.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AppointmentStatusController : ControllerBase
+public sealed class AppointmentStatusController : ControllerBase
 {
     private readonly IAppointmentStatusService _appointmentStatusService;
+
     public AppointmentStatusController(IAppointmentStatusService appointmentStatusService)
     {
         _appointmentStatusService = appointmentStatusService;
     }
 
-    [HttpGet]
-    [Route("getById/{statusId}")]
+    [HttpGet("getById/{statusId}")]
     public ActionResult<AppointmentStatusDTO> GetById(int statusId)
     {
-        var result = _appointmentStatusService.GetById(statusId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_appointmentStatusService.GetById(statusId));
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<AppointmentStatusDTO>> GetAll()
     {
-        var result = _appointmentStatusService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_appointmentStatusService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(AppointmentStatusDTO patient, CancellationToken cancellationToken)
     {
-        var result = _appointmentStatusService.Create(patient, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
-    }
-    [HttpPut]
-    [Route("update")]
-    public ActionResult<AppointmentStatusDTO> Update(AppointmentStatusDTO appointmentStatusDTO, CancellationToken cancellationToken)
-    {
-        var result = _appointmentStatusService.Update(appointmentStatusDTO, cancellationToken);
-        return result;
+        return Ok(_appointmentStatusService.Create(patient, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpPut("update")]
+    public ActionResult<AppointmentStatusDTO> Update(AppointmentStatusDTO appointmentStatusDTO, CancellationToken cancellationToken)
+    {
+        return Ok(_appointmentStatusService.Update(appointmentStatusDTO, cancellationToken));
+    }
+
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _appointmentStatusService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }
 

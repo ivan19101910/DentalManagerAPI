@@ -14,52 +14,34 @@ public sealed class WorkerScheduleController : ControllerBase
         _workerScheduleService = workerScheduleService;
     }
 
-    [HttpGet]
-    [Route("getById/{scheduleId}")]
+    [HttpGet("getById/{scheduleId}")]
     public ActionResult<WorkerScheduleDTO> GetById(int scheduleId)
     {
-        var result = _workerScheduleService.GetById(scheduleId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_workerScheduleService.GetById(scheduleId));
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<WorkerScheduleDTO>> GetAll()
     {
-        var result = _workerScheduleService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_workerScheduleService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(WorkerScheduleDTO schedule, CancellationToken cancellationToken)
     {
-        var result = _workerScheduleService.Create(schedule, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
+        return Ok(_workerScheduleService.Create(schedule, cancellationToken));
     }
 
-    [HttpPut]
-    [Route("update")]
+    [HttpPut("update")]
     public ActionResult<WorkerScheduleDTO> Update(WorkerScheduleDTO scheduleDTO, CancellationToken cancellationToken)
     {
-        var result = _workerScheduleService.Update(scheduleDTO, cancellationToken);
-        return result;
+        return Ok(_workerScheduleService.Update(scheduleDTO, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _workerScheduleService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }

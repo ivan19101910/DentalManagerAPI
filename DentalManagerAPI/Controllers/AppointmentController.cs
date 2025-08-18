@@ -7,88 +7,55 @@ namespace DentalManager.Api.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class AppointmentController : ControllerBase
+public sealed class AppointmentController : ControllerBase
 {
     private readonly IAppointmentService _appointmentService;
 
     private readonly IAppointmentServiceService _appointmentServiceService;
-    
+
     public AppointmentController(IAppointmentService appointmentService, IAppointmentServiceService appointmentServiceService)
     {
         _appointmentService = appointmentService;
         _appointmentServiceService = appointmentServiceService;
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<ShortAppointmentDTO>> GetAll()
     {
-        var result = _appointmentService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_appointmentService.GetAll());
     }
 
-    [HttpGet]
-    [Route("getById/{appointmentId}")]
+    [HttpGet("getById/{appointmentId}")]
     public ActionResult<FullAppointmentDTO> GetById(int appointmentId)
     {
-        var result = _appointmentService.GetById(appointmentId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_appointmentService.GetById(appointmentId));
     }
 
-    [HttpGet]
-    [Route("getByPhoneNumber/{phoneNumber}")]
+    [HttpGet("getByPhoneNumber/{phoneNumber}")]
     public ActionResult<List<FullAppointmentDTO>> GetByPhoneNumber(string phoneNumber)
     {
-        var result = _appointmentService.GetByPhoneNumber(phoneNumber);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_appointmentService.GetByPhoneNumber(phoneNumber));
     }
 
-    [HttpGet]
-    [Route("getByWorkerId/{workerId}")]
+    [HttpGet("getByWorkerId/{workerId}")]
     public ActionResult<List<FullAppointmentDTO>> GetByWorkerId(int workerId)
     {
-        var result = _appointmentService.GetByWorkerId(workerId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_appointmentService.GetByWorkerId(workerId));
     }
 
-    [HttpGet]
-    [Route("getByPatientId/{patientId}")]
+    [HttpGet("getByPatientId/{patientId}")]
     public ActionResult<List<FullAppointmentDTO>> GetByPatientId(int patientId)
     {
-        var result = _appointmentService.GetByPatientId(patientId);
-        if (result != null)
-            return result;
-        else
-            return NotFound();
+        return Ok(_appointmentService.GetByPatientId(patientId));
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(CreateAppointmentDTO appointment, CancellationToken cancellationToken)
     {
-        var result = _appointmentService.Create(appointment, cancellationToken);
-        if (result != null)
-        {
-            return result;
-        }
-        else
-            return BadRequest();
+        return Ok(_appointmentService.Create(appointment, cancellationToken));
     }
 
-    [HttpPut]
-    [Route("update")]
+    [HttpPut("update")]
     public ActionResult<EditAppointmentDTO> Update(EditAppointmentDTO appointmentDTO, CancellationToken cancellationToken)
     {
         var result = _appointmentService.Update(appointmentDTO, cancellationToken);
@@ -101,14 +68,14 @@ public class AppointmentController : ControllerBase
         {
             _appointmentServiceService.UpdateMany(appointmentDTO.AppointmentServices, result.Id, cancellationToken);
         }
-        return result;
+
+        return Ok(result);
     }
-    
-    [HttpDelete]
-    [Route("delete/{id}")]
+
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _appointmentService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }

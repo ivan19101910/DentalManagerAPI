@@ -14,41 +14,28 @@ public sealed class TimeSegmentController : ControllerBase
         _timeSegmentService = timeSegmentService;
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<TimeSegmentDTO>> GetAll()
     {
-        var result = _timeSegmentService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_timeSegmentService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(TimeSegmentDTO timeSegment, CancellationToken cancellationToken)
     {
-        var result = _timeSegmentService.Create(timeSegment, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
+        return Ok(_timeSegmentService.Create(timeSegment, cancellationToken));
     }
 
-    [HttpPut]
-    [Route("update")]
+    [HttpPut("update")]
     public ActionResult<TimeSegmentDTO> Update(TimeSegmentDTO timeSegmentDTO, CancellationToken cancellationToken)
     {
-        var result = _timeSegmentService.Update(timeSegmentDTO, cancellationToken);
-        return result;
+        return Ok(_timeSegmentService.Update(timeSegmentDTO, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _timeSegmentService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }

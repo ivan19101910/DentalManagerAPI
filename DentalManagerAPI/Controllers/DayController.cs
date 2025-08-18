@@ -5,7 +5,7 @@ namespace DentalManager.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class DayController : ControllerBase
+public sealed class DayController : ControllerBase
 {
     private readonly IDayService _dayService;
 
@@ -14,40 +14,28 @@ public class DayController : ControllerBase
         _dayService = dayService;
     }
 
-    [HttpGet]
-    [Route("getAll")]
+    [HttpGet("getAll")]
     public ActionResult<List<DayDTO>> GetAll()
     {
-        var result = _dayService.GetAll();
-        if (result != null)
-            return result.ToList();
-        else
-            return NotFound();
+        return Ok(_dayService.GetAll());
     }
 
-    [HttpPost]
-    [Route("create")]
+    [HttpPost("create")]
     public ActionResult<int> Create(DayDTO day, CancellationToken cancellationToken)
     {
-        var result = _dayService.Create(day, cancellationToken);
-        if (result != null)
-            return result;
-        else
-            return BadRequest();
-    }
-    [HttpPut]
-    [Route("update")]
-    public ActionResult<DayDTO> Update(DayDTO dayDTO, CancellationToken cancellationToken)
-    {
-        var result = _dayService.Update(dayDTO, cancellationToken);
-        return result;
+        return Ok(_dayService.Create(day, cancellationToken));
     }
 
-    [HttpDelete]
-    [Route("delete/{id}")]
+    [HttpPut("update")]
+    public ActionResult<DayDTO> Update(DayDTO dayDTO, CancellationToken cancellationToken)
+    {
+        return Ok(_dayService.Update(dayDTO, cancellationToken));
+    }
+
+    [HttpDelete("delete/{id}")]
     public ActionResult<int> Delete(int id)
     {
         _dayService.Delete(id);
-        return id;
+        return Ok(id);
     }
 }
