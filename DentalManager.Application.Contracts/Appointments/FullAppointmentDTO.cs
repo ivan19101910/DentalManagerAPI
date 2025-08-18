@@ -3,7 +3,7 @@ using DentalManager.Application.Contracts.Workers;
 
 namespace DentalManager.Application.Contracts.Appointments;
 
-public class FullAppointmentDto
+public sealed class FullAppointmentDto
 {
     public int Id { get; set; }
     public DateTime AppointmentDate { get; set; }
