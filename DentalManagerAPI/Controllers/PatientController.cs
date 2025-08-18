@@ -6,7 +6,7 @@ namespace DentalManager.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("patients")]
 public sealed class PatientController : ControllerBase
 { 
     private readonly IPatientService _patientService;
@@ -21,7 +21,7 @@ public sealed class PatientController : ControllerBase
         return Ok(_patientService.GetUserById(patientId));
     }
     
-    [HttpGet("getAll")]
+    [HttpGet("get-all")]
     public ActionResult<List<PatientDto>> GetAll()
     {
         return Ok(_patientService.GetAll());
@@ -39,7 +39,7 @@ public sealed class PatientController : ControllerBase
         return Ok(_patientService.Update(patientDTO, cancellationToken));
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/remove")]
     public ActionResult<int> Delete(int id)
     {
         _patientService.Delete(id);

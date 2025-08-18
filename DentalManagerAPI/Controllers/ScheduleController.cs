@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DentalManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("schedules")]
 public sealed class ScheduleController : ControllerBase
 {
     private readonly IScheduleService _scheduleService;
@@ -14,13 +14,13 @@ public sealed class ScheduleController : ControllerBase
         _scheduleService = scheduleService;
     }
 
-    [HttpGet("getById/{scheduleId}")]
+    [HttpGet("get-by-id/{scheduleId}")]
     public ActionResult<ScheduleDto> GetById(int scheduleId)
     {
         return Ok(_scheduleService.GetById(scheduleId));
     }
 
-    [HttpGet("getAll")]
+    [HttpGet("get-all")]
     public ActionResult<List<ShowScheduleDto>> GetAll()
     {
         return Ok(_scheduleService.GetAll());
@@ -38,7 +38,7 @@ public sealed class ScheduleController : ControllerBase
         return Ok(_scheduleService.Update(scheduleDTO, cancellationToken));
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/remove")]
     public ActionResult<int> Delete(int id)
     {
         _scheduleService.Delete(id);

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DentalManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("appointment-statuses")]
 public sealed class AppointmentStatusController : ControllerBase
 {
     private readonly IAppointmentStatusService _appointmentStatusService;
@@ -14,13 +14,13 @@ public sealed class AppointmentStatusController : ControllerBase
         _appointmentStatusService = appointmentStatusService;
     }
 
-    [HttpGet("getById/{statusId}")]
+    [HttpGet("get-by-id/{statusId}")]
     public ActionResult<AppointmentStatusDto> GetById(int statusId)
     {
         return Ok(_appointmentStatusService.GetById(statusId));
     }
 
-    [HttpGet("getAll")]
+    [HttpGet("get-all")]
     public ActionResult<List<AppointmentStatusDto>> GetAll()
     {
         return Ok(_appointmentStatusService.GetAll());
@@ -38,7 +38,7 @@ public sealed class AppointmentStatusController : ControllerBase
         return Ok(_appointmentStatusService.Update(appointmentStatusDTO, cancellationToken));
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/remove")]
     public ActionResult<int> Delete(int id)
     {
         _appointmentStatusService.Delete(id);

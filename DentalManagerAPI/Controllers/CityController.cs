@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DentalManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("cities")]
 public sealed class CityController : ControllerBase
 {
     private readonly ICityService _cityService;
@@ -15,14 +15,14 @@ public sealed class CityController : ControllerBase
     }
 
     [HttpGet]
-    [Route("getById/{cityId}")]
+    [Route("get-by-id/{cityId}")]
     public ActionResult<CityDto> GetById(int cityId)
     {
         return Ok(_cityService.GetById(cityId));
     }
 
     [HttpGet]
-    [Route("getAll")]
+    [Route("get-all")]
     public ActionResult<List<CityDto>> GetAll()
     {
         return Ok(_cityService.GetAll());
@@ -43,7 +43,7 @@ public sealed class CityController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("delete/{id}")]
+    [Route("{id}/remove")]
     public async Task<ActionResult<int>> Delete(int id)
     {
         _cityService.Delete(id);

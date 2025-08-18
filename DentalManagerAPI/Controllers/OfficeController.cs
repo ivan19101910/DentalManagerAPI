@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DentalManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("offices")]
 public sealed class OfficeController : ControllerBase
 {
     private IOfficeService _officeService;
@@ -14,13 +14,13 @@ public sealed class OfficeController : ControllerBase
         _officeService = officeService;
     }
 
-    [HttpGet("getById/{cityId}")]
+    [HttpGet("get-by-id/{cityId}")]
     public ActionResult<OfficeDto> GetById(int cityId)
     {
         return Ok(_officeService.GetById(cityId));
     }
 
-    [HttpGet("getAll")]
+    [HttpGet("get-all")]
     public ActionResult<List<ShowOfficeDto>> GetAll()
     {
         return Ok(_officeService.GetAll());
@@ -38,7 +38,7 @@ public sealed class OfficeController : ControllerBase
         return Ok(_officeService.Update(officeDTO, cancellationToken));
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/remove")]
     public ActionResult<int> Delete(int id)
     {
         _officeService.Delete(id);

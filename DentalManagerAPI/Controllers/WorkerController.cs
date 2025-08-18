@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DentalManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("workers")]
 public sealed class WorkerController : ControllerBase
 {
     private readonly IWorkerService _workerService;
@@ -27,31 +27,31 @@ public sealed class WorkerController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("getById/{workerId}")]
+    [HttpGet("get-by-id/{workerId}")]
     public ActionResult<FullWorkerDto> GetById(int workerId)
     {
         return Ok(_workerService.GetWorkerById(workerId));
     }
 
-    [HttpGet("getSalaryById/{workerId}/{monthNumber}/{year}")]
+    [HttpGet("get-salary-by-id/{workerId}/{monthNumber}/{year}")]
     public ActionResult<decimal> GetSalaryById(int workerId, int monthNumber, int year)
     {
         return Ok(_workerService.CalculateSalaryByWorkerId(workerId, monthNumber, year));
     }
 
-    [HttpGet("getByNameSurname/{name}/{surname}")]
+    [HttpGet("get-by-name-surname/{name}/{surname}")]
     public ActionResult<List<FullWorkerDto>> GetWorkersByNameSurname(string name, string surname)
     {
         return Ok(_workerService.GetWorkersByNameSurname(name, surname));
     }
 
-    [HttpGet("getByAddress/{city}/{address}")]
+    [HttpGet("get-by-address/{city}/{address}")]
     public ActionResult<List<FullWorkerDto>> GetWorkersByAddress(string city, string address)
     {
         return Ok(_workerService.GetWorkersByAddress(city, address));
     }
 
-    [HttpGet("getAll")]
+    [HttpGet("get-all")]
     public ActionResult<List<ShowWorkerDto>> GetAll()
     {
         return Ok(_workerService.GetAll());
@@ -80,7 +80,7 @@ public sealed class WorkerController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/remove")]
     public ActionResult<int> Delete(int id)
     {
         _workerService.Delete(id);

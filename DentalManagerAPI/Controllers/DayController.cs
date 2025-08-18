@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DentalManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("days")]
 public sealed class DayController : ControllerBase
 {
     private readonly IDayService _dayService;
@@ -14,7 +14,7 @@ public sealed class DayController : ControllerBase
         _dayService = dayService;
     }
 
-    [HttpGet("getAll")]
+    [HttpGet("get-all")]
     public ActionResult<List<DayDto>> GetAll()
     {
         return Ok(_dayService.GetAll());
@@ -32,7 +32,7 @@ public sealed class DayController : ControllerBase
         return Ok(_dayService.Update(dayDTO, cancellationToken));
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/remove")]
     public ActionResult<int> Delete(int id)
     {
         _dayService.Delete(id);

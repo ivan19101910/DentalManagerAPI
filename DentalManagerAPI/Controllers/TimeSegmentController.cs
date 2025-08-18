@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DentalManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("time-segments")]
 public sealed class TimeSegmentController : ControllerBase
 {
     private readonly ITimeSegmentService _timeSegmentService;
@@ -14,7 +14,7 @@ public sealed class TimeSegmentController : ControllerBase
         _timeSegmentService = timeSegmentService;
     }
 
-    [HttpGet("getAll")]
+    [HttpGet("get-all")]
     public ActionResult<List<TimeSegmentDto>> GetAll()
     {
         return Ok(_timeSegmentService.GetAll());
@@ -32,7 +32,7 @@ public sealed class TimeSegmentController : ControllerBase
         return Ok(_timeSegmentService.Update(timeSegmentDTO, cancellationToken));
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/remove")]
     public ActionResult<int> Delete(int id)
     {
         _timeSegmentService.Delete(id);

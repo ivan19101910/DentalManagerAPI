@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DentalManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("service-types")]
 public sealed class ServiceTypeController : ControllerBase
 {
     private readonly IServiceTypeService _serviceTypeService;
@@ -14,7 +14,7 @@ public sealed class ServiceTypeController : ControllerBase
         _serviceTypeService = serviceTypeService;
     }
 
-    [HttpGet("getAll")]
+    [HttpGet("get-all")]
     public ActionResult<List<ServiceTypeDto>> GetAll()
     {
         return Ok(_serviceTypeService.GetAll());
@@ -32,7 +32,7 @@ public sealed class ServiceTypeController : ControllerBase
         return Ok(_serviceTypeService.Update(serviceTypeDTO, cancellationToken));
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/remove")]
     public ActionResult<int> Delete(int id)
     {
         _serviceTypeService.Delete(id);

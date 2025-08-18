@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DentalManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("positions")]
 public sealed class PositionController : ControllerBase
 {
     private readonly IPositionService _positionService;
@@ -14,13 +14,13 @@ public sealed class PositionController : ControllerBase
         _positionService = positionService;
     }
 
-    [HttpGet("getById/{positionId}")]
+    [HttpGet("get-by-id/{positionId}")]
     public ActionResult<PositionDto> GetById(int positionId)
     {
         return Ok(_positionService.GetById(positionId));
     }
 
-    [HttpGet("getAll")]
+    [HttpGet("get-all")]
     public ActionResult<List<PositionDto>> GetAll()
     {
         return Ok(_positionService.GetAll());
@@ -37,7 +37,7 @@ public sealed class PositionController : ControllerBase
         return Ok(_positionService.Update(positionDTO, cancellationToken));
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/remove")]
     public ActionResult<int> Delete(int id)
     {
         _positionService.Delete(id);
